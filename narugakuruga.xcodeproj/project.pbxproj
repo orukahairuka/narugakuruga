@@ -95,7 +95,9 @@
 			isa = PBXGroup;
 			children = (
 				3B93C67D2D82EBEF00E40CB7 /* narugakurugaApp.swift */,
-				3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */,
+				3B93C6A92D8320B600E40CB7 /* ViewModel */,
+				3B93C6A82D8320B100E40CB7 /* View */,
+				3B93C6A72D8320A500E40CB7 /* Model */,
 				3B93C6812D82EBF100E40CB7 /* Assets.xcassets */,
 				3B93C6832D82EBF100E40CB7 /* Preview Content */,
 			);
@@ -125,6 +127,28 @@
 				3B93C69A2D82EBF100E40CB7 /* narugakurugaUITestsLaunchTests.swift */,
 			);
 			path = narugakurugaUITests;
+			sourceTree = "<group>";
+		};
+		3B93C6A72D8320A500E40CB7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3B93C6A82D8320B100E40CB7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3B93C6A92D8320B600E40CB7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
