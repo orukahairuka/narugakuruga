@@ -21,7 +21,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     }
 
     func startScanning() {
-        centralManager.scanForPeripherals(withServices: [CBUUID(string: "1234")], options: nil)
+        centralManager.scanForPeripherals(withServices: [CBUUID(string: "1234")], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
     }
 
     func stopScanning() {
@@ -43,8 +43,10 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     }
 
     private func adjustVolumeBasedOnRSSI(_ rssi: Int) {
-        let distanceFactor = max(0.1, min(1.0, (100 + Double(rssi)) / 100))
-        let volume = Float(distanceFactor)
+        // RSSIの影響を逆転させ、近づくと音が大きくなるように調整
+        let normalizedRSSI = max(-90, min(-30, rssi)) // -90 〜 -30 の範囲に制限
+        let distanceFactor = ((Double(normalizedRSSI) + 90) / 60) // -90 (遠) → 0.0, -30 (近) → 1.0
+        let volume = Float(distanceFactor * distanceFactor) // 近づくほど急に大きく
         print("調整後の音量: \(volume)")
         audioPlayer?.volume = volume
     }
@@ -60,10 +62,4 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
             }
         }
     }
-}
-
-
-
-#Preview {
-    SeekerViewModel() as! any View
 }
