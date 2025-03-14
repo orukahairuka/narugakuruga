@@ -9,6 +9,7 @@ import CoreBluetooth
 import AVFoundation
 import SwiftUI
 
+// 隠れる側（プレイヤー）
 class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     private var peripheralManager: CBPeripheralManager!
 

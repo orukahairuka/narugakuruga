@@ -18,6 +18,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     override init() {
         super.init()
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        setupAudio()
     }
 
     func startScanning() {
@@ -26,6 +27,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
 
     func stopScanning() {
         centralManager.stopScan()
+        stopSound()
     }
 
     //central.stateを確認して、BluetoothがpoweredOn時print文を表示
@@ -41,6 +43,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         print("発見: \(peripheral.identifier), RSSI: \(RSSI)")
         discoveredPeripherals[peripheral.identifier] = RSSI.intValue
+        playSound()
         adjustVolumeBasedOnRSSI(RSSI.intValue)
     }
 
@@ -53,15 +56,28 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
         audioPlayer?.volume = volume
     }
 
-    func playSound() {
+    //最初は無音、音楽をループ
+    private func setupAudio() {
         if let url = Bundle.main.url(forResource: "seek_sound", withExtension: "mp3") {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.numberOfLoops = -1
-                audioPlayer?.play()
+                audioPlayer?.volume = 0.0 // 最初は無音
             } catch {
                 print("Error loading sound file: \(error.localizedDescription)")
             }
         }
+    }
+
+    //音を流す
+    func playSound() {
+        if let player = audioPlayer, !player.isPlaying {
+            player.play()
+        }
+    }
+
+    //音を止める
+    func stopSound() {
+        audioPlayer?.stop()
     }
 }
