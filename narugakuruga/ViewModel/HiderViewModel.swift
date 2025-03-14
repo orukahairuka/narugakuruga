@@ -17,6 +17,7 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
 
+    //隠れる側のプレイヤーが、鬼に見つけられるための信号を送る
     func startAdvertising() {
         if peripheralManager.state == .poweredOn {
             let advertisementData: [String: Any] = [
@@ -28,6 +29,7 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         }
     }
 
+    //見つかったら広告を止める or 隠れる側が鬼になる時に広告を止める
     func stopAdvertising() {
         peripheralManager.stopAdvertising()
         print("Bluetooth広告を停止")

@@ -28,6 +28,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
         centralManager.stopScan()
     }
 
+    //central.stateを確認して、BluetoothがpoweredOn時print文を表示
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
             print("Bluetooth Central is powered on.")
@@ -36,6 +37,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
         }
     }
 
+    //CBCentralManager が scanForPeripherals でデバイスを発見すると呼ばれる
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         print("発見: \(peripheral.identifier), RSSI: \(RSSI)")
         discoveredPeripherals[peripheral.identifier] = RSSI.intValue
