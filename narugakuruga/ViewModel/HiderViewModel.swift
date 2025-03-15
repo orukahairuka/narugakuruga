@@ -14,6 +14,7 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     private var peripheralManager: CBPeripheralManager!
     @Published var isHiding = false
     @Published var navigateToMission = false
+    @Published var timeRemaining: Int = 40 // タイマーの残り時間を表示
     private var missionTimer: Timer?
 
     override init() {
@@ -53,10 +54,16 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
 
     //開始一分後にミッション画面に遷移するためのタイマー
     private func startMissionTimer() {
-        missionTimer?.invalidate() // 既存のタイマーがあればキャンセル
-        missionTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { _ in
+        missionTimer?.invalidate()
+        timeRemaining = 40
+        missionTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             DispatchQueue.main.async {
-                self.navigateToMission = true
+                if self.timeRemaining > 0 {
+                    self.timeRemaining -= 1
+                } else {
+                    timer.invalidate()
+                    self.navigateToMission = true
+                }
             }
         }
     }

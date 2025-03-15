@@ -23,6 +23,13 @@ struct ContentView: View {
                     .foregroundColor(.gray)
                     .padding()
 
+                if hider.isHiding {
+                    Text("ミッション開始まで: \(hider.timeRemaining) 秒")
+                        .font(.title2)
+                        .foregroundColor(.blue)
+                        .padding()
+                }
+
                 NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
                     EmptyView()
                 }
