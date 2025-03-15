@@ -18,6 +18,12 @@
 		3B93C6AF2D83E0C100E40CB7 /* SeekerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6AE2D83E0C100E40CB7 /* SeekerViewModel.swift */; };
 		3B93C6B12D83E0D300E40CB7 /* HiderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6B02D83E0D300E40CB7 /* HiderViewModel.swift */; };
 		3B93C6B32D83F6AD00E40CB7 /* seek_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3B93C6B22D83F6AC00E40CB7 /* seek_sound.mp3 */; };
+		3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6B42D856A6200E40CB7 /* MissionViewModel.swift */; };
+		3B93C6B82D856C7800E40CB7 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3B93C6B72D856C7800E40CB7 /* FirebaseFirestore */; };
+		3B93C6BA2D856CCE00E40CB7 /* MissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6B92D856CCE00E40CB7 /* MissionView.swift */; };
+		3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */; };
+		3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */; };
+		3B93C6C02D8570CA00E40CB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +57,11 @@
 		3B93C6AE2D83E0C100E40CB7 /* SeekerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekerViewModel.swift; sourceTree = "<group>"; };
 		3B93C6B02D83E0D300E40CB7 /* HiderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiderViewModel.swift; sourceTree = "<group>"; };
 		3B93C6B22D83F6AC00E40CB7 /* seek_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = seek_sound.mp3; sourceTree = "<group>"; };
+		3B93C6B42D856A6200E40CB7 /* MissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionViewModel.swift; sourceTree = "<group>"; };
+		3B93C6B92D856CCE00E40CB7 /* MissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionView.swift; sourceTree = "<group>"; };
+		3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTrackViewModel.swift; sourceTree = "<group>"; };
+		3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionModel.swift; sourceTree = "<group>"; };
+		3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B93C6AD2D83216A00E40CB7 /* Lottie in Frameworks */,
+				3B93C6B82D856C7800E40CB7 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +94,7 @@
 		3B93C6712D82EBEF00E40CB7 = {
 			isa = PBXGroup;
 			children = (
+				3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */,
 				3B93C67C2D82EBEF00E40CB7 /* narugakuruga */,
 				3B93C68D2D82EBF100E40CB7 /* narugakurugaTests */,
 				3B93C6972D82EBF100E40CB7 /* narugakurugaUITests */,
@@ -142,6 +155,7 @@
 		3B93C6A72D8320A500E40CB7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -150,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */,
+				3B93C6B92D856CCE00E40CB7 /* MissionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -159,6 +174,8 @@
 			children = (
 				3B93C6AE2D83E0C100E40CB7 /* SeekerViewModel.swift */,
 				3B93C6B02D83E0D300E40CB7 /* HiderViewModel.swift */,
+				3B93C6B42D856A6200E40CB7 /* MissionViewModel.swift */,
+				3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -188,6 +205,7 @@
 			name = narugakuruga;
 			packageProductDependencies = (
 				3B93C6AC2D83216A00E40CB7 /* Lottie */,
+				3B93C6B72D856C7800E40CB7 /* FirebaseFirestore */,
 			);
 			productName = narugakuruga;
 			productReference = 3B93C67A2D82EBEF00E40CB7 /* narugakuruga.app */;
@@ -263,6 +281,7 @@
 			mainGroup = 3B93C6712D82EBEF00E40CB7;
 			packageReferences = (
 				3B93C6AA2D83215E00E40CB7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				3B93C6B62D856C4A00E40CB7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3B93C67B2D82EBEF00E40CB7 /* Products */;
 			projectDirPath = "";
@@ -281,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B93C6B32D83F6AD00E40CB7 /* seek_sound.mp3 in Resources */,
+				3B93C6C02D8570CA00E40CB7 /* GoogleService-Info.plist in Resources */,
 				3B93C6852D82EBF100E40CB7 /* Preview Assets.xcassets in Resources */,
 				3B93C6822D82EBF100E40CB7 /* Assets.xcassets in Resources */,
 			);
@@ -307,10 +327,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */,
 				3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */,
+				3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */,
 				3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */,
 				3B93C6AF2D83E0C100E40CB7 /* SeekerViewModel.swift in Sources */,
+				3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */,
 				3B93C6B12D83E0D300E40CB7 /* HiderViewModel.swift in Sources */,
+				3B93C6BA2D856CCE00E40CB7 /* MissionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,7 +512,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = erichan.narugakuruga;
+				PRODUCT_BUNDLE_IDENTIFIER = com.narugakuruga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -518,7 +542,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = erichan.narugakuruga;
+				PRODUCT_BUNDLE_IDENTIFIER = com.narugakuruga;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -652,6 +676,14 @@
 				minimumVersion = 4.5.1;
 			};
 		};
+		3B93C6B62D856C4A00E40CB7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.9.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -659,6 +691,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3B93C6AA2D83215E00E40CB7 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		3B93C6B72D856C7800E40CB7 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3B93C6B62D856C4A00E40CB7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
