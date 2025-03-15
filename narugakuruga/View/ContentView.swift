@@ -18,7 +18,7 @@ struct ContentView: View {
                     .font(.largeTitle)
                     .padding()
 
-                Text(seeker.isSeeking ? "鬼になりました" : hider.isHiding ? "隠れています" : "どちらか選んでください")
+                Text(getStatusText())
                     .font(.headline)
                     .foregroundColor(.gray)
                     .padding()
@@ -65,4 +65,14 @@ struct ContentView: View {
             }
         }
     }
+    //可読性を上げるためのテキストメソッド
+    private func getStatusText() -> String {
+            if seeker.isSeeking {
+                return "鬼になりました"
+            } else if hider.isHiding {
+                return "隠れています"
+            } else {
+                return "どちらか選んでください"
+            }
+        }
 }
