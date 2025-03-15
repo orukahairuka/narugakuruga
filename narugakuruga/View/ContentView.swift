@@ -12,49 +12,55 @@ struct ContentView: View {
     @StateObject private var hider = HiderViewModel()
 
     var body: some View {
-        VStack {
-            Text("かくれんぼアプリ")
-                .font(.largeTitle)
-                .padding()
+        NavigationView {
+            VStack {
+                Text("かくれんぼアプリ")
+                    .font(.largeTitle)
+                    .padding()
 
-            Text(seeker.isSeeking ? "鬼になりました" : hider.isHiding ? "隠れています" : "どちらか選んでください")
-                .font(.headline)
-                .foregroundColor(.gray)
-                .padding()
+                Text(seeker.isSeeking ? "鬼になりました" : hider.isHiding ? "隠れています" : "どちらか選んでください")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+                    .padding()
 
-            HStack {
-                Button(action: {
-                    seeker.startScanning()
-                    hider.stopAdvertising()
-                }) {
-                    Text("鬼になる")
-                        .font(.title)
-                        .padding()
-                        .background(seeker.isSeeking ? Color.red.opacity(0.7) : Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
+                    EmptyView()
                 }
 
-                Button(action: {
-                    hider.startAdvertising()
-                    seeker.stopScanning()
-                }) {
-                    Text("隠れる")
-                        .font(.title)
-                        .padding()
-                        .background(hider.isHiding ? Color.blue.opacity(0.7) : Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-            }
-            .padding()
+                HStack {
+                    Button(action: {
+                        seeker.startScanning()
+                        hider.stopAdvertising()
+                    }) {
+                        Text("鬼になる")
+                            .font(.title)
+                            .padding()
+                            .background(seeker.isSeeking ? Color.red.opacity(0.7) : Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
 
-            if seeker.isSeeking {
-                Text("発見したプレイヤー")
-                    .font(.title2)
-                    .padding(.top)
-                List(seeker.discoveredPeripherals.keys.sorted(), id: \ .self) { id in
-                    Text("UUID: \(id) - RSSI: \(seeker.discoveredPeripherals[id] ?? 0)")
+                    Button(action: {
+                        hider.startAdvertising()
+                        seeker.stopScanning()
+                    }) {
+                        Text("隠れる")
+                            .font(.title)
+                            .padding()
+                            .background(hider.isHiding ? Color.blue.opacity(0.7) : Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                }
+                .padding()
+
+                if seeker.isSeeking {
+                    Text("発見したプレイヤー")
+                        .font(.title2)
+                        .padding(.top)
+                    List(seeker.discoveredPeripherals.keys.sorted(), id: \ .self) { id in
+                        Text("UUID: \(id) - RSSI: \(seeker.discoveredPeripherals[id] ?? 0)")
+                    }
                 }
             }
         }
