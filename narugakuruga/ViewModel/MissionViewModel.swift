@@ -27,7 +27,8 @@ class MissionViewModel: ObservableObject {
                         id: doc.documentID,
                         type: data["type"] as? String ?? "",
                         description: data["description"] as? String ?? "",
-                        goal: data["goal"] as? Int ?? 0
+                        goal: data["goal"] as? Int ?? 0,
+                        completed: data["completed"] as? Bool ?? false
                     )
                 }
             }

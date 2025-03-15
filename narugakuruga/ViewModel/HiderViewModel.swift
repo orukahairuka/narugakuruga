@@ -13,6 +13,8 @@ import SwiftUI
 class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     private var peripheralManager: CBPeripheralManager!
     @Published var isHiding = false
+    @Published var navigateToMission = false
+    private var missionTimer: Timer?
 
     override init() {
         super.init()
@@ -28,6 +30,8 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
             print("Bluetooth広告を開始")
             peripheralManager.startAdvertising(advertisementData)
             isHiding = true
+            // 1分後にミッション画面へ遷移
+            startMissionTimer()
         }
     }
 
@@ -35,6 +39,8 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         peripheralManager.stopAdvertising()
         print("Bluetooth広告を停止")
         isHiding = false
+        navigateToMission = false
+        missionTimer?.invalidate() // タイマーをキャンセル
     }
 
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
@@ -42,6 +48,16 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
             print("Bluetooth Peripheral is powered on.")
         } else {
             print("Bluetooth is not available.")
+        }
+    }
+
+    //開始一分後にミッション画面に遷移するためのタイマー
+    private func startMissionTimer() {
+        missionTimer?.invalidate() // 既存のタイマーがあればキャンセル
+        missionTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: false) { _ in
+            DispatchQueue.main.async {
+                self.navigateToMission = true
+            }
         }
     }
 }
