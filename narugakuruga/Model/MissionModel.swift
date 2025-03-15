@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct Mission: Identifiable, Codable {
-    var id: String
+    var id: String //FirestoreのドキュメントID
     var type: String // "walk", "photo", etc.
-    var description: String
-    var goal: Int
-    var completed: Bool = false
+    var description: String //Missonの説明
+    var goal: Int  //写真を撮る枚数や歩数の目標値
+    var completed: Bool = false //Missionが完了したかどうか
 }
