@@ -14,6 +14,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     private var centralManager: CBCentralManager!
     private var audioPlayer: AVAudioPlayer?
     @Published var discoveredPeripherals: [UUID: Int] = [:]
+    @Published var isSeeking = false
 
     override init() {
         super.init()
@@ -23,14 +24,15 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
 
     func startScanning() {
         centralManager.scanForPeripherals(withServices: [CBUUID(string: "1234")], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        isSeeking = true
     }
 
     func stopScanning() {
         centralManager.stopScan()
         stopSound()
+        isSeeking = false
     }
 
-    //central.stateを確認して、BluetoothがpoweredOn時print文を表示
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
             print("Bluetooth Central is powered on.")
@@ -39,7 +41,6 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
         }
     }
 
-    //CBCentralManager が scanForPeripherals でデバイスを発見すると呼ばれる
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         print("発見: \(peripheral.identifier), RSSI: \(RSSI)")
         discoveredPeripherals[peripheral.identifier] = RSSI.intValue
@@ -48,35 +49,31 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     }
 
     private func adjustVolumeBasedOnRSSI(_ rssi: Int) {
-        // RSSIの影響を逆転させ、近づくと音が大きくなるように調整
-        let normalizedRSSI = max(-90, min(-30, rssi)) // -90 〜 -30 の範囲に制限
-        let distanceFactor = ((Double(normalizedRSSI) + 90) / 60) // -90 (遠) → 0.0, -30 (近) → 1.0
-        let volume = Float(distanceFactor * distanceFactor) // 近づくほど急に大きく
+        let normalizedRSSI = max(-90, min(-30, rssi))
+        let distanceFactor = ((Double(normalizedRSSI) + 90) / 60)
+        let volume = Float(distanceFactor * distanceFactor)
         print("調整後の音量: \(volume)")
         audioPlayer?.volume = volume
     }
 
-    //最初は無音、音楽をループ
     private func setupAudio() {
         if let url = Bundle.main.url(forResource: "seek_sound", withExtension: "mp3") {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: url)
                 audioPlayer?.numberOfLoops = -1
-                audioPlayer?.volume = 0.0 // 最初は無音
+                audioPlayer?.volume = 0.0
             } catch {
                 print("Error loading sound file: \(error.localizedDescription)")
             }
         }
     }
 
-    //音を流す
     func playSound() {
         if let player = audioPlayer, !player.isPlaying {
             player.play()
         }
     }
 
-    //音を止める
     func stopSound() {
         audioPlayer?.stop()
     }

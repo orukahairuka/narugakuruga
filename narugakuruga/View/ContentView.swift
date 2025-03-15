@@ -10,48 +10,53 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var seeker = SeekerViewModel()
     @StateObject private var hider = HiderViewModel()
-    @State private var isSeeker = false
 
     var body: some View {
         VStack {
-            Text(isSeeker ? "鬼（探す側）" : "隠れる側")
+            Text("かくれんぼアプリ")
                 .font(.largeTitle)
                 .padding()
 
-            Button(action: {
-                isSeeker.toggle()
-                if isSeeker {
-                    hider.stopAdvertising()
+            Text(seeker.isSeeking ? "鬼になりました" : hider.isHiding ? "隠れています" : "どちらか選んでください")
+                .font(.headline)
+                .foregroundColor(.gray)
+                .padding()
+
+            HStack {
+                Button(action: {
                     seeker.startScanning()
-                    seeker.playSound()
-                } else {
-                    seeker.stopScanning()
+                    hider.stopAdvertising()
+                }) {
+                    Text("鬼になる")
+                        .font(.title)
+                        .padding()
+                        .background(seeker.isSeeking ? Color.red.opacity(0.7) : Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+
+                Button(action: {
                     hider.startAdvertising()
+                    seeker.stopScanning()
+                }) {
+                    Text("隠れる")
+                        .font(.title)
+                        .padding()
+                        .background(hider.isHiding ? Color.blue.opacity(0.7) : Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
-            }) {
-                Text(isSeeker ? "鬼になる" : "隠れる")
-                    .font(.title)
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
             }
+            .padding()
 
-            if isSeeker {
+            if seeker.isSeeking {
+                Text("発見したプレイヤー")
+                    .font(.title2)
+                    .padding(.top)
                 List(seeker.discoveredPeripherals.keys.sorted(), id: \ .self) { id in
-                    Text("発見: \(id) RSSI: \(seeker.discoveredPeripherals[id] ?? 0)")
+                    Text("UUID: \(id) - RSSI: \(seeker.discoveredPeripherals[id] ?? 0)")
                 }
             }
-        }
-        .padding()
-        .onAppear {
-            requestBluetoothPermission()
-        }
-    }
-
-    private func requestBluetoothPermission() {
-        if let bundleID = Bundle.main.bundleIdentifier {
-            print("Ensure Info.plist contains NSBluetoothAlwaysUsageDescription for app: \(bundleID)")
         }
     }
 }

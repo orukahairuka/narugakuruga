@@ -12,13 +12,13 @@ import SwiftUI
 // 隠れる側（プレイヤー）
 class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     private var peripheralManager: CBPeripheralManager!
+    @Published var isHiding = false
 
     override init() {
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
     }
 
-    //隠れる側のプレイヤーが、鬼に見つけられるための信号を送る
     func startAdvertising() {
         if peripheralManager.state == .poweredOn {
             let advertisementData: [String: Any] = [
@@ -27,13 +27,14 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
             ]
             print("Bluetooth広告を開始")
             peripheralManager.startAdvertising(advertisementData)
+            isHiding = true
         }
     }
 
-    //見つかったら広告を止める or 隠れる側が鬼になる時に広告を止める
     func stopAdvertising() {
         peripheralManager.stopAdvertising()
         print("Bluetooth広告を停止")
+        isHiding = false
     }
 
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
