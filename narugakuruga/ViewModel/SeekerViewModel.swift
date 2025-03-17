@@ -15,6 +15,8 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     private var centralManager: CBCentralManager!
     private var audioPlayer: AVAudioPlayer?
     @Published var discoveredPeripherals: [UUID: Int] = [:]
+    @Published var playerUUIDMapping: [UUID: String] = [:]  // PeripheralのUUID → Playerの短縮UUID
+
     @Published var isSeeking = false
     private let db = Firestore.firestore()
     private let captureManager = PlayerCaptureManager()
@@ -46,21 +48,26 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     }
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
-        print("発見: \(peripheral.identifier), RSSI: \(RSSI)")
+
         discoveredPeripherals[peripheral.identifier] = RSSI.intValue
+        print("発見 Peripheral ID:", peripheral.identifier, "RSSI:", RSSI)
+
+        if let fullUUIDString = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
+            let shortPlayerUUID = String(fullUUIDString.prefix(8))
+            print("✅広告データで受け取った短縮UUID:", shortPlayerUUID)
+
+            // PeripheralのUUIDとプレイヤーの短縮UUIDをマッピングする
+            playerUUIDMapping[peripheral.identifier] = shortPlayerUUID
+        } else {
+            print("⚠️ 広告データにUUIDなし:", advertisementData)
+        }
+
         playSound()
         adjustVolumeBasedOnRSSI(RSSI.intValue)
     }
-    
-    func catchPlayer(playerID: UUID) {
-        captureManager.recordCapturedPlayer(playerID: playerID) { error in
-            if let error = error {
-                print("エラー: \(error.localizedDescription)")
-            } else {
-                print("捕まえた: \(playerID)")
-            }
-        }
-    }
+
+
+
     
     private func adjustVolumeBasedOnRSSI(_ rssi: Int) {
         let normalizedRSSI = max(-90, min(-30, rssi))

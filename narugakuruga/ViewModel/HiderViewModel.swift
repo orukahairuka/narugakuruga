@@ -23,6 +23,7 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     private var peripheralManager: CBPeripheralManager!
     private var missionTimer: Timer?
     private var caughtListener: ListenerRegistration?
+    private let db = Firestore.firestore()
 
 
 
@@ -30,41 +31,55 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         self.captureManager = PlayerCaptureManager() // ←ここで初期化する
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-        observeCaughtStatus()
     }
 
     deinit {
         caughtListener?.remove()
     }
 
-    // 自分が捕まったかどうかを監視
-        private func observeCaughtStatus() {
-            guard let myID = UIDevice.current.identifierForVendor else { return }
+    func observeCaughtStatus() {
+        guard let myID = UIDevice.current.identifierForVendor else { return }
+        let shortUUID = String(myID.uuidString.prefix(8)) //先頭8文字
 
-            caughtListener = captureManager.listenIfCaught(playerID: myID) { [weak self] in
-                DispatchQueue.main.async {
-                    self?.caught = true
-                    print("自分が捕まった！")
-                    // 他に必要な処理
-                }
+        print("【プレイヤー側】監視する短縮UUIDは", shortUUID)
+
+        captureManager.startListeningCaptured(playerShortUUID: shortUUID) { [weak self] in
+            DispatchQueue.main.async {
+                self?.caught = true
+                print("自分が捕まった！")
             }
-        }
-
-    func startAdvertising() {
-        if peripheralManager.state == .poweredOn {
-            let advertisementData: [String: Any] = [
-                CBAdvertisementDataLocalNameKey: "Hider",
-                CBAdvertisementDataServiceUUIDsKey: [CBUUID(string: "1234")]
-            ]
-            print("Bluetooth広告を開始")
-            peripheralManager.startAdvertising(advertisementData)
-            isHiding = true
-            // 1分後にミッション画面へ遷移
-            startMissionTimer()
         }
     }
 
+    // captureManagerの方も短縮UUIDを受け取れるように修正
+
+
+
+    func startAdvertising() {
+        guard peripheralManager.state == .poweredOn else { return }
+        guard let myID = UIDevice.current.identifierForVendor else { return }
+
+        // 必ず先頭8文字だけを送信
+        let shortUUID = String(myID.uuidString.prefix(8))
+
+        let advertisementData: [String: Any] = [
+            CBAdvertisementDataLocalNameKey: shortUUID, // ←これで統一
+            CBAdvertisementDataServiceUUIDsKey: [CBUUID(string: "1234")]
+        ]
+
+        peripheralManager.startAdvertising(advertisementData)
+        print("プレイヤーが送信する短縮UUID:", shortUUID)
+        isHiding = true
+        observeCaughtStatus()
+        startMissionTimer()
+    }
+
+
+
+
     func stopAdvertising() {
+        //捕まったかどうかの監視を停止する
+        captureManager.stopListeningCaptured()
         peripheralManager.stopAdvertising()
         print("Bluetooth広告を停止")
         isHiding = false

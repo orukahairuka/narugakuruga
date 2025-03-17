@@ -8,27 +8,42 @@
 import FirebaseFirestore
 
 //プレイヤーが捕まったかどうかを管理するクラス
+// 短縮UUIDをドキュメントIDに使うように調整
+// PlayerCaptureManagerの修正版
 class PlayerCaptureManager {
     private let db = Firestore.firestore()
+    private var caughtListener: ListenerRegistration?
 
-    // 捕まえたプレイヤーをFirestoreに記録（鬼側が呼ぶ）
-    func recordCapturedPlayer(playerID: UUID, completion: ((Error?) -> Void)? = nil) {
-        print("捕まえたプレイヤーをfirestoreに記録")
+    // String型の短縮UUIDを使う
+    func recordCapturedPlayer(playerShortUUID: String, completion: ((Error?) -> Void)? = nil) {
+        print("捕まえたプレイヤーをFirestoreに記録")
         let data: [String: Any] = [
-            "id": playerID.uuidString,
-            "timestamp": Timestamp(date: Date())
+            "caught": true,
+            "caughtAt": Timestamp(date: Date())
         ]
-        db.collection("caughtPlayers").document(playerID.uuidString).setData(data, completion: completion)
+        db.collection("caughtPlayers").document(playerShortUUID).setData(data, completion: completion)
     }
 
-    // 自分が捕まったかどうかを監視（隠れる側が呼ぶ）
-    func listenIfCaught(playerID: UUID, caughtHandler: @escaping () -> Void) -> ListenerRegistration {
-        print("プレイヤーは自分が捕まったかどうかを監視")
-        return db.collection("caughtPlayers").document(playerID.uuidString)
+    // 監視する側も同様に短縮UUIDで監視
+    func startListeningCaptured(playerShortUUID: String, onCaught: @escaping () -> Void) {
+        caughtListener = db.collection("caughtPlayers")
+            .document(playerShortUUID)
             .addSnapshotListener { snapshot, error in
-                if let snapshot = snapshot, snapshot.exists {
-                    caughtHandler()
+                guard let snapshot = snapshot, let data = snapshot.data(),
+                      let caught = data["caught"] as? Bool, caught else {
+                    print("プレイヤーはまだ捕まっていません。")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    print("✅ プレイヤーが捕まった！")
+                    onCaught()
                 }
             }
+    }
+
+    func stopListeningCaptured() {
+        caughtListener?.remove()
+        caughtListener = nil
     }
 }

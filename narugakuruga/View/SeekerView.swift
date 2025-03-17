@@ -33,8 +33,23 @@ struct SeekerView: View {
                             HStack {
                                 Text("UUID: \(item.uuid.uuidString), RSSI: \(item.rssi)")
                                 Spacer()
+
                                 Button("捕まえた！") {
-                                    seeker.catchPlayer(playerID: item.uuid)
+                                    let captureManager = PlayerCaptureManager()
+
+                                    // ★ Peripheral UUID → Player短縮UUIDに変換
+                                    if let shortPlayerUUID = seeker.playerUUIDMapping[item.uuid] {
+                                        print("🔥【鬼側】捕まえたプレイヤーの短縮UUIDは:", shortPlayerUUID)
+                                        captureManager.recordCapturedPlayer(playerShortUUID: shortPlayerUUID) { error in
+                                            if let error = error {
+                                                print("Firestore書き込みエラー:", error.localizedDescription)
+                                            } else {
+                                                print("Firestoreに書き込みました！（\(shortPlayerUUID)）")
+                                            }
+                                        }
+                                    } else {
+                                        print("⚠️プレイヤーの短縮UUIDが見つかりませんでした。")
+                                    }
                                 }
                                 .padding()
                                 .background(Color.red)
@@ -43,6 +58,8 @@ struct SeekerView: View {
                             }
                             .padding(.horizontal)
                         }
+
+
                     }
                 }
             }
