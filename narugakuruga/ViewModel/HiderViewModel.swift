@@ -8,19 +8,46 @@
 import CoreBluetooth
 import AVFoundation
 import SwiftUI
+import FirebaseFirestore
 
 // 隠れる側（プレイヤー）
 class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
-    private var peripheralManager: CBPeripheralManager!
     @Published var isHiding = false
     @Published var navigateToMission = false
-    @Published var timeRemaining: Int = 40 // タイマーの残り時間を表示
+    @Published var timeRemaining: Int = 40
+    @Published var discoveredPeripherals: [UUID: Int] = [:]
+
+    private let captureManager: PlayerCaptureManager
+    private var peripheralManager: CBPeripheralManager!
     private var missionTimer: Timer?
+    private var caughtListener: ListenerRegistration?
+
+
+        @Published var caught = false
 
     override init() {
+        self.captureManager = PlayerCaptureManager() // ←ここで初期化する
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
+        observeCaughtStatus()
     }
+
+    deinit {
+        caughtListener?.remove()
+    }
+
+    // 自分が捕まったかどうかを監視
+        private func observeCaughtStatus() {
+            guard let myID = UIDevice.current.identifierForVendor else { return }
+
+            caughtListener = captureManager.listenIfCaught(playerID: myID) { [weak self] in
+                DispatchQueue.main.async {
+                    self?.caught = true
+                    print("自分が捕まった！")
+                    // 他に必要な処理
+                }
+            }
+        }
 
     func startAdvertising() {
         if peripheralManager.state == .poweredOn {

@@ -8,6 +8,7 @@
 import CoreBluetooth
 import AVFoundation
 import SwiftUI
+import FirebaseFirestore
 
 // 鬼（探す側）
 class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
@@ -15,6 +16,9 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     private var audioPlayer: AVAudioPlayer?
     @Published var discoveredPeripherals: [UUID: Int] = [:]
     @Published var isSeeking = false
+    private let db = Firestore.firestore()
+    private let captureManager = PlayerCaptureManager()
+        @Published var isCaught = false //プレイヤーを捕まえたかどうか
 
     override init() {
         super.init()
@@ -47,7 +51,17 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
         playSound()
         adjustVolumeBasedOnRSSI(RSSI.intValue)
     }
-
+    
+    func catchPlayer(playerID: UUID) {
+        captureManager.recordCapturedPlayer(playerID: playerID) { error in
+            if let error = error {
+                print("エラー: \(error.localizedDescription)")
+            } else {
+                print("捕まえた: \(playerID)")
+            }
+        }
+    }
+    
     private func adjustVolumeBasedOnRSSI(_ rssi: Int) {
         let normalizedRSSI = max(-90, min(-30, rssi))
         let distanceFactor = ((Double(normalizedRSSI) + 90) / 60)

@@ -18,7 +18,7 @@ struct ContentView: View {
                     .font(.largeTitle)
                     .padding()
 
-                Text(getStatusText())
+                Text(statusText)
                     .font(.headline)
                     .foregroundColor(.gray)
                     .padding()
@@ -35,10 +35,7 @@ struct ContentView: View {
                 }
 
                 HStack {
-                    Button(action: {
-                        seeker.startScanning()
-                        hider.stopAdvertising()
-                    }) {
+                    NavigationLink(destination: SeekerView(seeker: seeker)) {
                         Text("鬼になる")
                             .font(.title)
                             .padding()
@@ -46,11 +43,12 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        seeker.startScanning()
+                        hider.stopAdvertising()
+                    })
 
-                    Button(action: {
-                        hider.startAdvertising()
-                        seeker.stopScanning()
-                    }) {
+                    NavigationLink(destination: HiderView(hider: hider)) {
                         Text("隠れる")
                             .font(.title)
                             .padding()
@@ -58,28 +56,23 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .cornerRadius(10)
                     }
-                }
-                .padding()
-
-                if seeker.isSeeking {
-                    Text("発見したプレイヤー")
-                        .font(.title2)
-                        .padding(.top)
-                    List(seeker.discoveredPeripherals.keys.sorted(), id: \ .self) { id in
-                        Text("UUID: \(id) - RSSI: \(seeker.discoveredPeripherals[id] ?? 0)")
-                    }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        hider.startAdvertising()
+                        seeker.stopScanning()
+                    })
+                    .padding()
                 }
             }
         }
     }
-    //可読性を上げるためのテキストメソッド
-    private func getStatusText() -> String {
-            if seeker.isSeeking {
-                return "鬼になりました"
-            } else if hider.isHiding {
-                return "隠れています"
-            } else {
-                return "どちらか選んでください"
-            }
+
+    private var statusText: String {
+        if seeker.isSeeking {
+            return "鬼になりました"
+        } else if hider.isHiding {
+            return "隠れています"
+        } else {
+            return "どちらか選んでください"
         }
+    }
 }
