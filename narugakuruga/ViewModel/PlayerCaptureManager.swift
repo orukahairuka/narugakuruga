@@ -13,6 +13,7 @@ class PlayerCaptureManager {
 
     // 捕まえたプレイヤーをFirestoreに記録（鬼側が呼ぶ）
     func recordCapturedPlayer(playerID: UUID, completion: ((Error?) -> Void)? = nil) {
+        print("捕まえたプレイヤーをfirestoreに記録")
         let data: [String: Any] = [
             "id": playerID.uuidString,
             "timestamp": Timestamp(date: Date())
@@ -22,6 +23,7 @@ class PlayerCaptureManager {
 
     // 自分が捕まったかどうかを監視（隠れる側が呼ぶ）
     func listenIfCaught(playerID: UUID, caughtHandler: @escaping () -> Void) -> ListenerRegistration {
+        print("プレイヤーは自分が捕まったかどうかを監視")
         return db.collection("caughtPlayers").document(playerID.uuidString)
             .addSnapshotListener { snapshot, error in
                 if let snapshot = snapshot, snapshot.exists {

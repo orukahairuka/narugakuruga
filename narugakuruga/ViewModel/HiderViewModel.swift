@@ -12,10 +12,12 @@ import FirebaseFirestore
 
 // 隠れる側（プレイヤー）
 class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
-    @Published var isHiding = false
+    @Published var isHiding = false //自分がプレイヤーかどうか
     @Published var navigateToMission = false
-    @Published var timeRemaining: Int = 40
-    @Published var discoveredPeripherals: [UUID: Int] = [:]
+    @Published var timeRemaining: Int = 40 //ミッション開始までの時間
+    @Published var discoveredPeripherals: [UUID: Int] = [:] //周囲の端末
+    @Published var caught = false  //自分が捕まったかどうか
+
 
     private let captureManager: PlayerCaptureManager
     private var peripheralManager: CBPeripheralManager!
@@ -23,7 +25,6 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     private var caughtListener: ListenerRegistration?
 
 
-        @Published var caught = false
 
     override init() {
         self.captureManager = PlayerCaptureManager() // ←ここで初期化する
