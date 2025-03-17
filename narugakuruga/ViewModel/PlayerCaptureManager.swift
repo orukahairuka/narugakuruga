@@ -7,6 +7,7 @@
 
 import FirebaseFirestore
 
+//プレイヤーが捕まったかどうかを管理するクラス
 class PlayerCaptureManager {
     private let db = Firestore.firestore()
 
