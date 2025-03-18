@@ -39,17 +39,22 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
 
     func observeCaughtStatus() {
         guard let myID = UIDevice.current.identifierForVendor else { return }
-        let shortUUID = String(myID.uuidString.prefix(8)) //先頭8文字
+        let shortUUID = String(myID.uuidString.prefix(8)) // 先頭8文字を使う
 
         print("【プレイヤー側】監視する短縮UUIDは", shortUUID)
+
+        // ★ 既存のリスナーを削除してから新規リスナーを登録する
+        captureManager.stopListeningCaptured()
 
         captureManager.startListeningCaptured(playerShortUUID: shortUUID) { [weak self] in
             DispatchQueue.main.async {
                 self?.caught = true
-                print("自分が捕まった！")
+                // ✅ ここではログを出さずに `startListeningCaptured()` に任せる
             }
         }
     }
+
+
 
     // captureManagerの方も短縮UUIDを受け取れるように修正
 

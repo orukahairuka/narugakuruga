@@ -26,9 +26,19 @@ class PlayerCaptureManager {
 
     // 監視する側も同様に短縮UUIDで監視
     func startListeningCaptured(playerShortUUID: String, onCaught: @escaping () -> Void) {
+        print("【Firestore監視開始】短縮UUID:", playerShortUUID)
+
+        // ★ 既存のリスナーを削除してから新規リスナーを登録する
+        stopListeningCaptured()
+
         caughtListener = db.collection("caughtPlayers")
             .document(playerShortUUID)
             .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Firestore監視エラー:", error.localizedDescription)
+                    return
+                }
+
                 guard let snapshot = snapshot, let data = snapshot.data(),
                       let caught = data["caught"] as? Bool, caught else {
                     print("プレイヤーはまだ捕まっていません。")
@@ -36,14 +46,20 @@ class PlayerCaptureManager {
                 }
 
                 DispatchQueue.main.async {
-                    print("✅ プレイヤーが捕まった！")
+                    print("✅ プレイヤーが捕まった！（Firestoreで確認済み）") // ここでだけログを出す
                     onCaught()
                 }
             }
     }
 
+
+
     func stopListeningCaptured() {
-        caughtListener?.remove()
+        if let listener = caughtListener {
+            print("Firestoreのリスナーを解除")
+            listener.remove()
+        }
         caughtListener = nil
     }
+
 }
