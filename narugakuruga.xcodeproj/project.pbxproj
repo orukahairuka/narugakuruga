@@ -24,6 +24,9 @@
 		3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */; };
 		3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */; };
 		3B93C6C02D8570CA00E40CB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */; };
+		3BC6BCEA2D883B2300D6C948 /* PlayerCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCE92D883B2300D6C948 /* PlayerCaptureManager.swift */; };
+		3BE3C2E92D8825AC008C52F8 /* SeekerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3C2E82D8825AC008C52F8 /* SeekerView.swift */; };
+		3BE3C2EB2D8825B8008C52F8 /* HiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE3C2EA2D8825B8008C52F8 /* HiderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +65,9 @@
 		3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTrackViewModel.swift; sourceTree = "<group>"; };
 		3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionModel.swift; sourceTree = "<group>"; };
 		3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3BC6BCE92D883B2300D6C948 /* PlayerCaptureManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCaptureManager.swift; sourceTree = "<group>"; };
+		3BE3C2E82D8825AC008C52F8 /* SeekerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekerView.swift; sourceTree = "<group>"; };
+		3BE3C2EA2D8825B8008C52F8 /* HiderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +171,8 @@
 			children = (
 				3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */,
 				3B93C6B92D856CCE00E40CB7 /* MissionView.swift */,
+				3BE3C2E82D8825AC008C52F8 /* SeekerView.swift */,
+				3BE3C2EA2D8825B8008C52F8 /* HiderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -176,6 +184,7 @@
 				3B93C6B02D83E0D300E40CB7 /* HiderViewModel.swift */,
 				3B93C6B42D856A6200E40CB7 /* MissionViewModel.swift */,
 				3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */,
+				3BC6BCE92D883B2300D6C948 /* PlayerCaptureManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -332,7 +341,10 @@
 				3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */,
 				3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */,
 				3B93C6AF2D83E0C100E40CB7 /* SeekerViewModel.swift in Sources */,
+				3BC6BCEA2D883B2300D6C948 /* PlayerCaptureManager.swift in Sources */,
 				3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */,
+				3BE3C2E92D8825AC008C52F8 /* SeekerView.swift in Sources */,
+				3BE3C2EB2D8825B8008C52F8 /* HiderView.swift in Sources */,
 				3B93C6B12D83E0D300E40CB7 /* HiderViewModel.swift in Sources */,
 				3B93C6BA2D856CCE00E40CB7 /* MissionView.swift in Sources */,
 			);
