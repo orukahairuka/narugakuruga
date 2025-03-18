@@ -26,6 +26,9 @@ struct MissionView: View {
                 if mission.type == "walk" {
                     Text("現在の歩数: \(stepTrackerVM.stepsTaken) / \(mission.goal)")
                         .font(.headline)
+                } else if mission.type == "decibel" {
+                    Text("現在のデシベル: \(mission.goal)")
+                        .font(.headline)
                 }
 
                 if stepTrackerVM.isMissionCompleted() {
