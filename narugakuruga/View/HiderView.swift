@@ -34,9 +34,21 @@ struct HiderView: View {
 
             }
 
+            if let caughtPlayer = hider.caughtPlayerUUID {
+                Text("\(caughtPlayer)が捕まりました！")
+                    .font(.title)
+                    .foregroundColor(.red)
+                    .padding()
+                    .transition(.opacity)
+
+            }
+
             NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
                 EmptyView()
             }
+        }
+        .onAppear {
+            hider.observeAllCaughtPlayers()
         }
     }
 }
