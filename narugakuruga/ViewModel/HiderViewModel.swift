@@ -48,7 +48,7 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
 
         captureManager.startListeningCaptured(playerShortUUID: shortUUID) { [weak self] in
             DispatchQueue.main.async {
-                self?.caught = true
+                self?.caught = true //UIを更新
                 // ✅ ここではログを出さずに `startListeningCaptured()` に任せる
             }
         }
@@ -67,6 +67,9 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         // 必ず先頭8文字だけを送信
         let shortUUID = String(myID.uuidString.prefix(8))
 
+        // ★ ここで捕獲状態をリセット（Firestore & ローカル両方）
+        resetCaughtStatus()
+
         let advertisementData: [String: Any] = [
             CBAdvertisementDataLocalNameKey: shortUUID, // ←これで統一
             CBAdvertisementDataServiceUUIDsKey: [CBUUID(string: "1234")]
@@ -79,7 +82,27 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         startMissionTimer()
     }
 
+    //プレイヤーが「隠れる」ボタンを押したら捕まった状態をリセットするための関数
+    func resetCaughtStatus() {
+        guard let myID = UIDevice.current.identifierForVendor else { return }
+        let shortUUID = String(myID.uuidString.prefix(8))
 
+        print("【プレイヤー側】Firestoreの捕獲状態をリセット:", shortUUID)
+
+        // Firestoreのデータを削除する場合（ドキュメントごと消す）
+        db.collection("caughtPlayers").document(shortUUID).delete { error in
+            if let error = error {
+                print("Firestoreの削除エラー:", error.localizedDescription)
+            } else {
+                print("Firestoreのデータをリセットしました")
+            }
+        }
+
+        // ローカルの状態もリセット
+        DispatchQueue.main.async {
+            self.caught = false
+        }
+    }
 
 
     func stopAdvertising() {

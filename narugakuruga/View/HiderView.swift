@@ -21,6 +21,19 @@ struct HiderView: View {
                     .padding()
             }
 
+            if hider.caught {
+                Text("あなたは捕まりました！")
+                    .font(.title)
+                    .foregroundColor(.red)
+                    .padding()
+            } else {
+                Text("あなたは隠れています")
+                    .font(.title)
+                    .foregroundColor(.green)
+                    .padding()
+
+            }
+
             NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
                 EmptyView()
             }
