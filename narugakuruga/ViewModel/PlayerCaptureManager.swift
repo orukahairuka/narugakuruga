@@ -12,7 +12,9 @@ import FirebaseFirestore
 // PlayerCaptureManagerの修正版
 class PlayerCaptureManager {
     private let db = Firestore.firestore()
-    private var caughtListener: ListenerRegistration?
+    private var caughtListener: ListenerRegistration? //鬼に捕まったかどうかを個人に通知
+    private var allCaughtListener: ListenerRegistration? //誰かが鬼に捕まったら全体に通知を監視
+
 
     // String型の短縮UUIDを使う
     func recordCapturedPlayer(playerShortUUID: String, completion: ((Error?) -> Void)? = nil) {
@@ -52,8 +54,33 @@ class PlayerCaptureManager {
             }
     }
 
+    // 全プレイヤーの監視
+        func startListeningAllCapturedPlayers(onAnyPlayerCaught: @escaping (String) -> Void) {
+            stopListeningAllCapturedPlayers()
+            allCaughtListener = db.collection("caughtPlayers")
+                .addSnapshotListener { snapshot, error in
+                    if let error = error {
+                        print("Firestore監視エラー:", error.localizedDescription)
+                        return
+                    }
+
+                    guard let snapshot = snapshot else { return }
+
+                    for document in snapshot.documents {
+                        let data = document.data()
+                        if let caught = data["caught"] as? Bool, caught {
+                            let playerUUID = document.documentID
+                            print("📢 誰かが捕まった！UUID:", playerUUID)
+                            DispatchQueue.main.async {
+                                onAnyPlayerCaught(playerUUID)
+                            }
+                        }
+                    }
+                }
+        }
 
 
+    //個人の監視を停止する
     func stopListeningCaptured() {
         if let listener = caughtListener {
             print("Firestoreのリスナーを解除")
@@ -61,5 +88,11 @@ class PlayerCaptureManager {
         }
         caughtListener = nil
     }
+
+    //全体の監視を停止する
+    func stopListeningAllCapturedPlayers() {
+            allCaughtListener?.remove()
+            allCaughtListener = nil
+        }
 
 }
