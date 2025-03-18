@@ -12,12 +12,13 @@ import FirebaseFirestore
 
 // 隠れる側（プレイヤー）
 class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
-    @Published var isHiding = false //自分がプレイヤーかどうか
+    @Published var isHiding = false //自分がプレイヤーかどうか(画面遷移のためのフラグ)
     @Published var navigateToMission = false
     @Published var timeRemaining: Int = 40 //ミッション開始までの時間
     @Published var discoveredPeripherals: [UUID: Int] = [:] //周囲の端末
     @Published var caught = false  //自分が捕まったかどうか
-
+    @Published var caughtPlayerUUID: String?  //誰が捕まったか
+    @Published private(set) var shortUUID: String? // 短縮UUIDを一元管理
 
     private let captureManager: PlayerCaptureManager
     private var peripheralManager: CBPeripheralManager!
@@ -31,15 +32,42 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         self.captureManager = PlayerCaptureManager() // ←ここで初期化する
         super.init()
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
+        shortUUID = Self.generateShortUUID() // 初回のみ計算
     }
 
     deinit {
         caughtListener?.remove()
     }
 
+    /// 短縮UUIDを取得（静的メソッド化）
+    private static func generateShortUUID() -> String? {
+        guard let myID = UIDevice.current.identifierForVendor else { return nil }
+        return String(myID.uuidString.prefix(8))
+    }
+
+    /// 誰かが捕まったことを全プレイヤーに通知
+    func observeAllCaughtPlayers() {
+        captureManager.startListeningAllCapturedPlayers { [weak self] playerUUID in
+            DispatchQueue.main.async {
+                self?.caughtPlayerUUID = playerUUID
+                print("📢 全プレイヤーに通知: \(playerUUID) が捕まった！")
+                self?.announceCaughtPlayer(playerUUID)
+            }
+        }
+    }
+
+    //捕まったプレイヤーを通知する
+    private func announceCaughtPlayer(_ playerUUID: String) {
+        if playerUUID == shortUUID {
+            self.caught = true
+        } else {
+            print("📢 他のプレイヤーが捕まりました: \(playerUUID)")
+        }
+    }
+
+    //捕まったことを監視してUIを更新する
     func observeCaughtStatus() {
-        guard let myID = UIDevice.current.identifierForVendor else { return }
-        let shortUUID = String(myID.uuidString.prefix(8)) // 先頭8文字を使う
+        guard let shortUUID = shortUUID else { return }
 
         print("【プレイヤー側】監視する短縮UUIDは", shortUUID)
 
@@ -54,20 +82,10 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         }
     }
 
-
-
-    // captureManagerの方も短縮UUIDを受け取れるように修正
-
-
-
+    /// Bluetooth 広告の開始
     func startAdvertising() {
-        guard peripheralManager.state == .poweredOn else { return }
-        guard let myID = UIDevice.current.identifierForVendor else { return }
+        guard peripheralManager.state == .poweredOn, let shortUUID = shortUUID else { return }
 
-        // 必ず先頭8文字だけを送信
-        let shortUUID = String(myID.uuidString.prefix(8))
-
-        // ★ ここで捕獲状態をリセット（Firestore & ローカル両方）
         resetCaughtStatus()
 
         let advertisementData: [String: Any] = [
@@ -82,10 +100,9 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         startMissionTimer()
     }
 
-    //プレイヤーが「隠れる」ボタンを押したら捕まった状態をリセットするための関数
+    /// 捕まった状態をリセット
     func resetCaughtStatus() {
-        guard let myID = UIDevice.current.identifierForVendor else { return }
-        let shortUUID = String(myID.uuidString.prefix(8))
+        guard let shortUUID = shortUUID else { return }
 
         print("【プレイヤー側】Firestoreの捕獲状態をリセット:", shortUUID)
 
