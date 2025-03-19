@@ -8,6 +8,8 @@
 import SwiftUI
 import FirebaseFirestoreInternal
 
+import SwiftUI
+import FirebaseFirestore
 
 class MissionViewModel: ObservableObject {
     private let db = Firestore.firestore()
@@ -17,7 +19,6 @@ class MissionViewModel: ObservableObject {
         fetchRandomMission()
     }
 
-    // Firestoreからランダムなお題を取得
     func fetchRandomMission() {
         db.collection("missions").getDocuments { snapshot, error in
             if let documents = snapshot?.documents, let doc = documents.randomElement() {
@@ -35,10 +36,15 @@ class MissionViewModel: ObservableObject {
         }
     }
 
-    // お題を達成したらFirestoreを更新
     func completeMission() {
         guard let mission = currentMission else { return }
-        db.collection("missions").document(mission.id).updateData(["completed": true])
-        print("お題クリア！🎉")
+        db.collection("missions").document(mission.id).updateData(["completed": true]) { error in
+            if error == nil {
+                print("お題クリア！🎉")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
+                    self.fetchRandomMission()
+                }
+            }
+        }
     }
 }

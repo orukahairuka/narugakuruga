@@ -8,27 +8,35 @@
 import SwiftUI
 
 
+import SwiftUI
+
 struct DecibelsView: View {
     let mission: Mission
+    @ObservedObject var missionVM: MissionViewModel
     @StateObject private var decibelViewModel = DecibelViewModel()
-    @State var judgeScore = false
+    @State private var judgeScore = false
+    @State private var showCountdown = false
+    @State private var countdown = 60
 
     var body: some View {
         VStack {
             if judgeScore {
-                Text("お題クリア！")
-
-                Button("報告する") {
-                    missionVM.completeMission()
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
+                MissionCompleteView(
+                    countdown: $countdown,
+                    showCountdown: $showCountdown,
+                    onComplete: {
+                        missionVM.completeMission()
+                    }
+                )
             } else {
                 Text("後ちょっと！")
+                    .font(.headline)
+                    .foregroundColor(.orange)
+                    .padding()
             }
+
             Text("デシベル: \(String(format: "%.1f", decibelViewModel.decibels)) dB")
+                .font(.title)
                 .padding()
 
             Button(action: {

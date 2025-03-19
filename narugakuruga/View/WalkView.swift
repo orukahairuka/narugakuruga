@@ -9,7 +9,10 @@ import SwiftUI
 
 struct WalkView: View {
     let mission: Mission
+    @ObservedObject var missionVM: MissionViewModel
     @StateObject var stepTrackerVM = StepTrackerViewModel(goalSteps: 10)
+    @State private var showCountdown = false
+    @State private var countdown = 60
 
     var body: some View {
         VStack {
@@ -17,18 +20,13 @@ struct WalkView: View {
                 .font(.headline)
 
             if stepTrackerVM.isMissionCompleted() {
-                Text("🎉 お題クリア！ 🎉")
-                    .font(.largeTitle)
-                    .foregroundColor(.green)
-                    .padding()
-
-                Button("報告する") {
-                    missionVM.completeMission()
-                }
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(10)
+                MissionCompleteView(
+                    countdown: $countdown,
+                    showCountdown: $showCountdown,
+                    onComplete: {
+                        missionVM.completeMission()
+                    }
+                )
             }
         }
     }
