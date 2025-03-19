@@ -7,14 +7,10 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct MissionView: View {
     @StateObject var missionVM = MissionViewModel()
-    @StateObject var stepTrackerVM: StepTrackerViewModel
-
-    init() {
-        let initialGoal = 10
-        _stepTrackerVM = StateObject(wrappedValue: StepTrackerViewModel(goalSteps: initialGoal))
-    }
 
     var body: some View {
         VStack {
@@ -24,26 +20,21 @@ struct MissionView: View {
                     .padding()
 
                 if mission.type == "walk" {
-                    Text("現在の歩数: \(stepTrackerVM.stepsTaken) / \(mission.goal)")
-                        .font(.headline)
-                } else if mission.type == "decibel" {
-                    Text("現在のデシベル: \(mission.goal)")
-                        .font(.headline)
-                }
-
-                if stepTrackerVM.isMissionCompleted() {
-                    Text("🎉 お題クリア！ 🎉")
-                        .font(.largeTitle)
-                        .foregroundColor(.green)
-                        .padding()
-
-                    Button("報告する") {
-                        missionVM.completeMission()
+                    NavigationLink(destination: WalkView(mission: mission)) {
+                        Text("歩数ミッションを開始")
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
                     }
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                } else if mission.type == "decibel" {
+                    NavigationLink(destination: DecibelsView(mission: mission)) {
+                        Text("デシベルミッションを開始")
+                            .padding()
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
                 }
             } else {
                 Text("お題を取得中...")

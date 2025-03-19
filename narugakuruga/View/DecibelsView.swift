@@ -7,23 +7,30 @@
 
 import SwiftUI
 
+
 struct DecibelsView: View {
+    let mission: Mission
     @StateObject private var decibelViewModel = DecibelViewModel()
-    @State var TargetDecibel: Float = 0.0
     @State var judgeScore = false
 
     var body: some View {
         VStack {
-            Text(judgeScore ? "成功！" : "あとちょっと！")
+            if judgeScore {
+                Text("お題クリア！")
+
+                Button("報告する") {
+                    missionVM.completeMission()
+                }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            } else {
+                Text("後ちょっと！")
+            }
             Text("デシベル: \(String(format: "%.1f", decibelViewModel.decibels)) dB")
                 .padding()
 
-            if !decibelViewModel.isRecording {
-                TextField("Float", value: $TargetDecibel, format: .number)
-                    .textFieldStyle(.roundedBorder)
-
-                    .keyboardType(.decimalPad)
-            }
             Button(action: {
                 if decibelViewModel.isRecording {
                     decibelViewModel.stopRecording()
@@ -39,17 +46,9 @@ struct DecibelsView: View {
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
-            .onAppear {
-                decibelViewModel.targetDecibel = TargetDecibel
-            }
-            // onChangeの新しい使用方法
             .onChange(of: decibelViewModel.decibels) {
-                judgeScore = decibelViewModel.decibels > TargetDecibel
+                judgeScore = decibelViewModel.decibels > Float(mission.goal)
             }
         }
     }
-}
-
-#Preview {
-    DecibelsView()
 }
