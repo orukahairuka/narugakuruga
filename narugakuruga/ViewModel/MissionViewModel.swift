@@ -15,10 +15,11 @@ class MissionViewModel: ObservableObject {
     @Published var gameWon = false
 
     init() {
-        fetchRandomMission()
+        fetchMission()
     }
 
-    func fetchRandomMission() {
+    //順番にミッションを取得
+    func fetchMission() {
         guard completedMissionsCount < 4 else { return } // 4回クリアしたら新しいお題を出さない
 
         db.collection("missions").getDocuments { snapshot, error in
@@ -37,6 +38,7 @@ class MissionViewModel: ObservableObject {
         }
     }
 
+
     func completeMission() {
         guard let mission = currentMission else { return }
         db.collection("missions").document(mission.id).updateData(["completed": true]) { error in
@@ -49,7 +51,7 @@ class MissionViewModel: ObservableObject {
                         self.gameWon = true
                     } else {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
-                            self.fetchRandomMission()
+                            self.fetchMission()
                         }
                     }
                 }
@@ -57,3 +59,4 @@ class MissionViewModel: ObservableObject {
         }
     }
 }
+
