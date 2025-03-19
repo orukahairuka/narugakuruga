@@ -17,12 +17,18 @@ struct MissionView: View {
 
     var body: some View {
         VStack {
-            if let mission = missionVM.currentMission {
+            if missionVM.gameWon {
+                GameWinView()
+            } else if let mission = missionVM.currentMission {
                 Text("お題: \(mission.description)")
                     .font(.title)
                     .padding()
 
                 MissionButton(mission: mission, missionVM: missionVM)
+                Text("クリア数: \(missionVM.completedMissionsCount) / 4")
+                    .font(.headline)
+                    .foregroundColor(.gray)
+                    .padding()
             } else {
                 Text("お題を取得中...")
                     .font(.title2)

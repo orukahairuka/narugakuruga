@@ -11,6 +11,8 @@ struct MissionCompleteView: View {
     @Binding var countdown: Int
     @Binding var showCountdown: Bool
     let onComplete: () -> Void
+    @Environment(\.presentationMode) var presentationMode  // ✅ 画面を閉じるための環境変数
+
 
     var body: some View {
         VStack {
@@ -41,6 +43,7 @@ struct MissionCompleteView: View {
                 startCountdown()
             } else {
                 onComplete()
+                presentationMode.wrappedValue.dismiss()  // ✅ 現在の画面を閉じて MissionView に戻る
             }
         }
     }
