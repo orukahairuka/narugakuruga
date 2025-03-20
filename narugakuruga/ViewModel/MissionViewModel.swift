@@ -98,7 +98,7 @@ class MissionViewModel: ObservableObject {
     func resetMissions() {
         print("🔄 ミッションをリセット中...")
 
-        db.collection("missions").getDocuments { snapshot, error in
+        self.db.collection("missions").getDocuments { snapshot, error in
             if let error = error {
                 print("❌ ミッションリセットエラー: \(error.localizedDescription)")
                 return
@@ -110,9 +110,9 @@ class MissionViewModel: ObservableObject {
             }
 
             for doc in documents {
-                db.collection("missions").document(doc.documentID).updateData(["completed": false]) { error in
-                    if let err = err {
-                        print("なんかエラー")
+                self.db.collection("missions").document(doc.documentID).updateData(["completed": false]) { error in
+                    if let error = error {
+                        print("❌ ミッション \(doc.documentID) のリセット失敗: \(error.localizedDescription)")
                     } else {
                         print("✅ ミッション \(doc.documentID) をリセットしました")
                     }
@@ -120,6 +120,7 @@ class MissionViewModel: ObservableObject {
             }
         }
     }
+
 
 
 }
