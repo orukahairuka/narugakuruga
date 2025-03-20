@@ -15,6 +15,8 @@ struct IdentifiablePlace: Identifiable {
 
 class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
+    let id = UUID()
+    
     private let manager = CLLocationManager()
     private let db = Firestore.firestore()
     private var listener: ListenerRegistration?
@@ -54,7 +56,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             "longitude": location.longitude
         ]
         
-        db.collection(collectionName).document("location").setData(locationData) { error in
+        db.collection(collectionName).document("\(id)").setData(locationData) { error in
             if let error = error {
                 print("Firestore Write Error: \(error.localizedDescription)")
             } else {
