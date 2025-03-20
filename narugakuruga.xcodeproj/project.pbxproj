@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B447CB62D8BFC4500639228 /* PlayerCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */; };
+		3B447CB82D8BFC5800639228 /* HiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB72D8BFC5800639228 /* HiderView.swift */; };
+		3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB92D8BFC6C00639228 /* SeekerView.swift */; };
 		3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C67D2D82EBEF00E40CB7 /* narugakurugaApp.swift */; };
 		3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */; };
 		3B93C6822D82EBF100E40CB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B93C6812D82EBF100E40CB7 /* Assets.xcassets */; };
@@ -50,6 +53,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCaptureManager.swift; sourceTree = "<group>"; };
+		3B447CB72D8BFC5800639228 /* HiderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HiderView.swift; path = narugakuruga/View/HiderView.swift; sourceTree = SOURCE_ROOT; };
+		3B447CB92D8BFC6C00639228 /* SeekerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekerView.swift; sourceTree = "<group>"; };
 		3B93C67A2D82EBEF00E40CB7 /* narugakuruga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = narugakuruga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B93C67D2D82EBEF00E40CB7 /* narugakurugaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = narugakurugaApp.swift; sourceTree = "<group>"; };
 		3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -175,13 +181,15 @@
 		3B93C6A82D8320B100E40CB7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3BC6BCFB2D8A9A9700D6C948 /* Components */,
+				3B447CB92D8BFC6C00639228 /* SeekerView.swift */,
+				3B447CB72D8BFC5800639228 /* HiderView.swift */,
 				3BC6BCF52D8A977E00D6C948 /* DecibelsView.swift */,
 				3BC6BCF72D8A978600D6C948 /* WalkView.swift */,
 				3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */,
 				3B93C6B92D856CCE00E40CB7 /* MissionView.swift */,
 				3BC6BCF92D8A99DE00D6C948 /* MissionCompleteView.swift */,
 				3BC6BCFE2D8AE9ED00D6C948 /* GameWinView.swift */,
+				3BC6BCFB2D8A9A9700D6C948 /* Components */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -191,6 +199,7 @@
 			children = (
 				3B93C6AE2D83E0C100E40CB7 /* SeekerViewModel.swift */,
 				3B93C6B02D83E0D300E40CB7 /* HiderViewModel.swift */,
+				3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */,
 				3B93C6B42D856A6200E40CB7 /* MissionViewModel.swift */,
 				3BC6BCF32D8A976E00D6C948 /* DecibelViewModel.swift */,
 				3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */,
@@ -354,14 +363,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BC6BCF82D8A978700D6C948 /* WalkView.swift in Sources */,
+				3B447CB82D8BFC5800639228 /* HiderView.swift in Sources */,
 				3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */,
 				3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */,
+				3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */,
 				3BC6BCFA2D8A99DE00D6C948 /* MissionCompleteView.swift in Sources */,
 				3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */,
 				3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */,
 				3B93C6AF2D83E0C100E40CB7 /* SeekerViewModel.swift in Sources */,
 				3BC6BCFD2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift in Sources */,
 				3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */,
+				3B447CB62D8BFC4500639228 /* PlayerCaptureManager.swift in Sources */,
 				3BC6BCFF2D8AE9ED00D6C948 /* GameWinView.swift in Sources */,
 				3B93C6B12D83E0D300E40CB7 /* HiderViewModel.swift in Sources */,
 				3BC6BCF62D8A977E00D6C948 /* DecibelsView.swift in Sources */,
