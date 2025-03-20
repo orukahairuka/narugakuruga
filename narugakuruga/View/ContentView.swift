@@ -13,55 +13,73 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                Text("かくれんぼアプリ")
-                    .font(.largeTitle)
-                    .padding()
+            ZStack {
+                LinearGradient(gradient: Gradient(colors: [Color(hex: "#C6E7FF"), Color(hex: "#FFDDAE")]),
+                               startPoint: .topLeading,
+                               endPoint: .bottomTrailing)
+                    .edgesIgnoringSafeArea(.all)
 
-                Text(statusText)
-                    .font(.headline)
-                    .foregroundColor(.gray)
-                    .padding()
+                VStack(spacing: 20) {
+                    Text("かくれんぼアプリ")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
 
-                if hider.isHiding {
-                    Text("ミッション開始まで: \(hider.timeRemaining) 秒")
-                        .font(.title2)
-                        .foregroundColor(.blue)
+                    Text(statusText)
+                        .font(.headline)
+                        .foregroundColor(.black.opacity(0.8))
                         .padding()
-                }
+                        .background(BlurView(style: .systemMaterialLight))
+                        .cornerRadius(15)
+                        .padding(.horizontal)
 
-                NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
-                    EmptyView()
-                }
-
-                HStack {
-                    NavigationLink(destination: SeekerView(seeker: seeker)) {
-                        Text("鬼になる")
-                            .font(.title)
+                    if hider.isHiding {
+                        Text("ミッション開始まで: \(hider.timeRemaining) 秒")
+                            .font(.title2)
+                            .foregroundColor(.blue)
                             .padding()
-                            .background(seeker.isSeeking ? Color.red.opacity(0.7) : Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                            .background(BlurView(style: .systemMaterial))
+                            .cornerRadius(15)
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        seeker.startScanning()
-                        hider.stopAdvertising()
-                    })
 
-                    NavigationLink(destination: HiderView(hider: hider)) {
-                        Text("隠れる")
-                            .font(.title)
-                            .padding()
-                            .background(hider.isHiding ? Color.blue.opacity(0.7) : Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                    NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
+                        EmptyView()
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        hider.startAdvertising()
-                        seeker.stopScanning()
-                    })
+
+                    HStack(spacing: 20) {
+                        NavigationLink(destination: SeekerView(seeker: seeker)) {
+                            Text("鬼になる")
+                                .font(.title)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(BlurView(style: .systemUltraThinMaterialDark))
+                                .cornerRadius(15)
+                                .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.red, lineWidth: 2))
+                                .foregroundColor(.white)
+                        }
+                        .simultaneousGesture(TapGesture().onEnded {
+                            seeker.startScanning()
+                            hider.stopAdvertising()
+                        })
+
+                        NavigationLink(destination: HiderView(hider: hider)) {
+                            Text("隠れる")
+                                .font(.title)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(BlurView(style: .systemUltraThinMaterialDark))
+                                .cornerRadius(15)
+                                .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.blue, lineWidth: 2))
+                                .foregroundColor(.white)
+                        }
+                        .simultaneousGesture(TapGesture().onEnded {
+                            hider.startAdvertising()
+                            seeker.stopScanning()
+                        })
+                    }
                     .padding()
                 }
+                .padding()
             }
         }
     }
@@ -76,3 +94,6 @@ struct ContentView: View {
         }
     }
 }
+
+
+
