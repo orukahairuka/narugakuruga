@@ -35,6 +35,7 @@
 		3BC6BCFF2D8AE9ED00D6C948 /* GameWinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCFE2D8AE9ED00D6C948 /* GameWinView.swift */; };
 		3BFBD6262D8C402600CCFCE1 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6252D8C402600CCFCE1 /* ColorExtension.swift */; };
 		3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6272D8C404500CCFCE1 /* BlurView.swift */; };
+		3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		3BC6BCFE2D8AE9ED00D6C948 /* GameWinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWinView.swift; sourceTree = "<group>"; };
 		3BFBD6252D8C402600CCFCE1 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		3BFBD6272D8C404500CCFCE1 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCountdownView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC6BCFC2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift */,
+				3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -379,6 +382,7 @@
 				3BC6BCF82D8A978700D6C948 /* WalkView.swift in Sources */,
 				3B447CB82D8BFC5800639228 /* HiderView.swift in Sources */,
 				3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */,
+				3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */,
 				3BFBD6262D8C402600CCFCE1 /* ColorExtension.swift in Sources */,
 				3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */,
 				3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */,

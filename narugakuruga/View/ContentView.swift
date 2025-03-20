@@ -73,19 +73,6 @@ struct StatusTextView: View {
     }
 }
 
-struct MissionCountdownView: View {
-    let timeRemaining: Int
-
-    var body: some View {
-        Text("ミッション開始まで: \(timeRemaining) 秒")
-            .font(.title2)
-            .foregroundColor(.blue)
-            .padding()
-            .background(BlurView(style: .systemMaterial))
-            .cornerRadius(15)
-    }
-}
-
 struct RoleSelectionView: View {
     @ObservedObject var seeker: SeekerViewModel
     @ObservedObject var hider: HiderViewModel
@@ -138,10 +125,6 @@ struct RoleButtonView: View {
 
 #Preview ("StatusTextView") {
     StatusTextView(text: "鬼になりました")
-}
-
-#Preview ("MissionCountdownView") {
-    MissionCountdownView(timeRemaining: 30)
 }
 
 #Preview ("RoleButtonView") {
