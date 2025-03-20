@@ -11,6 +11,10 @@ struct ContentView: View {
     @StateObject private var seeker = SeekerViewModel()
     @StateObject private var hider = HiderViewModel()
 
+    @State private var isWaitingForSeeker = false // 鬼になるまでのカウントダウン中かどうか
+    @State private var remainingTimeForSeeker = 40 // 鬼になるまでの残り時間
+    @State private var navigateToSeeker = false // 鬼になったらSeekerViewに遷移するかどうか
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -38,6 +42,24 @@ struct ContentView: View {
             return "隠れています"
         } else {
             return "どちらか選んでください"
+        }
+    }
+
+    // 鬼になるカウントダウンを開始する
+    private func startSeekerCountdown() {
+        isWaitingForSeeker = true
+        remainingTimeForSeeker = 40
+
+        for i in 1...40 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
+                remainingTimeForSeeker -= 1
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+            navigateToSeeker = true
+            seeker.startScanning()
+            hider.stopAdvertising()
         }
     }
 }
