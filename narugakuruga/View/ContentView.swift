@@ -11,6 +11,10 @@ struct ContentView: View {
     @StateObject private var seeker = SeekerViewModel()
     @StateObject private var hider = HiderViewModel()
 
+    @State private var isWaitingForSeeker = false // 鬼になるまでのカウントダウン中かどうか
+    @State private var remainingTimeForSeeker = 40 // 鬼になるまでの残り時間
+    @State private var navigateToSeeker = false // 鬼になったらSeekerViewに遷移するかどうか
+
     var body: some View {
         NavigationView {
             VStack {
@@ -23,30 +27,37 @@ struct ContentView: View {
                     .foregroundColor(.gray)
                     .padding()
 
-                if hider.isHiding {
-                    Text("ミッション開始まで: \(hider.timeRemaining) 秒")
+                // カウントダウン表示
+                if isWaitingForSeeker {
+                    Text("鬼になるまで: \(remainingTimeForSeeker) 秒")
                         .font(.title2)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.red)
                         .padding()
                 }
 
-                NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
+                NavigationLink(destination: SeekerView(seeker: seeker), isActive: $navigateToSeeker) {
                     EmptyView()
                 }
 
                 HStack {
-                    NavigationLink(destination: SeekerView(seeker: seeker)) {
+                    if isWaitingForSeeker {
+                        // 「鬼になる」ボタンを無効化
                         Text("鬼になる")
                             .font(.title)
                             .padding()
-                            .background(seeker.isSeeking ? Color.red.opacity(0.7) : Color.red)
+                            .background(Color.gray)
                             .foregroundColor(.white)
                             .cornerRadius(10)
+                    } else {
+                        Button(action: startSeekerCountdown) {
+                            Text("鬼になる")
+                                .font(.title)
+                                .padding()
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        seeker.startScanning()
-                        hider.stopAdvertising()
-                    })
 
                     NavigationLink(destination: HiderView(hider: hider)) {
                         Text("隠れる")
@@ -73,6 +84,24 @@ struct ContentView: View {
             return "隠れています"
         } else {
             return "どちらか選んでください"
+        }
+    }
+
+    // 鬼になるカウントダウンを開始する
+    private func startSeekerCountdown() {
+        isWaitingForSeeker = true
+        remainingTimeForSeeker = 40
+
+        for i in 1...40 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
+                remainingTimeForSeeker -= 1
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
+            navigateToSeeker = true
+            seeker.startScanning()
+            hider.stopAdvertising()
         }
     }
 }
