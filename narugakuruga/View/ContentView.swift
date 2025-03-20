@@ -42,37 +42,6 @@ struct ContentView: View {
     }
 }
 
-struct BackgroundView: View {
-    var body: some View {
-        LinearGradient(gradient: Gradient(colors: [Color(hex: "#C6E7FF"), Color(hex: "#A8E6CF")]),
-                       startPoint: .topLeading,
-                       endPoint: .bottomTrailing)
-        .edgesIgnoringSafeArea(.all)
-    }
-}
-
-struct LogoView: View {
-    var body: some View {
-        Text("かくれんぼアプリ")
-            .font(.largeTitle)
-            .foregroundColor(.white)
-            .shadow(radius: 5)
-    }
-}
-
-struct StatusTextView: View {
-    let text: String
-
-    var body: some View {
-        Text(text)
-            .font(.headline)
-            .foregroundColor(.black.opacity(0.8))
-            .padding()
-            .cornerRadius(15)
-            .padding(.horizontal)
-    }
-}
-
 struct RoleSelectionView: View {
     @ObservedObject var seeker: SeekerViewModel
     @ObservedObject var hider: HiderViewModel
@@ -113,20 +82,4 @@ struct RoleButtonView: View {
             .overlay(RoundedRectangle(cornerRadius: 15).stroke(color, lineWidth: 2))
             .foregroundColor(.white)
     }
-}
-
-#Preview ("BackgroundView") {
-    BackgroundView()
-}
-
-#Preview ("LogoView") {
-    LogoView()
-}
-
-#Preview ("StatusTextView") {
-    StatusTextView(text: "鬼になりました")
-}
-
-#Preview ("RoleButtonView") {
-    RoleButtonView(title: "鬼になる", color: .red)
 }

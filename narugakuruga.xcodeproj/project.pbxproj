@@ -36,6 +36,7 @@
 		3BFBD6262D8C402600CCFCE1 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6252D8C402600CCFCE1 /* ColorExtension.swift */; };
 		3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6272D8C404500CCFCE1 /* BlurView.swift */; };
 		3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */; };
+		3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		3BFBD6252D8C402600CCFCE1 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		3BFBD6272D8C404500CCFCE1 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCountdownView.swift; sourceTree = "<group>"; };
+		3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +228,7 @@
 			children = (
 				3BC6BCFC2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift */,
 				3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */,
+				3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				3BC6BCFF2D8AE9ED00D6C948 /* GameWinView.swift in Sources */,
 				3B93C6B12D83E0D300E40CB7 /* HiderViewModel.swift in Sources */,
 				3BC6BCF62D8A977E00D6C948 /* DecibelsView.swift in Sources */,
+				3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */,
 				3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */,
 				3B93C6BA2D856CCE00E40CB7 /* MissionView.swift in Sources */,
 				3BC6BCF42D8A976E00D6C948 /* DecibelViewModel.swift in Sources */,
