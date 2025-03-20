@@ -17,52 +17,71 @@ struct SeekerView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("鬼の画面")
-                .font(.largeTitle)
-                .padding()
+        ZStack {
+            BackgroundView()
+            VStack(spacing: 20) {
+                Text("鬼の画面(ロゴなどおく)")
 
-            if seeker.isSeeking {
-                Text("近くにいるプレイヤー")
-                    .font(.title2)
-                    .padding(.top)
+                if seeker.isSeeking {
+                    StatusTextView(text: "近くにいるプレイヤー")
+                        .padding(.top)
 
-                ScrollView {
-                    VStack(spacing: 10) {
-                        ForEach(Array(peripherals.enumerated()), id: \.element.uuid) { _, item in
-                            HStack {
-                                Text("UUID: \(item.uuid.uuidString), RSSI: \(item.rssi)")
-                                Spacer()
-
-                                Button("捕まえた！") {
-                                    let captureManager = PlayerCaptureManager()
-
-                                    // ★ Peripheral UUID → Player短縮UUIDに変換
-                                    if let shortPlayerUUID = seeker.playerUUIDMapping[item.uuid] {
-                                        print("🔥【鬼側】捕まえたプレイヤーの短縮UUIDは:", shortPlayerUUID)
-                                        captureManager.recordCapturedPlayer(playerShortUUID: shortPlayerUUID) { error in
-                                            if let error = error {
-                                                print("Firestore書き込みエラー:", error.localizedDescription)
-                                            } else {
-                                                print("Firestoreに書き込みました！（\(shortPlayerUUID)）")
-                                            }
-                                        }
-                                    } else {
-                                        print("⚠️プレイヤーの短縮UUIDが見つかりませんでした。")
-                                    }
-                                }
-                                .padding()
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
+                    ScrollView {
+                        VStack(spacing: 10) {
+                            ForEach(Array(peripherals.enumerated()), id: \.element.uuid) { _, item in
+                                PlayerInfoView(uuid: item.uuid, rssi: item.rssi, seeker: seeker)
                             }
-                            .padding(.horizontal)
                         }
-
-
                     }
+                    .padding()
                 }
             }
         }
+    }
+}
+
+struct PlayerInfoView: View {
+    let uuid: UUID
+    let rssi: Int
+    @ObservedObject var seeker: SeekerViewModel
+
+    var body: some View {
+        HStack {
+            Text("UUID: \(uuid.uuidString), RSSI: \(rssi)")
+                .foregroundColor(.black)
+            Spacer()
+            CaptureButtonView(uuid: uuid, seeker: seeker)
+        }
+        .padding()
+        .background(BlurView(style: .systemMaterial))
+        .cornerRadius(10)
+        .padding(.horizontal)
+    }
+}
+
+struct CaptureButtonView: View {
+    let uuid: UUID
+    @ObservedObject var seeker: SeekerViewModel
+
+    var body: some View {
+        Button("捕まえた！") {
+            let captureManager = PlayerCaptureManager()
+            if let shortPlayerUUID = seeker.playerUUIDMapping[uuid] {
+                print("🔥【鬼側】捕まえたプレイヤーの短縮UUIDは:", shortPlayerUUID)
+                captureManager.recordCapturedPlayer(playerShortUUID: shortPlayerUUID) { error in
+                    if let error = error {
+                        print("Firestore書き込みエラー:", error.localizedDescription)
+                    } else {
+                        print("Firestoreに書き込みました！（\(shortPlayerUUID)）")
+                    }
+                }
+            } else {
+                print("⚠️プレイヤーの短縮UUIDが見つかりませんでした。")
+            }
+        }
+        .padding()
+        .background(Color.red)
+        .foregroundColor(.white)
+        .cornerRadius(10)
     }
 }
