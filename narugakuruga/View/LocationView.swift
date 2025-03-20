@@ -14,7 +14,7 @@ struct LocationView: View {
         ZStack {
             // 地図を表示
             Map(coordinateRegion: $region,
-                interactionModes: .pan,
+                interactionModes: .all,
                 showsUserLocation: true,
                 annotationItems: locationFetcher.places  // 取得した場所をピンとして表示
             ) { place in
