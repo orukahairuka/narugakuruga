@@ -33,6 +33,10 @@
 		3BC6BCFA2D8A99DE00D6C948 /* MissionCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCF92D8A99DE00D6C948 /* MissionCompleteView.swift */; };
 		3BC6BCFD2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCFC2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift */; };
 		3BC6BCFF2D8AE9ED00D6C948 /* GameWinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCFE2D8AE9ED00D6C948 /* GameWinView.swift */; };
+		3BFBD6262D8C402600CCFCE1 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6252D8C402600CCFCE1 /* ColorExtension.swift */; };
+		3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6272D8C404500CCFCE1 /* BlurView.swift */; };
+		3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */; };
+		3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,10 @@
 		3BC6BCF92D8A99DE00D6C948 /* MissionCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCompleteView.swift; sourceTree = "<group>"; };
 		3BC6BCFC2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonStyle.swift; sourceTree = "<group>"; };
 		3BC6BCFE2D8AE9ED00D6C948 /* GameWinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWinView.swift; sourceTree = "<group>"; };
+		3BFBD6252D8C402600CCFCE1 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		3BFBD6272D8C404500CCFCE1 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCountdownView.swift; sourceTree = "<group>"; };
+		3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +147,7 @@
 				3B93C6A92D8320B600E40CB7 /* ViewModel */,
 				3B93C6A82D8320B100E40CB7 /* View */,
 				3B93C6A72D8320A500E40CB7 /* Model */,
+				3BFBD6242D8C400E00CCFCE1 /* Util */,
 				3B93C6812D82EBF100E40CB7 /* Assets.xcassets */,
 				3B93C6832D82EBF100E40CB7 /* Preview Content */,
 			);
@@ -218,8 +227,19 @@
 			isa = PBXGroup;
 			children = (
 				3BC6BCFC2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift */,
+				3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */,
+				3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		3BFBD6242D8C400E00CCFCE1 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				3BFBD6252D8C402600CCFCE1 /* ColorExtension.swift */,
+				3BFBD6272D8C404500CCFCE1 /* BlurView.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,6 +385,8 @@
 				3BC6BCF82D8A978700D6C948 /* WalkView.swift in Sources */,
 				3B447CB82D8BFC5800639228 /* HiderView.swift in Sources */,
 				3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */,
+				3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */,
+				3BFBD6262D8C402600CCFCE1 /* ColorExtension.swift in Sources */,
 				3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */,
 				3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */,
 				3BC6BCFA2D8A99DE00D6C948 /* MissionCompleteView.swift in Sources */,
@@ -377,6 +399,8 @@
 				3BC6BCFF2D8AE9ED00D6C948 /* GameWinView.swift in Sources */,
 				3B93C6B12D83E0D300E40CB7 /* HiderViewModel.swift in Sources */,
 				3BC6BCF62D8A977E00D6C948 /* DecibelsView.swift in Sources */,
+				3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */,
+				3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */,
 				3B93C6BA2D856CCE00E40CB7 /* MissionView.swift in Sources */,
 				3BC6BCF42D8A976E00D6C948 /* DecibelViewModel.swift in Sources */,
 			);

@@ -11,26 +11,22 @@ struct MissionCompleteView: View {
     @Binding var countdown: Int
     @Binding var showCountdown: Bool
     let onComplete: () -> Void
-    @Environment(\.presentationMode) var presentationMode  // ✅ 画面を閉じるための環境変数
-
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
-        VStack {
-            Text("🎉 お題クリア！ 🎉")
-                .font(.largeTitle)
-                .foregroundColor(.green)
-                .padding()
+        ZStack {
+            BackgroundView()
+            VStack(spacing: 20) {
+                StatusTextView(text: "🎉 お題クリア！ 🎉", color: .green)
 
-            if showCountdown {
-                Text("次のお題まで: \(countdown)秒")
-                    .font(.headline)
-                    .foregroundColor(.gray)
-                    .padding()
-            } else {
-                Button("報告する") {
-                    startCountdown()
+                if showCountdown {
+                    StatusTextView(text: "次のお題まで: \(countdown)秒", color: .gray)
+                } else {
+                    Button("報告する") {
+                        startCountdown()
+                    }
+                    .buttonStyle(PrimaryButtonStyle())
                 }
-                .buttonStyle(PrimaryButtonStyle())
             }
         }
     }
@@ -43,7 +39,7 @@ struct MissionCompleteView: View {
                 startCountdown()
             } else {
                 onComplete()
-                presentationMode.wrappedValue.dismiss()  // ✅ 現在の画面を閉じて MissionView に戻る
+                presentationMode.wrappedValue.dismiss()
             }
         }
     }

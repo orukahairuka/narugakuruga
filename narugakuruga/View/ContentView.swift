@@ -17,62 +17,20 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                Text("かくれんぼアプリ")
-                    .font(.largeTitle)
-                    .padding()
-
-                Text(statusText)
-                    .font(.headline)
-                    .foregroundColor(.gray)
-                    .padding()
-
-                // カウントダウン表示
-                if isWaitingForSeeker {
-                    Text("鬼になるまで: \(remainingTimeForSeeker) 秒")
-                        .font(.title2)
-                        .foregroundColor(.red)
-                        .padding()
-                }
-
-                NavigationLink(destination: SeekerView(seeker: seeker), isActive: $navigateToSeeker) {
-                    EmptyView()
-                }
-
-                HStack {
-                    if isWaitingForSeeker {
-                        // 「鬼になる」ボタンを無効化
-                        Text("鬼になる")
-                            .font(.title)
-                            .padding()
-                            .background(Color.gray)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                    } else {
-                        Button(action: startSeekerCountdown) {
-                            Text("鬼になる")
-                                .font(.title)
-                                .padding()
-                                .background(Color.red)
-                                .foregroundColor(.white)
-                                .cornerRadius(10)
-                        }
+            ZStack {
+                BackgroundView()
+                VStack(spacing: 20) {
+                    LogoView()
+                    StatusTextView(text: statusText)
+                    if hider.isHiding {
+                        MissionCountdownView(timeRemaining: hider.timeRemaining)
                     }
-
-                    NavigationLink(destination: HiderView(hider: hider)) {
-                        Text("隠れる")
-                            .font(.title)
-                            .padding()
-                            .background(hider.isHiding ? Color.blue.opacity(0.7) : Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
+                    NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
+                        EmptyView()
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        hider.startAdvertising()
-                        seeker.stopScanning()
-                    })
-                    .padding()
+                    RoleSelectionView(seeker: seeker, hider: hider)
                 }
+                .padding()
             }
         }
     }
@@ -103,5 +61,47 @@ struct ContentView: View {
             seeker.startScanning()
             hider.stopAdvertising()
         }
+    }
+}
+
+struct RoleSelectionView: View {
+    @ObservedObject var seeker: SeekerViewModel
+    @ObservedObject var hider: HiderViewModel
+
+    var body: some View {
+        HStack(spacing: 20) {
+            NavigationLink(destination: SeekerView(seeker: seeker)) {
+                RoleButtonView(title: "鬼になる", color: .red)
+            }
+            .simultaneousGesture(TapGesture().onEnded {
+                seeker.startScanning()
+                hider.stopAdvertising()
+            })
+
+            NavigationLink(destination: HiderView(hider: hider)) {
+                RoleButtonView(title: "隠れる", color: .blue)
+            }
+            .simultaneousGesture(TapGesture().onEnded {
+                hider.startAdvertising()
+                seeker.stopScanning()
+            })
+        }
+        .padding()
+    }
+}
+
+struct RoleButtonView: View {
+    let title: String
+    let color: Color
+
+    var body: some View {
+        Text(title)
+            .font(.title)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(BlurView(style: .systemUltraThinMaterialDark))
+            .cornerRadius(15)
+            .overlay(RoundedRectangle(cornerRadius: 15).stroke(color, lineWidth: 2))
+            .foregroundColor(.white)
     }
 }
