@@ -112,7 +112,7 @@ class MissionViewModel: ObservableObject {
             for doc in documents {
                 db.collection("missions").document(doc.documentID).updateData(["completed": false]) { error in
                     if let err = err {
-                        print("❌ ミッション \(doc.documentID) のリセット失敗: \(err.localizedDescription)")
+                        print("なんかエラー")
                     } else {
                         print("✅ ミッション \(doc.documentID) をリセットしました")
                     }
