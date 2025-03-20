@@ -27,9 +27,9 @@ struct LocationView: View {
             locationManager.requestPermission() //これも必要やった
             locationManager.startTracking() //これを追加しないと位置情報のやつが始まらない
         }
-        .onReceive(locationFetcher.$places) { _ in
+        .onReceive(locationFetcher.$places) { newPlaces in
             // 位置情報が更新されたときに最初の位置にマップの中心を合わせる
-            if let firstPlace = locationFetcher.places.first {
+            if let firstPlace = newPlaces.first {
                 region.center = firstPlace.location
             }
         }
