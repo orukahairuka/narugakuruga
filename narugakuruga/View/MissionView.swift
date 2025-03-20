@@ -7,46 +7,48 @@
 
 import SwiftUI
 
+
+enum MissionType: String {
+    case walk, decibel, unknown
+}
+
 struct MissionView: View {
     @StateObject var missionVM = MissionViewModel()
-    @StateObject var stepTrackerVM: StepTrackerViewModel
-
-    init() {
-        let initialGoal = 10
-        _stepTrackerVM = StateObject(wrappedValue: StepTrackerViewModel(goalSteps: initialGoal))
-    }
 
     var body: some View {
-        VStack {
-            if let mission = missionVM.currentMission {
-                Text("お題: \(mission.description)")
-                    .font(.title)
-                    .padding()
-
-                if mission.type == "walk" {
-                    Text("現在の歩数: \(stepTrackerVM.stepsTaken) / \(mission.goal)")
-                        .font(.headline)
+        ZStack {
+            BackgroundView()
+            VStack(spacing: 20) {
+                if missionVM.gameWon {
+                    GameWinView()
+                } else if let mission = missionVM.currentMission {
+                    StatusTextView(text: "お題: \(mission.description)")
+                    MissionButton(mission: mission, missionVM: missionVM)
+                    StatusTextView(text: "クリア数: \(missionVM.completedMissionsCount) / 4", color: .gray)
+                } else {
+                    StatusTextView(text: "お題を取得中...")
                 }
-
-                if stepTrackerVM.isMissionCompleted() {
-                    Text("🎉 お題クリア！ 🎉")
-                        .font(.largeTitle)
-                        .foregroundColor(.green)
-                        .padding()
-
-                    Button("報告する") {
-                        missionVM.completeMission()
-                    }
-                    .padding()
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-            } else {
-                Text("お題を取得中...")
-                    .font(.title2)
-                    .padding()
             }
+        }
+    }
+}
+
+struct MissionButton: View {
+    let mission: Mission
+    @ObservedObject var missionVM: MissionViewModel
+
+    var body: some View {
+        switch MissionType(rawValue: mission.type) ?? .unknown {
+        case .walk:
+            NavigationLink(destination: WalkView(mission: mission, missionVM: missionVM)) {
+                RoleButtonView(title: "歩数ミッションを開始", color: .blue)
+            }
+        case .decibel:
+            NavigationLink(destination: DecibelsView(mission: mission, missionVM: missionVM)) {
+                RoleButtonView(title: "デシベルミッションを開始", color: .blue)
+            }
+        default:
+            EmptyView()
         }
     }
 }
