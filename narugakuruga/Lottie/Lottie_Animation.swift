@@ -5,6 +5,8 @@
 //  Created by kudo453602 on 2025/03/19.
 //
 
+// Lottie_View(name: String)のStringをいじれば(例: "Party")好きなアニメーションを呼び出せる。
+
 import SwiftUI
 import Lottie
 
