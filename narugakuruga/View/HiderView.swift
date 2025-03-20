@@ -11,40 +11,29 @@ struct HiderView: View {
     @ObservedObject var hider: HiderViewModel
 
     var body: some View {
-        VStack {
-            Text("隠れる側の画面").font(.largeTitle).padding()
+        ZStack {
+            BackgroundView()
+            VStack(spacing: 20) {
+                Text("隠れる側(画像とかわかるようにしておく)")
 
-            if hider.isHiding {
-                Text("ミッション開始まで: \(hider.timeRemaining) 秒")
-                    .font(.title2)
-                    .foregroundColor(.blue)
-                    .padding()
-            }
+                if hider.isHiding {
+                    MissionCountdownView(timeRemaining: hider.timeRemaining)
+                }
 
-            if hider.caught {
-                Text("あなたは捕まりました！")
-                    .font(.title)
-                    .foregroundColor(.red)
-                    .padding()
-            } else {
-                Text("あなたは隠れています")
-                    .font(.title)
-                    .foregroundColor(.green)
-                    .padding()
+                if hider.caught {
+                    StatusTextView(text: "あなたは捕まりました！", color: .red)
+                } else {
+                    StatusTextView(text: "あなたは隠れています", color: .green)
+                }
 
-            }
+                if let caughtPlayer = hider.caughtPlayerUUID {
+                    StatusTextView(text: "\(caughtPlayer)が捕まりました！", color: .red)
+                        .transition(.opacity)
+                }
 
-            if let caughtPlayer = hider.caughtPlayerUUID {
-                Text("\(caughtPlayer)が捕まりました！")
-                    .font(.title)
-                    .foregroundColor(.red)
-                    .padding()
-                    .transition(.opacity)
-
-            }
-
-            NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
-                EmptyView()
+                NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
+                    EmptyView()
+                }
             }
         }
         .onAppear {
