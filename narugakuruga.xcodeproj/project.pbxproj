@@ -534,6 +534,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "このアプリはかくれんぼのためにBluetoothを使用します。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声を解析します";
 				INFOPLIST_KEY_NSMotionUsageDescription = "このアプリは歩数データを取得して、ミッションの進行を記録するために使用します。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -565,6 +566,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "このアプリはかくれんぼのためにBluetoothを使用します。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声を解析します";
 				INFOPLIST_KEY_NSMotionUsageDescription = "このアプリは歩数データを取得して、ミッションの進行を記録するために使用します。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
