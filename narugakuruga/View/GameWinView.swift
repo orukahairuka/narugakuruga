@@ -9,21 +9,18 @@ import SwiftUI
 
 struct GameWinView: View {
     var body: some View {
-        VStack {
-            Text("🎉 ゲームクリア！ 🎉")
-                .font(.largeTitle)
-                .foregroundColor(.green)
-                .padding()
+        ZStack {
+            BackgroundView()
+            VStack(spacing: 20) {
+                StatusTextView(text: "🎉 ゲームクリア！ 🎉", color: .green)
 
-            Text("おめでとうございます！4つのミッションを達成しました！")
-                .font(.title2)
-                .multilineTextAlignment(.center)
-                .padding()
+                StatusTextView(text: "おめでとうございます！4つのミッションを達成しました！", color: .black)
 
-            Button("タイトルへ戻る") {
-                // ここにタイトル画面へ遷移する処理を書く
+                Button("タイトルへ戻る") {
+                    // ここにタイトル画面へ遷移する処理を書く
+                }
+                .buttonStyle(PrimaryButtonStyle())
             }
-            .buttonStyle(PrimaryButtonStyle())
         }
     }
 }

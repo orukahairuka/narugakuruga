@@ -16,23 +16,18 @@ struct MissionView: View {
     @StateObject var missionVM = MissionViewModel()
 
     var body: some View {
-        VStack {
-            if missionVM.gameWon {
-                GameWinView()
-            } else if let mission = missionVM.currentMission {
-                Text("お題: \(mission.description)")
-                    .font(.title)
-                    .padding()
-
-                MissionButton(mission: mission, missionVM: missionVM)
-                Text("クリア数: \(missionVM.completedMissionsCount) / 4")
-                    .font(.headline)
-                    .foregroundColor(.gray)
-                    .padding()
-            } else {
-                Text("お題を取得中...")
-                    .font(.title2)
-                    .padding()
+        ZStack {
+            BackgroundView()
+            VStack(spacing: 20) {
+                if missionVM.gameWon {
+                    GameWinView()
+                } else if let mission = missionVM.currentMission {
+                    StatusTextView(text: "お題: \(mission.description)")
+                    MissionButton(mission: mission, missionVM: missionVM)
+                    StatusTextView(text: "クリア数: \(missionVM.completedMissionsCount) / 4", color: .gray)
+                } else {
+                    StatusTextView(text: "お題を取得中...")
+                }
             }
         }
     }
@@ -46,13 +41,11 @@ struct MissionButton: View {
         switch MissionType(rawValue: mission.type) ?? .unknown {
         case .walk:
             NavigationLink(destination: WalkView(mission: mission, missionVM: missionVM)) {
-                Text("歩数ミッションを開始")
-                    .buttonStyle(PrimaryButtonStyle())
+                RoleButtonView(title: "歩数ミッションを開始", color: .blue)
             }
         case .decibel:
             NavigationLink(destination: DecibelsView(mission: mission, missionVM: missionVM)) {
-                Text("デシベルミッションを開始")
-                    .buttonStyle(PrimaryButtonStyle())
+                RoleButtonView(title: "デシベルミッションを開始", color: .blue)
             }
         default:
             EmptyView()

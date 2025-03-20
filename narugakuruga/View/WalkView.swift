@@ -15,18 +15,20 @@ struct WalkView: View {
     @State private var countdown = 60
 
     var body: some View {
-        VStack {
-            Text("現在の歩数: \(stepTrackerVM.stepsTaken) / \(mission.goal)")
-                .font(.headline)
+        ZStack {
+            BackgroundView()
+            VStack(spacing: 20) {
+                StatusTextView(text: "現在の歩数: \(stepTrackerVM.stepsTaken) / \(mission.goal)")
 
-            if stepTrackerVM.isMissionCompleted() {
-                MissionCompleteView(
-                    countdown: $countdown,
-                    showCountdown: $showCountdown,
-                    onComplete: {
-                        missionVM.completeMission()
-                    }
-                )
+                if stepTrackerVM.isMissionCompleted() {
+                    MissionCompleteView(
+                        countdown: $countdown,
+                        showCountdown: $showCountdown,
+                        onComplete: {
+                            missionVM.completeMission()
+                        }
+                    )
+                }
             }
         }
     }
