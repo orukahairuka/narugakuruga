@@ -138,12 +138,12 @@
 		3B93C67C2D82EBEF00E40CB7 /* narugakuruga */ = {
 			isa = PBXGroup;
 			children = (
-				3BFBD6242D8C400E00CCFCE1 /* Util */,
 				3B93C6B22D83F6AC00E40CB7 /* seek_sound.mp3 */,
 				3B93C67D2D82EBEF00E40CB7 /* narugakurugaApp.swift */,
 				3B93C6A92D8320B600E40CB7 /* ViewModel */,
 				3B93C6A82D8320B100E40CB7 /* View */,
 				3B93C6A72D8320A500E40CB7 /* Model */,
+				3BFBD6242D8C400E00CCFCE1 /* Util */,
 				3B93C6812D82EBF100E40CB7 /* Assets.xcassets */,
 				3B93C6832D82EBF100E40CB7 /* Preview Content */,
 			);

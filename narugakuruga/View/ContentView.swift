@@ -14,12 +14,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(gradient: Gradient(colors: [Color(hex: "#C6E7FF"), Color(hex: "#FFDDAE")]),
+                LinearGradient(gradient: Gradient(colors: [Color(hex: "#C6E7FF"), Color(hex: "#A8E6CF")]),
                                startPoint: .topLeading,
                                endPoint: .bottomTrailing)
-                    .edgesIgnoringSafeArea(.all)
+                .edgesIgnoringSafeArea(.all)
 
                 VStack(spacing: 20) {
+
+                    //ここのタイトルにロゴ配置後で
                     Text("かくれんぼアプリ")
                         .font(.largeTitle)
                         .foregroundColor(.white)
@@ -29,7 +31,6 @@ struct ContentView: View {
                         .font(.headline)
                         .foregroundColor(.black.opacity(0.8))
                         .padding()
-                        .background(BlurView(style: .systemMaterialLight))
                         .cornerRadius(15)
                         .padding(.horizontal)
 
