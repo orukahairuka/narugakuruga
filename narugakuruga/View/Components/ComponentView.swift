@@ -27,19 +27,6 @@ struct LogoView: View {
 
 struct StatusTextView: View {
     let text: String
-
-    var body: some View {
-        Text(text)
-            .font(.headline)
-            .foregroundColor(.black.opacity(0.8))
-            .padding()
-            .cornerRadius(15)
-            .padding(.horizontal)
-    }
-}
-
-struct StatusTextView: View {
-    let text: String
     var color: Color = .black
 
     var body: some View {
