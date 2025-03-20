@@ -38,6 +38,21 @@ struct StatusTextView: View {
     }
 }
 
+struct StatusTextView: View {
+    let text: String
+    var color: Color = .black
+
+    var body: some View {
+        Text(text)
+            .font(.headline)
+            .foregroundColor(color)
+            .padding()
+            .background(BlurView(style: .systemMaterial))
+            .cornerRadius(10)
+            .padding(.horizontal)
+    }
+}
+
 
 #Preview ("BackgroundView") {
     BackgroundView()
@@ -53,4 +68,8 @@ struct StatusTextView: View {
 
 #Preview ("RoleButtonView") {
     RoleButtonView(title: "鬼になる", color: .red)
+}
+
+#Preview("StatusTextView") {
+    StatusTextView(text: "近くにいるプレイヤー")
 }

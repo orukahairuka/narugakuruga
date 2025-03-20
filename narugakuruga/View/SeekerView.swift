@@ -20,7 +20,7 @@ struct SeekerView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                Text("鬼の画面(ロゴなどおく)")
+                Text("鬼の画面(わかるようにするLottieとか画像とか)")
 
                 if seeker.isSeeking {
                     StatusTextView(text: "近くにいるプレイヤー")
