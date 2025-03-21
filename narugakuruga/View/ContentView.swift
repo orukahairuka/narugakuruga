@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ContentView: View {
     @StateObject private var seeker = SeekerViewModel()
@@ -83,28 +84,65 @@ struct ContentView: View {
 struct RoleSelectionView: View {
     @ObservedObject var seeker: SeekerViewModel
     @ObservedObject var hider: HiderViewModel
-    @Binding var playerName: String // ユーザー名を受け取る
+    @Binding var playerName: String
 
+    @State private var isNavigatingToSeeker = false
+    @State private var isNavigatingToHider = false
 
     var body: some View {
         HStack(spacing: 20) {
-            NavigationLink(destination: SeekerView(seeker: seeker)) {
+            NavigationLink(destination: SeekerView(seeker: seeker), isActive: $isNavigatingToSeeker) {
+                EmptyView()
+            }
+
+            NavigationLink(destination: HiderView(hider: hider), isActive: $isNavigatingToHider) {
+                EmptyView()
+            }
+
+            Button(action: {
+                guard !playerName.isEmpty else { return }
+                let shortUUID = seeker.getMyShortUUID()
+                let data: [String: Any] = [
+                    "playerName": playerName
+                ]
+                let db = Firestore.firestore()
+                db.collection("players").document(shortUUID).setData(data) { error in
+                    if let error = error {
+                        print("⚠️ Firestore書き込み失敗（鬼）:", error.localizedDescription)
+                    } else {
+                        print("✅ 鬼として登録完了: \(playerName)")
+                        seeker.startScanning()
+                        hider.stopAdvertising()
+                        isNavigatingToSeeker = true
+                    }
+                }
+            }) {
                 RoleButtonView(title: "鬼になる", color: .red)
             }
-            .simultaneousGesture(TapGesture().onEnded {
-                guard !playerName.isEmpty else { return } // ユーザー名が空なら処理しない
-                seeker.startScanning()
-                hider.stopAdvertising()
-            })
 
-            NavigationLink(destination: HiderView(hider: hider)) {
+            Button(action: {
+                guard !playerName.isEmpty else { return }
+                let shortUUID = seeker.getMyShortUUID()
+                let data: [String: Any] = [
+                    "playerName": playerName,
+                    "role": "hider",
+                    "joinedAt": Timestamp()
+                ]
+
+                let db = Firestore.firestore()
+                db.collection("players").document(shortUUID).setData(data) { error in
+                    if let error = error {
+                        print("⚠️ Firestore書き込み失敗（隠れ）:", error.localizedDescription)
+                    } else {
+                        print("✅ 隠れとして登録完了: \(playerName)")
+                        hider.startAdvertising()
+                        seeker.stopScanning()
+                        isNavigatingToHider = true
+                    }
+                }
+            }) {
                 RoleButtonView(title: "隠れる", color: .blue)
             }
-            .simultaneousGesture(TapGesture().onEnded {
-                guard !playerName.isEmpty else { return } // ユーザー名が空なら処理しない
-                hider.startAdvertising()
-                seeker.stopScanning()
-            })
         }
         .padding()
     }

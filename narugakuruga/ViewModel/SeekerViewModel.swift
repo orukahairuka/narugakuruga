@@ -102,3 +102,9 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
         audioPlayer?.stop()
     }
 }
+
+extension SeekerViewModel {
+    func getMyShortUUID() -> String {
+        return UIDevice.current.identifierForVendor?.uuidString.prefix(8).description ?? UUID().uuidString.prefix(8).description
+    }
+}
