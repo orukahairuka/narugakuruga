@@ -27,6 +27,8 @@
 		3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */; };
 		3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */; };
 		3B93C6C02D8570CA00E40CB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */; };
+		83504B702D8AFBD100E1FEB4 /* Party.json in Resources */ = {isa = PBXBuildFile; fileRef = 83504B6F2D8AFBD100E1FEB4 /* Party.json */; };
+		83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */; };
 		3BC6BCF42D8A976E00D6C948 /* DecibelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCF32D8A976E00D6C948 /* DecibelViewModel.swift */; };
 		3BC6BCF62D8A977E00D6C948 /* DecibelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCF52D8A977E00D6C948 /* DecibelsView.swift */; };
 		3BC6BCF82D8A978700D6C948 /* WalkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCF72D8A978600D6C948 /* WalkView.swift */; };
@@ -78,6 +80,8 @@
 		3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTrackViewModel.swift; sourceTree = "<group>"; };
 		3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionModel.swift; sourceTree = "<group>"; };
 		3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		83504B6F2D8AFBD100E1FEB4 /* Party.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Party.json; path = ../../../../../Downloads/Party.json; sourceTree = "<group>"; };
+		83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie_Animation.swift; sourceTree = "<group>"; };
 		3BC6BCF32D8A976E00D6C948 /* DecibelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecibelViewModel.swift; sourceTree = "<group>"; };
 		3BC6BCF52D8A977E00D6C948 /* DecibelsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DecibelsView.swift; path = narugakuruga/View/DecibelsView.swift; sourceTree = SOURCE_ROOT; };
 		3BC6BCF72D8A978600D6C948 /* WalkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WalkView.swift; path = narugakuruga/View/WalkView.swift; sourceTree = SOURCE_ROOT; };
@@ -142,6 +146,7 @@
 		3B93C67C2D82EBEF00E40CB7 /* narugakuruga */ = {
 			isa = PBXGroup;
 			children = (
+				83504B6E2D8AFBB600E1FEB4 /* Lottie */,
 				3B93C6B22D83F6AC00E40CB7 /* seek_sound.mp3 */,
 				3B93C67D2D82EBEF00E40CB7 /* narugakurugaApp.swift */,
 				3B93C6A92D8320B600E40CB7 /* ViewModel */,
@@ -221,6 +226,15 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		83504B6E2D8AFBB600E1FEB4 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				83504B6F2D8AFBD100E1FEB4 /* Party.json */,
+				83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		3BC6BCFB2D8A9A9700D6C948 /* Components */ = {
@@ -354,6 +368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83504B702D8AFBD100E1FEB4 /* Party.json in Resources */,
 				3B93C6B32D83F6AD00E40CB7 /* seek_sound.mp3 in Resources */,
 				3B93C6C02D8570CA00E40CB7 /* GoogleService-Info.plist in Resources */,
 				3B93C6852D82EBF100E40CB7 /* Preview Assets.xcassets in Resources */,
@@ -393,6 +408,7 @@
 				3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */,
 				3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */,
 				3B93C6AF2D83E0C100E40CB7 /* SeekerViewModel.swift in Sources */,
+				83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */,
 				3BC6BCFD2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift in Sources */,
 				3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */,
 				3B447CB62D8BFC4500639228 /* PlayerCaptureManager.swift in Sources */,
