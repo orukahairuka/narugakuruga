@@ -26,8 +26,8 @@ struct HiderView: View {
                     StatusTextView(text: "あなたは隠れています", color: .green)
                 }
 
-                if let caughtPlayer = hider.caughtPlayerUUID {
-                    StatusTextView(text: "\(caughtPlayer)が捕まりました！", color: .red)
+                if let caughtPlayer = hider.caughtPlayerName {
+                    StatusTextView(text: "\(caughtPlayer) が捕まりました！", color: .red)
                         .transition(.opacity)
                 }
 

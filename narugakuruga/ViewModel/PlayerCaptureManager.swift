@@ -16,21 +16,76 @@ class PlayerCaptureManager {
     private var allCaughtListener: ListenerRegistration? //誰かが鬼に捕まったら全体に通知を監視
 
 
+
+
     // String型の短縮UUIDを使う
-    func recordCapturedPlayer(playerShortUUID: String, completion: ((Error?) -> Void)? = nil) {
-        print("捕まえたプレイヤーをFirestoreに記録")
+    func recordCapturedPlayer(playerShortUUID: String, playerName: String, completion: ((Error?) -> Void)? = nil) {
+        print("捕まえたプレイヤーをFirestoreに記録: \(playerName)")
         let data: [String: Any] = [
             "caught": true,
-            "caughtAt": Timestamp(date: Date())
+            "caughtAt": Timestamp(date: Date()),
+            "playerName": playerName // ユーザー名を追加
         ]
         db.collection("caughtPlayers").document(playerShortUUID).setData(data, completion: completion)
     }
 
+
     // 監視する側も同様に短縮UUIDで監視
-    func startListeningCaptured(playerShortUUID: String, onCaught: @escaping () -> Void) {
+    func startListeningAllCapturedPlayers(onAnyPlayerCaught: @escaping (String, String) -> Void) {
+        stopListeningAllCapturedPlayers()
+        allCaughtListener = db.collection("caughtPlayers")
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Firestore監視エラー:", error.localizedDescription)
+                    return
+                }
+
+                guard let snapshot = snapshot else { return }
+
+                for document in snapshot.documents {
+                    let data = document.data()
+                    if let caught = data["caught"] as? Bool, caught,
+                       let playerName = data["playerName"] as? String {
+                        let playerUUID = document.documentID
+                        print("📢 誰かが捕まった！UUID:", playerUUID, " 名前:", playerName)
+                        DispatchQueue.main.async {
+                            onAnyPlayerCaught(playerUUID, playerName)
+                        }
+                    }
+                }
+            }
+    }
+
+
+    // 全プレイヤーの監視
+    func startListeningAllCapturedPlayers(onAnyPlayerCaught: @escaping (String) -> Void) {
+        stopListeningAllCapturedPlayers()
+        allCaughtListener = db.collection("caughtPlayers")
+            .addSnapshotListener { snapshot, error in
+                if let error = error {
+                    print("Firestore監視エラー:", error.localizedDescription)
+                    return
+                }
+
+                guard let snapshot = snapshot else { return }
+
+                for document in snapshot.documents {
+                    let data = document.data()
+                    if let caught = data["caught"] as? Bool, caught {
+                        let playerUUID = document.documentID
+                        print("📢 誰かが捕まった！UUID:", playerUUID)
+                        DispatchQueue.main.async {
+                            onAnyPlayerCaught(playerUUID)
+                        }
+                    }
+                }
+            }
+    }
+
+    //捕まったプレイヤーを監視する
+    func startListeningCaptured(playerShortUUID: String, onCaught: @escaping (String) -> Void) {
         print("【Firestore監視開始】短縮UUID:", playerShortUUID)
 
-        // ★ 既存のリスナーを削除してから新規リスナーを登録する
         stopListeningCaptured()
 
         caughtListener = db.collection("caughtPlayers")
@@ -42,43 +97,19 @@ class PlayerCaptureManager {
                 }
 
                 guard let snapshot = snapshot, let data = snapshot.data(),
-                      let caught = data["caught"] as? Bool, caught else {
+                      let caught = data["caught"] as? Bool, caught,
+                      let playerName = data["playerName"] as? String else {
                     print("プレイヤーはまだ捕まっていません。")
                     return
                 }
 
                 DispatchQueue.main.async {
-                    print("✅ プレイヤーが捕まった！（Firestoreで確認済み）") // ここでだけログを出す
-                    onCaught()
+                    print("✅ \(playerName) が捕まった！（Firestoreで確認済み）")
+                    onCaught(playerName)
                 }
             }
     }
-
-    // 全プレイヤーの監視
-        func startListeningAllCapturedPlayers(onAnyPlayerCaught: @escaping (String) -> Void) {
-            stopListeningAllCapturedPlayers()
-            allCaughtListener = db.collection("caughtPlayers")
-                .addSnapshotListener { snapshot, error in
-                    if let error = error {
-                        print("Firestore監視エラー:", error.localizedDescription)
-                        return
-                    }
-
-                    guard let snapshot = snapshot else { return }
-
-                    for document in snapshot.documents {
-                        let data = document.data()
-                        if let caught = data["caught"] as? Bool, caught {
-                            let playerUUID = document.documentID
-                            print("📢 誰かが捕まった！UUID:", playerUUID)
-                            DispatchQueue.main.async {
-                                onAnyPlayerCaught(playerUUID)
-                            }
-                        }
-                    }
-                }
-        }
-
+    
 
     //個人の監視を停止する
     func stopListeningCaptured() {
@@ -91,8 +122,8 @@ class PlayerCaptureManager {
 
     //全体の監視を停止する
     func stopListeningAllCapturedPlayers() {
-            allCaughtListener?.remove()
-            allCaughtListener = nil
-        }
+        allCaughtListener?.remove()
+        allCaughtListener = nil
+    }
 
 }

@@ -16,7 +16,9 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     private var audioPlayer: AVAudioPlayer?
     @Published var discoveredPeripherals: [UUID: Int] = [:]
     @Published var playerUUIDMapping: [UUID: String] = [:]  // PeripheralのUUID → Playerの短縮UUID
+    @Published var playerNameMapping: [UUID: String] = [:] // ←これを新しく追加
 
+    @Published var playerName: String = ""
     @Published var isSeeking = false
     private let db = Firestore.firestore()
     private let captureManager = PlayerCaptureManager()
@@ -29,6 +31,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     }
 
     func startScanning() {
+        self.playerName = playerName
         centralManager.scanForPeripherals(withServices: [CBUUID(string: "1234")], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         isSeeking = true
     }
