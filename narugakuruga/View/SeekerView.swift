@@ -46,7 +46,7 @@ struct PlayerInfoView: View {
     let uuid: UUID
     let rssi: Int
     @ObservedObject var seeker: SeekerViewModel
-    let playerName: String // ←追加
+    let playerName: String // ← BindingじゃなくてOK！
 
     var body: some View {
         HStack {
@@ -59,7 +59,7 @@ struct PlayerInfoView: View {
 
             Spacer()
 
-            CaptureButtonView(uuid: uuid, seeker: seeker, playerName: .constant(playerName))
+            CaptureButtonView(uuid: uuid, seeker: seeker, playerName: playerName) // ← Binding不要
         }
         .padding()
         .background(BlurView(style: .systemMaterial))
@@ -69,16 +69,19 @@ struct PlayerInfoView: View {
 }
 
 
+
 struct CaptureButtonView: View {
     let uuid: UUID
     @ObservedObject var seeker: SeekerViewModel
-    @Binding var playerName: String
+    let playerName: String // ← Binding不要
 
     var body: some View {
         Button("捕まえた！") {
             let captureManager = PlayerCaptureManager()
             if let shortPlayerUUID = seeker.playerUUIDMapping[uuid] {
                 print("🔥【鬼側】捕まえたプレイヤーの短縮UUIDは:", shortPlayerUUID)
+                print("🎯 捕まえたプレイヤー名: \(playerName)") // ← デバッグログ追加
+
                 captureManager.recordCapturedPlayer(playerShortUUID: shortPlayerUUID, playerName: playerName) { error in
                     if let error = error {
                         print("Firestore書き込みエラー:", error.localizedDescription)
@@ -96,3 +99,4 @@ struct CaptureButtonView: View {
         .cornerRadius(10)
     }
 }
+

@@ -112,13 +112,16 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         print("【プレイヤー側】Firestoreの捕獲状態をリセット:", shortUUID)
 
         // Firestoreのデータを削除する場合（ドキュメントごと消す）
-        db.collection("caughtPlayers").document(shortUUID).delete { error in
+        db.collection("caughtPlayers").document(shortUUID).updateData([
+            "caught": false
+        ]) { error in
             if let error = error {
-                print("Firestoreの削除エラー:", error.localizedDescription)
+                print("Firestoreの更新エラー:", error.localizedDescription)
             } else {
-                print("Firestoreのデータをリセットしました")
+                print("Firestoreのデータを更新（リセット）しました")
             }
         }
+
 
         // ローカルの状態もリセット
         DispatchQueue.main.async {
