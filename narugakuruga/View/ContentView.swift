@@ -23,7 +23,9 @@ struct ContentView: View {
                 BackgroundView()
                 VStack(spacing: 20) {
                     LogoView()
-                    StatusTextView(text: statusText)
+                    if playerName != "" {
+                        StatusTextView(text: statusText)
+                    }
 
                     // ユーザー名入力欄
                     TextField("ユーザー名を入力", text: $playerName)
@@ -36,7 +38,13 @@ struct ContentView: View {
                     NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
                         EmptyView()
                     }
-                    RoleSelectionView(seeker: seeker, hider: hider, playerName: $playerName)
+                    if playerName != ""{
+
+                        RoleSelectionView(seeker: seeker, hider: hider, playerName: $playerName)
+                    } else {
+                        Text("ユーザー名を入力してください")
+                            .foregroundColor(.red)
+                    }
                 }
                 .padding()
             }
