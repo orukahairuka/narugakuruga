@@ -9,15 +9,18 @@ import SwiftUI
 import FirebaseFirestore
 
 class MissionViewModel: ObservableObject {
+    @ObservedObject var hider: HiderViewModel
     private let db = Firestore.firestore()
     @Published var currentMission: Mission?
     @Published var completedMissionsCount = 0
     @Published var gameWon = false
     
-    init() {
-        resetMissions() // 🔄 アプリ起動時にミッションをリセット
+    init(hider: HiderViewModel) {
+        self.hider = hider
+        resetMissions()
         fetchMission()
     }
+
     
     //順番にミッションを取得
     func fetchMission() {
@@ -75,24 +78,27 @@ class MissionViewModel: ObservableObject {
     
     //ミッションを完了
     func completeMission() {
-        guard let mission = currentMission else { return }
-        db.collection("missions").document(mission.id).updateData(["completed": true]) { error in
-            if error == nil {
-                DispatchQueue.main.async {
-                    self.completedMissionsCount += 1
-                    print("お題クリア！🎉 (\(self.completedMissionsCount)/4)")
-                    
-                    if self.completedMissionsCount >= 4 {
-                        self.gameWon = true
-                    } else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
-                            self.fetchMission()
+            guard let mission = currentMission else { return }
+
+            db.collection("missions").document(mission.id).updateData(["completed": true]) { error in
+                if error == nil {
+                    DispatchQueue.main.async {
+                        self.completedMissionsCount += 1
+                        print("お題クリア！🎉 (\(self.completedMissionsCount)/4)")
+
+                        if self.completedMissionsCount >= 4 {
+                            self.gameWon = true
+                            self.hider.currentScreen = .result // ✅ 修正
+                        } else {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                                self.fetchMission()
+                                self.hider.currentScreen = .mission // ✅ 修正
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
     //アプリ起動時にミッションをリセット
     func resetMissions() {

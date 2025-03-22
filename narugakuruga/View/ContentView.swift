@@ -8,46 +8,47 @@
 import SwiftUI
 import FirebaseFirestore
 
+enum GameScreen {
+    case roleSelect
+    case hider
+    case seeker
+}
+
 struct ContentView: View {
+    @State private var currentScreen: GameScreen = .roleSelect
     @StateObject private var seeker = SeekerViewModel()
     @StateObject private var hider = HiderViewModel()
-
-    @State private var isWaitingForSeeker = false // 鬼になるまでのカウントダウン中かどうか
-    @State private var remainingTimeForSeeker = 40 // 鬼になるまでの残り時間
-    @State private var navigateToSeeker = false // 鬼になったらSeekerViewに遷移するかどうか
-    @State private var playerName: String = "" // ユーザー名
-
+    @State private var playerName: String = ""
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                BackgroundView()
+        ZStack {
+            BackgroundView()
+
+            switch currentScreen {
+            case .roleSelect:
                 VStack(spacing: 20) {
-                    LogoView()
-                    if playerName != "" {
+                    if !playerName.isEmpty {
                         StatusTextView(text: statusText)
                     }
 
-                    // ユーザー名入力欄
-                    TextField("ユーザー名を入力", text: $playerName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .frame(width: 300)
                     if hider.isHiding {
                         MissionCountdownView(timeRemaining: hider.timeRemaining)
                     }
-                    NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
-                        EmptyView()
-                    }
-                    if playerName != ""{
 
-                        RoleSelectionView(seeker: seeker, hider: hider, playerName: $playerName)
-                    } else {
-                        Text("ユーザー名を入力してください")
-                            .foregroundColor(.red)
-                    }
+                    RoleSelectionView(
+                        seeker: seeker,
+                        hider: hider,
+                        playerName: $playerName,
+                        currentScreen: $currentScreen
+                    )
                 }
                 .padding()
+
+            case .hider:
+                HiderMainView(hider: hider)
+
+            case .seeker:
+                SeekerView(seeker: seeker)
             }
         }
     }
@@ -61,91 +62,80 @@ struct ContentView: View {
             return "どちらか選んでください"
         }
     }
-
-    // 鬼になるカウントダウンを開始する
-    private func startSeekerCountdown() {
-        isWaitingForSeeker = true
-        remainingTimeForSeeker = 40
-
-        for i in 1...40 {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i)) {
-                remainingTimeForSeeker -= 1
-            }
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 40) {
-            navigateToSeeker = true
-            seeker.startScanning()
-            hider.stopAdvertising()
-        }
-    }
 }
 
 struct RoleSelectionView: View {
     @ObservedObject var seeker: SeekerViewModel
     @ObservedObject var hider: HiderViewModel
     @Binding var playerName: String
-
-    @State private var isNavigatingToSeeker = false
-    @State private var isNavigatingToHider = false
+    @Binding var currentScreen: GameScreen
 
     var body: some View {
-        HStack(spacing: 20) {
-            NavigationLink(destination: SeekerView(seeker: seeker), isActive: $isNavigatingToSeeker) {
-                EmptyView()
-            }
+        ZStack {
+            BackgroundView()
+            VStack(spacing: 20) {
+                LogoView()
 
-            NavigationLink(destination: HiderMainView(hider: hider), isActive: $isNavigatingToHider) {
-                EmptyView()
-            }
+                if !playerName.isEmpty {
+                    Text("どちらか選んでください")
+                        .foregroundColor(.gray)
+                }
 
+                TextField("ユーザー名を入力", text: $playerName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding()
+                    .frame(width: 300)
 
-            Button(action: {
-                guard !playerName.isEmpty else { return }
-                let shortUUID = seeker.getMyShortUUID()
-                let data: [String: Any] = [
-                    "playerName": playerName
-                ]
-                let db = Firestore.firestore()
-                db.collection("players").document(shortUUID).setData(data) { error in
-                    if let error = error {
-                        print("⚠️ Firestore書き込み失敗（鬼）:", error.localizedDescription)
-                    } else {
-                        print("✅ 鬼として登録完了: \(playerName)")
-                        seeker.startScanning()
-                        hider.stopAdvertising()
-                        isNavigatingToSeeker = true
+                HStack(spacing: 20) {
+                    // 鬼になる
+                    Button(action: {
+                        guard !playerName.isEmpty else { return }
+
+                        let shortUUID = seeker.getMyShortUUID()
+                        let data: [String: Any] = [
+                            "playerName": playerName,
+                            "role": "seeker",
+                            "joinedAt": Timestamp()
+                        ]
+                        Firestore.firestore().collection("players").document(shortUUID).setData(data) { error in
+                            if let error = error {
+                                print("⚠️ 鬼のFirestore登録失敗: \(error.localizedDescription)")
+                            } else {
+                                seeker.startScanning()
+                                hider.stopAdvertising()
+                                currentScreen = .seeker
+                            }
+                        }
+                    }) {
+                        RoleButtonView(title: "鬼になる", color: .red)
+                    }
+
+                    // 隠れる
+                    Button(action: {
+                        guard !playerName.isEmpty else { return }
+
+                        let shortUUID = seeker.getMyShortUUID()
+                        let data: [String: Any] = [
+                            "playerName": playerName,
+                            "role": "hider",
+                            "joinedAt": Timestamp()
+                        ]
+                        Firestore.firestore().collection("players").document(shortUUID).setData(data) { error in
+                            if let error = error {
+                                print("⚠️ 隠れのFirestore登録失敗: \(error.localizedDescription)")
+                            } else {
+                                hider.startAdvertising()
+                                seeker.stopScanning()
+                                currentScreen = .hider
+                            }
+                        }
+                    }) {
+                        RoleButtonView(title: "隠れる", color: .blue)
                     }
                 }
-            }) {
-                RoleButtonView(title: "鬼になる", color: .red)
-            }
-
-            Button(action: {
-                guard !playerName.isEmpty else { return }
-                let shortUUID = seeker.getMyShortUUID()
-                let data: [String: Any] = [
-                    "playerName": playerName,
-                    "role": "hider",
-                    "joinedAt": Timestamp()
-                ]
-
-                let db = Firestore.firestore()
-                db.collection("players").document(shortUUID).setData(data) { error in
-                    if let error = error {
-                        print("⚠️ Firestore書き込み失敗（隠れ）:", error.localizedDescription)
-                    } else {
-                        print("✅ 隠れとして登録完了: \(playerName)")
-                        hider.startAdvertising()
-                        seeker.stopScanning()
-                        isNavigatingToHider = true
-                    }
-                }
-            }) {
-                RoleButtonView(title: "隠れる", color: .blue)
+                .padding()
             }
         }
-        .padding()
     }
 }
 

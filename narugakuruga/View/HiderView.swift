@@ -8,17 +8,16 @@
 import SwiftUI
 import AVFoundation
 
-
 struct HiderView: View {
     @ObservedObject var hider: HiderViewModel
     private let synthesizer = AVSpeechSynthesizer()
-
 
     var body: some View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                Text("隠れる側の画面(わかるようにするLottieとか画像とか)")
+                Loop_Lottie_View(name: "Hider")
+                    .frame(width: 300, height: 300)
 
                 if hider.isHiding {
                     MissionCountdownView(timeRemaining: hider.timeRemaining)
@@ -38,19 +37,16 @@ struct HiderView: View {
                             speak("\(caughtPlayer) が捕まりました！")
                         }
                 }
-
-                NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
-                    EmptyView()
-                }
             }
         }
         .onAppear {
             hider.observeAllCaughtPlayers()
         }
     }
+
     private func speak(_ string: String) {
         let utterance = AVSpeechUtterance(string: string)
-        utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP") // 日本語で読み上げ
+        utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP")
         synthesizer.speak(utterance)
     }
 }

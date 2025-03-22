@@ -8,30 +8,45 @@
 import SwiftUI
 
 
+
 enum MissionType: String {
     case walk, decibel, unknown
 }
 
 struct MissionView: View {
-    @StateObject var missionVM = MissionViewModel()
+    @ObservedObject var hider: HiderViewModel
 
     var body: some View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                if missionVM.gameWon {
-                    GameWinView()
-                } else if let mission = missionVM.currentMission {
-                    StatusTextView(text: "お題: \(mission.description)")
-                    MissionButton(mission: mission, missionVM: missionVM)
-                    StatusTextView(text: "クリア数: \(missionVM.completedMissionsCount) / 4", color: .gray)
+                if let missionVM = hider.missionVM {
+                    if missionVM.gameWon {
+                        GameWinView()
+                    } else if let mission = missionVM.currentMission {
+                        StatusTextView(text: "お題: \(mission.description)")
+
+                        Button("ミッション開始") {
+                            hider.startMission(mission)
+                        }
+
+                        StatusTextView(
+                            text: "クリア数: \(missionVM.completedMissionsCount) / 4",
+                            color: .gray
+                        )
+                    } else {
+                        StatusTextView(text: "お題を取得中…")
+                    }
                 } else {
-                    StatusTextView(text: "お題を取得中...")
+                    ProgressView("ミッション読み込み中…")
                 }
+
             }
         }
     }
 }
+
+
 
 struct MissionButton: View {
     let mission: Mission

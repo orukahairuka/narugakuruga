@@ -28,6 +28,10 @@ struct MissionCompleteView: View {
                     .buttonStyle(PrimaryButtonStyle())
                 }
             }
+            Lottie_View(name: "Check")
+                .allowsHitTesting(false)
+            Lottie_View(name: "Party")
+                .allowsHitTesting(false)
         }
     }
 
