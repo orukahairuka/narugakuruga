@@ -18,7 +18,9 @@ struct HiderView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                Text("隠れる側の画面(わかるようにするLottieとか画像とか)")
+//                Text("隠れる側の画面(わかるようにするLottieとか画像とか)")
+                Loop_Lottie_View(name: "Hider")
+                    .frame(width: 300,height: 300)
 
                 if hider.isHiding {
                     MissionCountdownView(timeRemaining: hider.timeRemaining)
