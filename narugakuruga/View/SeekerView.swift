@@ -20,7 +20,9 @@ struct SeekerView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                Text("鬼の画面(わかるようにするLottieとか画像とか)")
+//                Text("鬼の画面(わかるようにするLottieとか画像とか)")
+                Loop_Lottie_View(name: "Seeker")
+                    .frame(width: 300,height: 300)
 
                 if seeker.isSeeking {
                     StatusTextView(text: "近くにいるプレイヤー")
@@ -85,3 +87,5 @@ struct CaptureButtonView: View {
         .cornerRadius(10)
     }
 }
+
+

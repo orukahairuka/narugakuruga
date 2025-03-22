@@ -69,22 +69,24 @@ struct RoleSelectionView: View {
     @ObservedObject var hider: HiderViewModel
 
     var body: some View {
-        HStack(spacing: 20) {
-            NavigationLink(destination: SeekerView(seeker: seeker)) {
-                RoleButtonView(title: "鬼になる", color: .red)
+        ZStack{
+            HStack(spacing: 20) {
+                NavigationLink(destination: SeekerView(seeker: seeker)) {
+                    RoleButtonView(title: "鬼になる", color: .red)
+                }
+                .simultaneousGesture(TapGesture().onEnded {
+                    seeker.startScanning()
+                    hider.stopAdvertising()
+                })
+                
+                NavigationLink(destination: HiderView(hider: hider)) {
+                    RoleButtonView(title: "隠れる", color: .blue)
+                }
+                .simultaneousGesture(TapGesture().onEnded {
+                    hider.startAdvertising()
+                    seeker.stopScanning()
+                })
             }
-            .simultaneousGesture(TapGesture().onEnded {
-                seeker.startScanning()
-                hider.stopAdvertising()
-            })
-
-            NavigationLink(destination: HiderView(hider: hider)) {
-                RoleButtonView(title: "隠れる", color: .blue)
-            }
-            .simultaneousGesture(TapGesture().onEnded {
-                hider.startAdvertising()
-                seeker.stopScanning()
-            })
         }
         .padding()
     }
