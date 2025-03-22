@@ -11,6 +11,11 @@
 		3B447CB62D8BFC4500639228 /* PlayerCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */; };
 		3B447CB82D8BFC5800639228 /* HiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB72D8BFC5800639228 /* HiderView.swift */; };
 		3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB92D8BFC6C00639228 /* SeekerView.swift */; };
+		3B6B03682D8E900E000E4160 /* Loop_Lottie.View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B03672D8E900E000E4160 /* Loop_Lottie.View.swift */; };
+		3B6B036A2D8E9010000E4160 /* Lottie_Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B03692D8E9010000E4160 /* Lottie_Animation.swift */; };
+		3B6B036C2D8E9066000E4160 /* Seeker.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B6B036B2D8E9066000E4160 /* Seeker.json */; };
+		3B6B036E2D8E906C000E4160 /* Check.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B6B036D2D8E906C000E4160 /* Check.json */; };
+		3B6B03702D8E9072000E4160 /* Hider.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B6B036F2D8E9071000E4160 /* Hider.json */; };
 		3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C67D2D82EBEF00E40CB7 /* narugakurugaApp.swift */; };
 		3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */; };
 		3B93C6822D82EBF100E40CB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B93C6812D82EBF100E40CB7 /* Assets.xcassets */; };
@@ -38,7 +43,6 @@
 		3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6272D8C404500CCFCE1 /* BlurView.swift */; };
 		3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */; };
 		3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */; };
-		83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */; };
 		A77580E72D8E79300063C26E /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = A77580E62D8E79300063C26E /* Supabase */; };
 		A77580E92D8E7B370063C26E /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77580E82D8E7B370063C26E /* SupabaseManager.swift */; };
 		A77580ED2D8E84120063C26E /* FetchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77580EC2D8E84120063C26E /* FetchImageView.swift */; };
@@ -75,6 +79,11 @@
 		3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCaptureManager.swift; sourceTree = "<group>"; };
 		3B447CB72D8BFC5800639228 /* HiderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HiderView.swift; path = narugakuruga/View/HiderView.swift; sourceTree = SOURCE_ROOT; };
 		3B447CB92D8BFC6C00639228 /* SeekerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekerView.swift; sourceTree = "<group>"; };
+		3B6B03672D8E900E000E4160 /* Loop_Lottie.View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop_Lottie.View.swift; sourceTree = "<group>"; };
+		3B6B03692D8E9010000E4160 /* Lottie_Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie_Animation.swift; sourceTree = "<group>"; };
+		3B6B036B2D8E9066000E4160 /* Seeker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Seeker.json; sourceTree = "<group>"; };
+		3B6B036D2D8E906C000E4160 /* Check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Check.json; sourceTree = "<group>"; };
+		3B6B036F2D8E9071000E4160 /* Hider.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Hider.json; sourceTree = "<group>"; };
 		3B93C67A2D82EBEF00E40CB7 /* narugakuruga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = narugakuruga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B93C67D2D82EBEF00E40CB7 /* narugakurugaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = narugakurugaApp.swift; sourceTree = "<group>"; };
 		3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,7 +112,6 @@
 		3BFBD6272D8C404500CCFCE1 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCountdownView.swift; sourceTree = "<group>"; };
 		3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
-		83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie_Animation.swift; sourceTree = "<group>"; };
 		A77580E82D8E7B370063C26E /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
 		A77580EC2D8E84120063C26E /* FetchImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImageView.swift; sourceTree = "<group>"; };
 		A77580EE2D8E87FA0063C26E /* SupabaseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseListViewModel.swift; sourceTree = "<group>"; };
@@ -286,7 +294,11 @@
 			isa = PBXGroup;
 			children = (
 				A7F8A7FC2D8D4D5E00E50916 /* Party.json */,
-				83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */,
+				3B6B03672D8E900E000E4160 /* Loop_Lottie.View.swift */,
+				3B6B03692D8E9010000E4160 /* Lottie_Animation.swift */,
+				3B6B036F2D8E9071000E4160 /* Hider.json */,
+				3B6B036B2D8E9066000E4160 /* Seeker.json */,
+				3B6B036D2D8E906C000E4160 /* Check.json */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -409,6 +421,9 @@
 				A7F8A7FD2D8D4D5E00E50916 /* Party.json in Resources */,
 				3B93C6C02D8570CA00E40CB7 /* GoogleService-Info.plist in Resources */,
 				3B93C6852D82EBF100E40CB7 /* Preview Assets.xcassets in Resources */,
+				3B6B036C2D8E9066000E4160 /* Seeker.json in Resources */,
+				3B6B036E2D8E906C000E4160 /* Check.json in Resources */,
+				3B6B03702D8E9072000E4160 /* Hider.json in Resources */,
 				3B93C6822D82EBF100E40CB7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,6 +456,7 @@
 				A7F8A7FB2D8D4D5500E50916 /* GetLocationViewModel.swift in Sources */,
 				3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */,
 				3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */,
+				3B6B036A2D8E9010000E4160 /* Lottie_Animation.swift in Sources */,
 				3BFBD6262D8C402600CCFCE1 /* ColorExtension.swift in Sources */,
 				3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */,
 				3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */,
@@ -450,7 +466,6 @@
 				3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */,
 				3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */,
 				3B93C6AF2D83E0C100E40CB7 /* SeekerViewModel.swift in Sources */,
-				83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */,
 				A78BFD202D8E72000059D857 /* HiderMainView.swift in Sources */,
 				3BC6BCFD2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift in Sources */,
 				3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */,
@@ -461,6 +476,7 @@
 				3BC6BCF62D8A977E00D6C948 /* DecibelsView.swift in Sources */,
 				A78BFD1C2D8E6DD10059D857 /* CameraView.swift in Sources */,
 				3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */,
+				3B6B03682D8E900E000E4160 /* Loop_Lottie.View.swift in Sources */,
 				3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */,
 				3B93C6BA2D856CCE00E40CB7 /* MissionView.swift in Sources */,
 				3BC6BCF42D8A976E00D6C948 /* DecibelViewModel.swift in Sources */,
