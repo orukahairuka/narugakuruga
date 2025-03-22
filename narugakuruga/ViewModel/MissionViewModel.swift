@@ -90,7 +90,7 @@ class MissionViewModel: ObservableObject {
                             self.gameWon = true
                             self.hider.currentScreen = .result // ✅ 修正
                         } else {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 self.fetchMission()
                                 self.hider.currentScreen = .mission // ✅ 修正
                             }
