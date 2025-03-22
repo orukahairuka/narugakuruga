@@ -21,7 +21,7 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     @Published private(set) var shortUUID: String? // 短縮UUIDを一元管理
     @Published var playerName: String = ""
     @Published var caughtPlayerName: String? = nil // 追加
-    @Published var missionVM = MissionViewModel()
+    @Published var missionVM: MissionViewModel!
 
 
 
@@ -37,16 +37,22 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         case mission
         case walk(Mission)
         case decibel(Mission)
+        case result // ← ✅ これを追加！！
     }
+
 
 
 
     override init() {
-        self.captureManager = PlayerCaptureManager() // ←ここで初期化する
-        super.init()
+        self.captureManager = PlayerCaptureManager()
+        super.init() // ✅ 先にスーパークラスを初期化
+
+        self.missionVM = MissionViewModel(hider: self) // ✅ そのあとに self を使って missionVM を初期化
+
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil)
-        shortUUID = Self.generateShortUUID() // 初回のみ計算
+        shortUUID = Self.generateShortUUID()
     }
+
 
     deinit {
         caughtListener?.remove()

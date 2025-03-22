@@ -18,19 +18,53 @@ struct HiderMainView: View {
             case .hider:
                 HiderView(hider: hider)
                     .frame(width: 300, height: 300)
+                    .padding()
                     .padding(.top, 300)
+
             case .mission:
                 MissionView(hider: hider)
                     .frame(width: 300, height: 300)
+                    .padding()
                     .padding(.top, 300)
+                    .padding(.bottom, 100)
+
+
             case .walk(let mission):
-                WalkView(mission: mission, missionVM: hider.missionVM)
-                    .frame(width: 300, height: 300)
-                    .padding(.top, 300)
+                if let missionVM = hider.missionVM {
+                    WalkView(mission: mission, missionVM: missionVM)
+                        .frame(width: 300, height: 300)
+                        .padding()
+                        .padding(.top, 300)
+                        .padding(.bottom, 100)
+                } else {
+                    Text("ミッションの読み込み中…")
+                }
+
+
+
             case .decibel(let mission):
-                DecibelsView(mission: mission, missionVM: hider.missionVM)
+                if let missionVM = hider.missionVM {
+                    DecibelsView(mission: mission, missionVM: missionVM)
+                        .frame(width: 300, height: 300)
+                        .padding()
+                        .padding(.top, 300)
+                        .padding(.bottom, 100)
+                } else {
+                    Text("ミッションデータ読み込み中…")
+                        .frame(width: 300, height: 300)
+                        .padding()
+                        .padding(.top, 300)
+                        .padding(.bottom, 100)
+                }
+
+
+
+            case .result:
+                GameWinView()
                     .frame(width: 300, height: 300)
+                    .padding()
                     .padding(.top, 300)
+                    .padding(.bottom, 100)
 
             }
         }
