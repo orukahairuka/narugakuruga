@@ -7,24 +7,6 @@
 
 import SwiftUI
 
-struct HiderMainView: View {
-    @StateObject var hider: HiderViewModel
-    var body: some View {
-        VStack {
-            HiderView(hider: hider)
-            HiderMapView()
-        }
-    }
-}
-
-struct HiderMapView: View {
-    var body: some View {
-        VStack {
-            Text("隠れる側のマップ")
-        }
-    }
-}
-
 struct HiderView: View {
     @ObservedObject var hider: HiderViewModel
 
