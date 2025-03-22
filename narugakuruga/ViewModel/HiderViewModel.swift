@@ -19,6 +19,9 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     @Published var caught = false  //自分が捕まったかどうか
     @Published var caughtPlayerUUID: String?  //誰が捕まったか
     @Published private(set) var shortUUID: String? // 短縮UUIDを一元管理
+    @Published var playerName: String = ""
+    @Published var caughtPlayerName: String? = nil // 追加
+
 
     private let captureManager: PlayerCaptureManager
     private var peripheralManager: CBPeripheralManager!
@@ -47,11 +50,11 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
 
     /// 誰かが捕まったことを全プレイヤーに通知
     func observeAllCaughtPlayers() {
-        captureManager.startListeningAllCapturedPlayers { [weak self] playerUUID in
+        captureManager.startListeningAllCapturedPlayers { [weak self] playerUUID, playerName in
             DispatchQueue.main.async {
-                self?.caughtPlayerUUID = playerUUID
-                print("📢 全プレイヤーに通知: \(playerUUID) が捕まった！")
-                self?.announceCaughtPlayer(playerUUID)
+                self?.caughtPlayerName = playerName
+                print("📢 全プレイヤーに通知: \(playerName) が捕まりました！")
+                self?.announceCaughtPlayer(playerName)
             }
         }
     }
@@ -74,16 +77,18 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         // ★ 既存のリスナーを削除してから新規リスナーを登録する
         captureManager.stopListeningCaptured()
 
-        captureManager.startListeningCaptured(playerShortUUID: shortUUID) { [weak self] in
+        captureManager.startListeningCaptured(playerShortUUID: shortUUID) { [weak self] (playerName: String) in
             DispatchQueue.main.async {
-                self?.caught = true //UIを更新
-                // ✅ ここではログを出さずに `startListeningCaptured()` に任せる
+                self?.caught = true
+                self?.caughtPlayerName = playerName
+                print("✅ \(playerName) が捕まりました！")
             }
         }
     }
 
     /// Bluetooth 広告の開始
     func startAdvertising() {
+        self.playerName = playerName
         guard peripheralManager.state == .poweredOn, let shortUUID = shortUUID else { return }
 
         resetCaughtStatus()
@@ -107,13 +112,16 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         print("【プレイヤー側】Firestoreの捕獲状態をリセット:", shortUUID)
 
         // Firestoreのデータを削除する場合（ドキュメントごと消す）
-        db.collection("caughtPlayers").document(shortUUID).delete { error in
+        db.collection("caughtPlayers").document(shortUUID).updateData([
+            "caught": false
+        ]) { error in
             if let error = error {
-                print("Firestoreの削除エラー:", error.localizedDescription)
+                print("Firestoreの更新エラー:", error.localizedDescription)
             } else {
-                print("Firestoreのデータをリセットしました")
+                print("Firestoreのデータを更新（リセット）しました")
             }
         }
+
 
         // ローカルの状態もリセット
         DispatchQueue.main.async {
