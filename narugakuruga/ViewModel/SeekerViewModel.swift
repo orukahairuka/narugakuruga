@@ -50,6 +50,32 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
         }
     }
 
+    func updatePlayerName(for uuid: UUID) {
+        guard let shortUUID = playerUUIDMapping[uuid] else {
+            print("⚠️ shortUUID が見つかりません")
+            return
+        }
+
+        let db = Firestore.firestore()
+        db.collection("players").document(shortUUID).getDocument { snapshot, error in
+            if let error = error {
+                print("🔥 名前取得失敗: \(error.localizedDescription)")
+                return
+            }
+
+            if let data = snapshot?.data(), let name = data["playerName"] as? String {
+                DispatchQueue.main.async {
+                    self.playerNameMapping[uuid] = name
+                    print("✅ プレイヤー名取得成功: \(name)")
+                }
+            } else {
+                print("⚠️ プレイヤー名が存在しません")
+            }
+        }
+    }
+
+
+
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
 
         discoveredPeripherals[peripheral.identifier] = RSSI.intValue

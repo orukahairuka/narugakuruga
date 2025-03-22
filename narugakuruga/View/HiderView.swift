@@ -29,6 +29,7 @@ struct HiderView: View {
                 if let caughtPlayer = hider.caughtPlayerName {
                     StatusTextView(text: "\(caughtPlayer) が捕まりました！", color: .red)
                         .transition(.opacity)
+                        .animation(.easeInOut, value: caughtPlayer)
                 }
 
                 NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {

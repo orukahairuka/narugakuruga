@@ -30,8 +30,17 @@ struct SeekerView: View {
                         VStack(spacing: 10) {
                             ForEach(Array(peripherals.enumerated()), id: \.element.uuid) { _, item in
                                 let playerName = seeker.playerNameMapping[item.uuid] ?? "Unknown"
+
                                 PlayerInfoView(uuid: item.uuid, rssi: item.rssi, seeker: seeker, playerName: playerName)
+                                    .onAppear {
+                                        if playerName == "Unknown" {
+                                            seeker.updatePlayerName(for: item.uuid)
+                                        }
+                                    }
                             }
+
+
+
 
                         }
                     }
