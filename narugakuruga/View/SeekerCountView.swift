@@ -7,14 +7,21 @@ struct SeekerCountView: View {
     @State private var timer: Timer? = nil
     
     var body: some View {
-        NavigationStack{
-            ZStack{
+        NavigationStack {
+            ZStack {
                 BackgroundView()
-                // カウントダウン表示
-                Text("\(count)秒")
-                    .font(.largeTitle)
-                    .padding()
-                
+                VStack {
+                    Loop_Lottie_View(name: "Timer")
+                        .padding()
+                    
+                    Text("\(count)秒")
+                        .font(.largeTitle)
+                        .frame(maxHeight: .infinity, alignment: .center) // テキストの配置を調整
+                    
+                    Spacer()
+                }
+                .padding()
+
                 if !isNavigatingToSeeker {
                     NavigationLink(destination: SeekerView(seeker: seeker), isActive: $isNavigatingToSeeker) {
                         EmptyView()
@@ -26,6 +33,7 @@ struct SeekerCountView: View {
             }
         }
     }
+
     
     // カウントダウンを開始する関数
     func startCountdown() {
