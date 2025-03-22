@@ -32,6 +32,7 @@ struct SeekerView: View {
 //                Text("鬼の画面(わかるようにするLottieとか画像とか)")
                 Loop_Lottie_View(name: "Seeker")
                     .frame(width: 300,height: 300)
+
                 Map(coordinateRegion: $region,
                     interactionModes: .all,
                     showsUserLocation: true,
