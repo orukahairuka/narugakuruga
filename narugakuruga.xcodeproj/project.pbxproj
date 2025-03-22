@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0E06182D8E7C53000A5C37 /* SpeechView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0E06172D8E7C53000A5C37 /* SpeechView.swift */; };
 		3B447CB62D8BFC4500639228 /* PlayerCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */; };
 		3B447CB82D8BFC5800639228 /* HiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB72D8BFC5800639228 /* HiderView.swift */; };
 		3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB92D8BFC6C00639228 /* SeekerView.swift */; };
@@ -37,6 +38,19 @@
 		3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6272D8C404500CCFCE1 /* BlurView.swift */; };
 		3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */; };
 		3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */; };
+		83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */; };
+		A77580E72D8E79300063C26E /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = A77580E62D8E79300063C26E /* Supabase */; };
+		A77580E92D8E7B370063C26E /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77580E82D8E7B370063C26E /* SupabaseManager.swift */; };
+		A77580ED2D8E84120063C26E /* FetchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77580EC2D8E84120063C26E /* FetchImageView.swift */; };
+		A77580EF2D8E87FA0063C26E /* SupabaseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77580EE2D8E87FA0063C26E /* SupabaseListViewModel.swift */; };
+		A78BFD1A2D8E6D720059D857 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78BFD192D8E6D720059D857 /* CameraViewModel.swift */; };
+		A78BFD1C2D8E6DD10059D857 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78BFD1B2D8E6DD10059D857 /* CameraView.swift */; };
+		A78BFD1E2D8E71F80059D857 /* HiderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78BFD1D2D8E71F80059D857 /* HiderMapView.swift */; };
+		A78BFD202D8E72000059D857 /* HiderMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78BFD1F2D8E72000059D857 /* HiderMainView.swift */; };
+		A7F8A7F92D8D4D3E00E50916 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8A7F82D8D4D3E00E50916 /* LocationView.swift */; };
+		A7F8A7FB2D8D4D5500E50916 /* GetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8A7FA2D8D4D5500E50916 /* GetLocationViewModel.swift */; };
+		A7F8A7FD2D8D4D5E00E50916 /* Party.json in Resources */ = {isa = PBXBuildFile; fileRef = A7F8A7FC2D8D4D5E00E50916 /* Party.json */; };
+		A7F8A7FF2D8D4DA600E50916 /* locationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8A7FE2D8D4DA600E50916 /* locationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B0E06172D8E7C53000A5C37 /* SpeechView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechView.swift; sourceTree = "<group>"; };
 		3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCaptureManager.swift; sourceTree = "<group>"; };
 		3B447CB72D8BFC5800639228 /* HiderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HiderView.swift; path = narugakuruga/View/HiderView.swift; sourceTree = SOURCE_ROOT; };
 		3B447CB92D8BFC6C00639228 /* SeekerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekerView.swift; sourceTree = "<group>"; };
@@ -88,6 +103,18 @@
 		3BFBD6272D8C404500CCFCE1 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCountdownView.swift; sourceTree = "<group>"; };
 		3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
+		83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie_Animation.swift; sourceTree = "<group>"; };
+		A77580E82D8E7B370063C26E /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
+		A77580EC2D8E84120063C26E /* FetchImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImageView.swift; sourceTree = "<group>"; };
+		A77580EE2D8E87FA0063C26E /* SupabaseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseListViewModel.swift; sourceTree = "<group>"; };
+		A78BFD192D8E6D720059D857 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		A78BFD1B2D8E6DD10059D857 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		A78BFD1D2D8E71F80059D857 /* HiderMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiderMapView.swift; sourceTree = "<group>"; };
+		A78BFD1F2D8E72000059D857 /* HiderMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiderMainView.swift; sourceTree = "<group>"; };
+		A7F8A7F82D8D4D3E00E50916 /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		A7F8A7FA2D8D4D5500E50916 /* GetLocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetLocationViewModel.swift; path = narugakuruga/ViewModel/GetLocationViewModel.swift; sourceTree = SOURCE_ROOT; };
+		A7F8A7FC2D8D4D5E00E50916 /* Party.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Party.json; path = narugakuruga/Lottie/Party.json; sourceTree = SOURCE_ROOT; };
+		A7F8A7FE2D8D4DA600E50916 /* locationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = locationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +124,7 @@
 			files = (
 				3B93C6AD2D83216A00E40CB7 /* Lottie in Frameworks */,
 				3B93C6B82D856C7800E40CB7 /* FirebaseFirestore in Frameworks */,
+				A77580E72D8E79300063C26E /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +170,7 @@
 		3B93C67C2D82EBEF00E40CB7 /* narugakuruga */ = {
 			isa = PBXGroup;
 			children = (
+				83504B6E2D8AFBB600E1FEB4 /* Lottie */,
 				3B93C6B22D83F6AC00E40CB7 /* seek_sound.mp3 */,
 				3B93C67D2D82EBEF00E40CB7 /* narugakurugaApp.swift */,
 				3B93C6A92D8320B600E40CB7 /* ViewModel */,
@@ -190,14 +219,20 @@
 		3B93C6A82D8320B100E40CB7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3B0E06172D8E7C53000A5C37 /* SpeechView.swift */,
 				3B447CB92D8BFC6C00639228 /* SeekerView.swift */,
+				A78BFD1F2D8E72000059D857 /* HiderMainView.swift */,
 				3B447CB72D8BFC5800639228 /* HiderView.swift */,
+				A78BFD1D2D8E71F80059D857 /* HiderMapView.swift */,
 				3BC6BCF52D8A977E00D6C948 /* DecibelsView.swift */,
 				3BC6BCF72D8A978600D6C948 /* WalkView.swift */,
 				3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */,
 				3B93C6B92D856CCE00E40CB7 /* MissionView.swift */,
+				A7F8A7F82D8D4D3E00E50916 /* LocationView.swift */,
 				3BC6BCF92D8A99DE00D6C948 /* MissionCompleteView.swift */,
 				3BC6BCFE2D8AE9ED00D6C948 /* GameWinView.swift */,
+				A78BFD1B2D8E6DD10059D857 /* CameraView.swift */,
+				A77580EC2D8E84120063C26E /* FetchImageView.swift */,
 				3BC6BCFB2D8A9A9700D6C948 /* Components */,
 			);
 			path = View;
@@ -207,11 +242,16 @@
 			isa = PBXGroup;
 			children = (
 				3B93C6AE2D83E0C100E40CB7 /* SeekerViewModel.swift */,
+				A78BFD192D8E6D720059D857 /* CameraViewModel.swift */,
 				3B93C6B02D83E0D300E40CB7 /* HiderViewModel.swift */,
 				3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */,
 				3B93C6B42D856A6200E40CB7 /* MissionViewModel.swift */,
 				3BC6BCF32D8A976E00D6C948 /* DecibelViewModel.swift */,
 				3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */,
+				A7F8A7FE2D8D4DA600E50916 /* locationViewModel.swift */,
+				A7F8A7FA2D8D4D5500E50916 /* GetLocationViewModel.swift */,
+				A77580E82D8E7B370063C26E /* SupabaseManager.swift */,
+				A77580EE2D8E87FA0063C26E /* SupabaseListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -242,6 +282,15 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		83504B6E2D8AFBB600E1FEB4 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				A7F8A7FC2D8D4D5E00E50916 /* Party.json */,
+				83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -261,6 +310,7 @@
 			packageProductDependencies = (
 				3B93C6AC2D83216A00E40CB7 /* Lottie */,
 				3B93C6B72D856C7800E40CB7 /* FirebaseFirestore */,
+				A77580E62D8E79300063C26E /* Supabase */,
 			);
 			productName = narugakuruga;
 			productReference = 3B93C67A2D82EBEF00E40CB7 /* narugakuruga.app */;
@@ -337,6 +387,7 @@
 			packageReferences = (
 				3B93C6AA2D83215E00E40CB7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				3B93C6B62D856C4A00E40CB7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				A77580E52D8E76F80063C26E /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			productRefGroup = 3B93C67B2D82EBEF00E40CB7 /* Products */;
 			projectDirPath = "";
@@ -355,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B93C6B32D83F6AD00E40CB7 /* seek_sound.mp3 in Resources */,
+				A7F8A7FD2D8D4D5E00E50916 /* Party.json in Resources */,
 				3B93C6C02D8570CA00E40CB7 /* GoogleService-Info.plist in Resources */,
 				3B93C6852D82EBF100E40CB7 /* Preview Assets.xcassets in Resources */,
 				3B93C6822D82EBF100E40CB7 /* Assets.xcassets in Resources */,
@@ -383,26 +435,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BC6BCF82D8A978700D6C948 /* WalkView.swift in Sources */,
+				A7F8A7FF2D8D4DA600E50916 /* locationViewModel.swift in Sources */,
 				3B447CB82D8BFC5800639228 /* HiderView.swift in Sources */,
+				A77580ED2D8E84120063C26E /* FetchImageView.swift in Sources */,
+				A7F8A7FB2D8D4D5500E50916 /* GetLocationViewModel.swift in Sources */,
 				3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */,
 				3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */,
 				3BFBD6262D8C402600CCFCE1 /* ColorExtension.swift in Sources */,
 				3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */,
 				3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */,
+				A78BFD1E2D8E71F80059D857 /* HiderMapView.swift in Sources */,
+				3B0E06182D8E7C53000A5C37 /* SpeechView.swift in Sources */,
 				3BC6BCFA2D8A99DE00D6C948 /* MissionCompleteView.swift in Sources */,
 				3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */,
 				3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */,
 				3B93C6AF2D83E0C100E40CB7 /* SeekerViewModel.swift in Sources */,
+				83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */,
+				A78BFD202D8E72000059D857 /* HiderMainView.swift in Sources */,
 				3BC6BCFD2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift in Sources */,
 				3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */,
+				A7F8A7F92D8D4D3E00E50916 /* LocationView.swift in Sources */,
 				3B447CB62D8BFC4500639228 /* PlayerCaptureManager.swift in Sources */,
 				3BC6BCFF2D8AE9ED00D6C948 /* GameWinView.swift in Sources */,
 				3B93C6B12D83E0D300E40CB7 /* HiderViewModel.swift in Sources */,
 				3BC6BCF62D8A977E00D6C948 /* DecibelsView.swift in Sources */,
+				A78BFD1C2D8E6DD10059D857 /* CameraView.swift in Sources */,
 				3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */,
 				3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */,
 				3B93C6BA2D856CCE00E40CB7 /* MissionView.swift in Sources */,
 				3BC6BCF42D8A976E00D6C948 /* DecibelViewModel.swift in Sources */,
+				A77580EF2D8E87FA0063C26E /* SupabaseListViewModel.swift in Sources */,
+				A78BFD1A2D8E6D720059D857 /* CameraViewModel.swift in Sources */,
+				A77580E92D8E7B370063C26E /* SupabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,6 +634,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "このアプリはかくれんぼのためにBluetoothを使用します。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "カメラを使用します";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報を利用します。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声を解析します";
 				INFOPLIST_KEY_NSMotionUsageDescription = "このアプリは歩数データを取得して、ミッションの進行を記録するために使用します。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -602,6 +668,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "このアプリはかくれんぼのためにBluetoothを使用します。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "カメラを使用します";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報を利用します。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声を解析します";
 				INFOPLIST_KEY_NSMotionUsageDescription = "このアプリは歩数データを取得して、ミッションの進行を記録するために使用します。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -756,6 +824,14 @@
 				minimumVersion = 11.9.0;
 			};
 		};
+		A77580E52D8E76F80063C26E /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -768,6 +844,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3B93C6B62D856C4A00E40CB7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		A77580E62D8E79300063C26E /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A77580E52D8E76F80063C26E /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
