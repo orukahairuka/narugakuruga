@@ -12,8 +12,8 @@ import FirebaseFirestore
 
 // 隠れる側（プレイヤー）
 class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
+    @Published var currentScreen: HiderScreen = .hider
     @Published var isHiding = false //自分がプレイヤーかどうか(画面遷移のためのフラグ)
-    @Published var navigateToMission = false
     @Published var timeRemaining: Int = 40 //ミッション開始までの時間
     @Published var discoveredPeripherals: [UUID: Int] = [:] //周囲の端末
     @Published var caught = false  //自分が捕まったかどうか
@@ -21,6 +21,8 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     @Published private(set) var shortUUID: String? // 短縮UUIDを一元管理
     @Published var playerName: String = ""
     @Published var caughtPlayerName: String? = nil // 追加
+    @Published var missionVM = MissionViewModel()
+
 
 
     private let captureManager: PlayerCaptureManager
@@ -28,6 +30,14 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
     private var missionTimer: Timer?
     private var caughtListener: ListenerRegistration?
     private let db = Firestore.firestore()
+
+
+    enum HiderScreen {
+        case hider
+        case mission
+        case walk(Mission)
+        case decibel(Mission)
+    }
 
 
 
@@ -129,6 +139,22 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         }
     }
 
+    func startMission(_ mission: Mission) {
+        switch MissionType(rawValue: mission.type) ?? .unknown {
+        case .walk:
+            currentScreen = .walk(mission)
+        case .decibel:
+            currentScreen = .decibel(mission)
+        default:
+            break
+        }
+    }
+
+
+    func returnToMain() {
+        currentScreen = .hider
+    }
+
 
     func stopAdvertising() {
         //捕まったかどうかの監視を停止する
@@ -136,7 +162,6 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         peripheralManager.stopAdvertising()
         print("Bluetooth広告を停止")
         isHiding = false
-        navigateToMission = false
         missionTimer?.invalidate() // タイマーをキャンセル
     }
 
@@ -158,7 +183,7 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
                     self.timeRemaining -= 1
                 } else {
                     timer.invalidate()
-                    self.navigateToMission = true
+                    self.currentScreen = .mission
                 }
             }
         }
