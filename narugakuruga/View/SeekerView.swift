@@ -14,7 +14,7 @@ struct SeekerView: View {
     @StateObject private var locationManager = LocationViewModel()  // LocationViewModel のインスタンス
     @StateObject private var locationFetcher = GetLocationViewModel()  // GetLocationViewModel のインスタンス
     @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 35.01161, longitude: 135.76811),
+        center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         latitudinalMeters: 750,
         longitudinalMeters: 750
         )
