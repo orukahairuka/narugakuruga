@@ -29,6 +29,7 @@ struct SeekerView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
+                FetchImageView()
                 Text("鬼の画面(わかるようにするLottieとか画像とか)")
                 Map(coordinateRegion: $region,
                     interactionModes: .all,
