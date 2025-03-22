@@ -76,6 +76,7 @@ struct SeekerView: View {
                         }
                     }
                     .padding()
+                    .navigationBarBackButtonHidden(true)
                 }
             }
         }
