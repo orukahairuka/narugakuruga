@@ -36,8 +36,3 @@ struct SpeechView: View {
     }
 }
 
-struct SpeechView_Previews: PreviewProvider {
-    static var previews: some View {
-        SpeechView()
-    }
-}

@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import AVFoundation
+
 
 struct HiderView: View {
     @ObservedObject var hider: HiderViewModel
+    private let synthesizer = AVSpeechSynthesizer()
+
 
     var body: some View {
         ZStack {
@@ -30,6 +34,9 @@ struct HiderView: View {
                     StatusTextView(text: "\(caughtPlayer) が捕まりました！", color: .red)
                         .transition(.opacity)
                         .animation(.easeInOut, value: caughtPlayer)
+                        .onTapGesture {
+                            speak("\(caughtPlayer) が捕まりました！")
+                        }
                 }
 
                 NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
@@ -40,5 +47,10 @@ struct HiderView: View {
         .onAppear {
             hider.observeAllCaughtPlayers()
         }
+    }
+    private func speak(_ string: String) {
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "ja-JP") // 日本語で読み上げ
+        synthesizer.speak(utterance)
     }
 }
