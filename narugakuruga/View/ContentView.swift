@@ -95,9 +95,10 @@ struct RoleSelectionView: View {
                 EmptyView()
             }
 
-            NavigationLink(destination: HiderView(hider: hider), isActive: $isNavigatingToHider) {
+            NavigationLink(destination: HiderMainView(hider: hider), isActive: $isNavigatingToHider) {
                 EmptyView()
             }
+
 
             Button(action: {
                 guard !playerName.isEmpty else { return }
