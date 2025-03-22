@@ -38,6 +38,8 @@
 		3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */; };
 		3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */; };
 		83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */; };
+		A78BFD1A2D8E6D720059D857 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78BFD192D8E6D720059D857 /* CameraViewModel.swift */; };
+		A78BFD1C2D8E6DD10059D857 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78BFD1B2D8E6DD10059D857 /* CameraView.swift */; };
 		A7F8A7F92D8D4D3E00E50916 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8A7F82D8D4D3E00E50916 /* LocationView.swift */; };
 		A7F8A7FB2D8D4D5500E50916 /* GetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8A7FA2D8D4D5500E50916 /* GetLocationViewModel.swift */; };
 		A7F8A7FD2D8D4D5E00E50916 /* Party.json in Resources */ = {isa = PBXBuildFile; fileRef = A7F8A7FC2D8D4D5E00E50916 /* Party.json */; };
@@ -94,6 +96,8 @@
 		3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCountdownView.swift; sourceTree = "<group>"; };
 		3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie_Animation.swift; sourceTree = "<group>"; };
+		A78BFD192D8E6D720059D857 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		A78BFD1B2D8E6DD10059D857 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		A7F8A7F82D8D4D3E00E50916 /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		A7F8A7FA2D8D4D5500E50916 /* GetLocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetLocationViewModel.swift; path = narugakuruga/ViewModel/GetLocationViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A7F8A7FC2D8D4D5E00E50916 /* Party.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Party.json; path = narugakuruga/Lottie/Party.json; sourceTree = SOURCE_ROOT; };
@@ -210,6 +214,7 @@
 				A7F8A7F82D8D4D3E00E50916 /* LocationView.swift */,
 				3BC6BCF92D8A99DE00D6C948 /* MissionCompleteView.swift */,
 				3BC6BCFE2D8AE9ED00D6C948 /* GameWinView.swift */,
+				A78BFD1B2D8E6DD10059D857 /* CameraView.swift */,
 				3BC6BCFB2D8A9A9700D6C948 /* Components */,
 			);
 			path = View;
@@ -219,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				3B93C6AE2D83E0C100E40CB7 /* SeekerViewModel.swift */,
+				A78BFD192D8E6D720059D857 /* CameraViewModel.swift */,
 				3B93C6B02D83E0D300E40CB7 /* HiderViewModel.swift */,
 				3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */,
 				3B93C6B42D856A6200E40CB7 /* MissionViewModel.swift */,
@@ -427,10 +433,12 @@
 				3BC6BCFF2D8AE9ED00D6C948 /* GameWinView.swift in Sources */,
 				3B93C6B12D83E0D300E40CB7 /* HiderViewModel.swift in Sources */,
 				3BC6BCF62D8A977E00D6C948 /* DecibelsView.swift in Sources */,
+				A78BFD1C2D8E6DD10059D857 /* CameraView.swift in Sources */,
 				3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */,
 				3BFBD6282D8C404500CCFCE1 /* BlurView.swift in Sources */,
 				3B93C6BA2D856CCE00E40CB7 /* MissionView.swift in Sources */,
 				3BC6BCF42D8A976E00D6C948 /* DecibelViewModel.swift in Sources */,
+				A78BFD1A2D8E6D720059D857 /* CameraViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +606,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "このアプリはかくれんぼのためにBluetoothを使用します。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "カメラを使用します";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報を利用します。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声を解析します";
 				INFOPLIST_KEY_NSMotionUsageDescription = "このアプリは歩数データを取得して、ミッションの進行を記録するために使用します。";
@@ -631,6 +640,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "このアプリはかくれんぼのためにBluetoothを使用します。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "カメラを使用します";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "位置情報を利用します。";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "音声を解析します";
 				INFOPLIST_KEY_NSMotionUsageDescription = "このアプリは歩数データを取得して、ミッションの進行を記録するために使用します。";
