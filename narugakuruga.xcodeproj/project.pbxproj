@@ -38,6 +38,8 @@
 		3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */; };
 		3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */; };
 		83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */; };
+		A78BFD1E2D8E71F80059D857 /* HiderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78BFD1D2D8E71F80059D857 /* HiderMapView.swift */; };
+		A78BFD202D8E72000059D857 /* HiderMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78BFD1F2D8E72000059D857 /* HiderMainView.swift */; };
 		A7F8A7F92D8D4D3E00E50916 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8A7F82D8D4D3E00E50916 /* LocationView.swift */; };
 		A7F8A7FB2D8D4D5500E50916 /* GetLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F8A7FA2D8D4D5500E50916 /* GetLocationViewModel.swift */; };
 		A7F8A7FD2D8D4D5E00E50916 /* Party.json in Resources */ = {isa = PBXBuildFile; fileRef = A7F8A7FC2D8D4D5E00E50916 /* Party.json */; };
@@ -94,6 +96,8 @@
 		3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCountdownView.swift; sourceTree = "<group>"; };
 		3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		83C7660B2D8AF9DA0068241E /* Lottie_Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie_Animation.swift; sourceTree = "<group>"; };
+		A78BFD1D2D8E71F80059D857 /* HiderMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiderMapView.swift; sourceTree = "<group>"; };
+		A78BFD1F2D8E72000059D857 /* HiderMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiderMainView.swift; sourceTree = "<group>"; };
 		A7F8A7F82D8D4D3E00E50916 /* LocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		A7F8A7FA2D8D4D5500E50916 /* GetLocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetLocationViewModel.swift; path = narugakuruga/ViewModel/GetLocationViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A7F8A7FC2D8D4D5E00E50916 /* Party.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Party.json; path = narugakuruga/Lottie/Party.json; sourceTree = SOURCE_ROOT; };
@@ -202,7 +206,9 @@
 			isa = PBXGroup;
 			children = (
 				3B447CB92D8BFC6C00639228 /* SeekerView.swift */,
+				A78BFD1F2D8E72000059D857 /* HiderMainView.swift */,
 				3B447CB72D8BFC5800639228 /* HiderView.swift */,
+				A78BFD1D2D8E71F80059D857 /* HiderMapView.swift */,
 				3BC6BCF52D8A977E00D6C948 /* DecibelsView.swift */,
 				3BC6BCF72D8A978600D6C948 /* WalkView.swift */,
 				3B93C67F2D82EBEF00E40CB7 /* ContentView.swift */,
@@ -415,11 +421,13 @@
 				3BFBD6262D8C402600CCFCE1 /* ColorExtension.swift in Sources */,
 				3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */,
 				3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */,
+				A78BFD1E2D8E71F80059D857 /* HiderMapView.swift in Sources */,
 				3BC6BCFA2D8A99DE00D6C948 /* MissionCompleteView.swift in Sources */,
 				3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */,
 				3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */,
 				3B93C6AF2D83E0C100E40CB7 /* SeekerViewModel.swift in Sources */,
 				83C7660C2D8AF9DA0068241E /* Lottie_Animation.swift in Sources */,
+				A78BFD202D8E72000059D857 /* HiderMainView.swift in Sources */,
 				3BC6BCFD2D8A9ABB00D6C948 /* PrimaryButtonStyle.swift in Sources */,
 				3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */,
 				A7F8A7F92D8D4D3E00E50916 /* LocationView.swift in Sources */,
