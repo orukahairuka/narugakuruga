@@ -13,18 +13,25 @@ enum MissionType: String {
 }
 
 struct MissionView: View {
-    @StateObject var missionVM = MissionViewModel()
+    @ObservedObject var hider: HiderViewModel
 
     var body: some View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                if missionVM.gameWon {
+                if hider.missionVM.gameWon {
                     GameWinView()
-                } else if let mission = missionVM.currentMission {
+                } else if let mission = hider.missionVM.currentMission {
                     StatusTextView(text: "お題: \(mission.description)")
-                    MissionButton(mission: mission, missionVM: missionVM)
-                    StatusTextView(text: "クリア数: \(missionVM.completedMissionsCount) / 4", color: .gray)
+
+                    Button("ミッション開始") {
+                        hider.startMission(mission)
+                    }
+
+                    StatusTextView(
+                        text: "クリア数: \(hider.missionVM.completedMissionsCount) / 4",
+                        color: .gray
+                    )
                 } else {
                     StatusTextView(text: "お題を取得中...")
                 }
@@ -32,6 +39,8 @@ struct MissionView: View {
         }
     }
 }
+
+
 
 struct MissionButton: View {
     let mission: Mission
