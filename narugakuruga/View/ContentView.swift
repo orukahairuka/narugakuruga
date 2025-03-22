@@ -8,7 +8,6 @@
 import SwiftUI
 import FirebaseFirestore
 
-// 画面状態を表す enum（グローバルで定義）
 enum GameScreen {
     case roleSelect
     case hider
@@ -23,19 +22,44 @@ struct ContentView: View {
 
     var body: some View {
         ZStack {
+            BackgroundView()
+
             switch currentScreen {
             case .roleSelect:
-                RoleSelectionView(
-                    seeker: seeker,
-                    hider: hider,
-                    playerName: $playerName,
-                    currentScreen: $currentScreen
-                )
+                VStack(spacing: 20) {
+                    if !playerName.isEmpty {
+                        StatusTextView(text: statusText)
+                    }
+
+                    if hider.isHiding {
+                        MissionCountdownView(timeRemaining: hider.timeRemaining)
+                    }
+
+                    RoleSelectionView(
+                        seeker: seeker,
+                        hider: hider,
+                        playerName: $playerName,
+                        currentScreen: $currentScreen
+                    )
+                }
+                .padding()
+
             case .hider:
                 HiderMainView(hider: hider)
+
             case .seeker:
                 SeekerView(seeker: seeker)
             }
+        }
+    }
+
+    private var statusText: String {
+        if seeker.isSeeking {
+            return "鬼になりました"
+        } else if hider.isHiding {
+            return "隠れています"
+        } else {
+            return "どちらか選んでください"
         }
     }
 }
@@ -63,27 +87,33 @@ struct RoleSelectionView: View {
                     .frame(width: 300)
 
                 HStack(spacing: 20) {
+                    // 鬼になる
                     Button(action: {
                         guard !playerName.isEmpty else { return }
+
                         let shortUUID = seeker.getMyShortUUID()
                         let data: [String: Any] = [
-                            "playerName": playerName
+                            "playerName": playerName,
+                            "role": "seeker",
+                            "joinedAt": Timestamp()
                         ]
                         Firestore.firestore().collection("players").document(shortUUID).setData(data) { error in
-                            if error == nil {
+                            if let error = error {
+                                print("⚠️ 鬼のFirestore登録失敗: \(error.localizedDescription)")
+                            } else {
                                 seeker.startScanning()
                                 hider.stopAdvertising()
                                 currentScreen = .seeker
-                            } else {
-                                print("⚠️ 鬼のFirestore登録失敗: \(error!.localizedDescription)")
                             }
                         }
                     }) {
                         RoleButtonView(title: "鬼になる", color: .red)
                     }
 
+                    // 隠れる
                     Button(action: {
                         guard !playerName.isEmpty else { return }
+
                         let shortUUID = seeker.getMyShortUUID()
                         let data: [String: Any] = [
                             "playerName": playerName,
@@ -91,12 +121,12 @@ struct RoleSelectionView: View {
                             "joinedAt": Timestamp()
                         ]
                         Firestore.firestore().collection("players").document(shortUUID).setData(data) { error in
-                            if error == nil {
+                            if let error = error {
+                                print("⚠️ 隠れのFirestore登録失敗: \(error.localizedDescription)")
+                            } else {
                                 hider.startAdvertising()
                                 seeker.stopScanning()
                                 currentScreen = .hider
-                            } else {
-                                print("⚠️ 隠れのFirestore登録失敗: \(error!.localizedDescription)")
                             }
                         }
                     }) {
