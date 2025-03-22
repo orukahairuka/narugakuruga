@@ -10,14 +10,14 @@ import MapKit
 
 struct SeekerView: View {
     @ObservedObject var seeker: SeekerViewModel
-    
-    @StateObject private var locationManager = LocationViewModel()  // LocationViewModel のインスタンス
-    @StateObject private var locationFetcher = GetLocationViewModel()  // GetLocationViewModel のインスタンス
+
+    @StateObject private var locationManager = LocationViewModel()
+    @StateObject private var locationFetcher = GetLocationViewModel()
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         latitudinalMeters: 750,
         longitudinalMeters: 750
-        )
+    )
 
     var peripherals: [(uuid: UUID, rssi: Int)] {
         seeker.discoveredPeripherals
@@ -28,55 +28,55 @@ struct SeekerView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            VStack(spacing: 20) {
-//                Text("鬼の画面(わかるようにするLottieとか画像とか)")
-                Loop_Lottie_View(name: "Seeker")
-                    .frame(width: 300,height: 300)
-
-                Map(coordinateRegion: $region,
-                    interactionModes: .all,
-                    showsUserLocation: true,
-                    annotationItems: locationFetcher.places  // 取得した場所をピンとして表示
-                ) { place in
-                    MapPin(coordinate: place.location, tint: Color.blue)  // ピンの色を青に設定
-                }
-                .onAppear {
-                    // ビューが表示されたときに位置情報を取得
-                    locationFetcher.fetchLocations()
-                    locationManager.requestPermission() //これも必要やった
-                    locationManager.startTracking() //これを追加しないと位置情報のやつが始まらない
-                }
-                .onReceive(locationFetcher.$places) { newPlaces in
-                    // 位置情報が更新されたときに最初の位置にマップの中心を合わせる
-                    if let firstPlace = newPlaces.first {
-                        region.center = firstPlace.location
+            ScrollView {
+                VStack(spacing: 20) {
+                    Map(
+                        coordinateRegion: $region,
+                        interactionModes: .all,
+                        showsUserLocation: true,
+                        annotationItems: locationFetcher.places
+                    ) { place in
+                        MapPin(coordinate: place.location, tint: Color.blue)
                     }
-                }
+                    .onAppear {
+                        locationFetcher.fetchLocations()
+                        locationManager.requestPermission()
+                        locationManager.startTracking()
+                    }
+                    .onReceive(locationFetcher.$places) { newPlaces in
+                        if let firstPlace = newPlaces.first {
+                            region.center = firstPlace.location
+                        }
+                    }
+                    .padding()
+                    .frame(height: 400)
+                    .navigationBarBackButtonHidden(true)
 
-                if seeker.isSeeking {
-                    StatusTextView(text: "近くにいるプレイヤー")
-                        .padding(.top)
+                    if seeker.isSeeking {
+                        StatusTextView(text: "近くにいるプレイヤー")
+                            .padding(.top)
 
-                    ScrollView {
                         VStack(spacing: 10) {
                             ForEach(Array(peripherals.enumerated()), id: \.element.uuid) { _, item in
                                 let playerName = seeker.playerNameMapping[item.uuid] ?? "Unknown"
 
-                                PlayerInfoView(uuid: item.uuid, rssi: item.rssi, seeker: seeker, playerName: playerName)
-                                    .onAppear {
-                                        if playerName == "Unknown" {
-                                            seeker.updatePlayerName(for: item.uuid)
-                                        }
+                                PlayerInfoView(
+                                    uuid: item.uuid,
+                                    rssi: item.rssi,
+                                    seeker: seeker,
+                                    playerName: playerName
+                                )
+                                .onAppear {
+                                    if playerName == "Unknown" {
+                                        seeker.updatePlayerName(for: item.uuid)
                                     }
+                                }
                             }
-
-
-
-
                         }
+
+                        Loop_Lottie_View(name: "Seeker2")
+                            .frame(width: 150, height: 150)
                     }
-                    .padding()
-                    .navigationBarBackButtonHidden(true)
                 }
             }
         }
@@ -87,7 +87,7 @@ struct PlayerInfoView: View {
     let uuid: UUID
     let rssi: Int
     @ObservedObject var seeker: SeekerViewModel
-    let playerName: String // ← BindingじゃなくてOK！
+    let playerName: String
 
     var body: some View {
         HStack {
@@ -100,7 +100,7 @@ struct PlayerInfoView: View {
 
             Spacer()
 
-            CaptureButtonView(uuid: uuid, seeker: seeker, playerName: playerName) // ← Binding不要
+            CaptureButtonView(uuid: uuid, seeker: seeker, playerName: playerName)
         }
         .padding()
         .background(BlurView(style: .systemMaterial))
@@ -109,19 +109,17 @@ struct PlayerInfoView: View {
     }
 }
 
-
-
 struct CaptureButtonView: View {
     let uuid: UUID
     @ObservedObject var seeker: SeekerViewModel
-    let playerName: String // ← Binding不要
+    let playerName: String
 
     var body: some View {
         Button("捕まえた！") {
             let captureManager = PlayerCaptureManager()
             if let shortPlayerUUID = seeker.playerUUIDMapping[uuid] {
                 print("🔥【鬼側】捕まえたプレイヤーの短縮UUIDは:", shortPlayerUUID)
-                print("🎯 捕まえたプレイヤー名: \(playerName)") // ← デバッグログ追加
+                print("🎯 捕まえたプレイヤー名: \(playerName)")
 
                 captureManager.recordCapturedPlayer(playerShortUUID: shortPlayerUUID, playerName: playerName) { error in
                     if let error = error {

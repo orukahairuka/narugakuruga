@@ -8,7 +8,6 @@
 import SwiftUI
 import FirebaseFirestore
 
-// 画面状態を表す enum（グローバルで定義）
 enum GameScreen {
     case roleSelect
     case hider
@@ -65,7 +64,6 @@ struct ContentView: View {
     }
 }
 
-
 struct RoleSelectionView: View {
     @ObservedObject var seeker: SeekerViewModel
     @ObservedObject var hider: HiderViewModel
@@ -89,7 +87,7 @@ struct RoleSelectionView: View {
                     .frame(width: 300)
 
                 HStack(spacing: 20) {
-                    // 鬼になるボタン
+                    // 鬼になる
                     Button(action: {
                         guard !playerName.isEmpty else { return }
 
@@ -112,7 +110,7 @@ struct RoleSelectionView: View {
                         RoleButtonView(title: "鬼になる", color: .red)
                     }
 
-                    // 隠れるボタン
+                    // 隠れる
                     Button(action: {
                         guard !playerName.isEmpty else { return }
 
