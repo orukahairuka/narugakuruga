@@ -16,7 +16,9 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     private var audioPlayer: AVAudioPlayer?
     @Published var discoveredPeripherals: [UUID: Int] = [:]
     @Published var playerUUIDMapping: [UUID: String] = [:]  // PeripheralのUUID → Playerの短縮UUID
+    @Published var playerNameMapping: [UUID: String] = [:] // ←これを新しく追加
 
+    @Published var playerName: String = ""
     @Published var isSeeking = false
     private let db = Firestore.firestore()
     private let captureManager = PlayerCaptureManager()
@@ -29,6 +31,7 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
     }
 
     func startScanning() {
+        self.playerName = playerName
         centralManager.scanForPeripherals(withServices: [CBUUID(string: "1234")], options: [CBCentralManagerScanOptionAllowDuplicatesKey: true])
         isSeeking = true
     }
@@ -46,6 +49,32 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
             print("Bluetooth is not available.")
         }
     }
+
+    func updatePlayerName(for uuid: UUID) {
+        guard let shortUUID = playerUUIDMapping[uuid] else {
+            print("⚠️ shortUUID が見つかりません")
+            return
+        }
+
+        let db = Firestore.firestore()
+        db.collection("players").document(shortUUID).getDocument { snapshot, error in
+            if let error = error {
+                print("🔥 名前取得失敗: \(error.localizedDescription)")
+                return
+            }
+
+            if let data = snapshot?.data(), let name = data["playerName"] as? String {
+                DispatchQueue.main.async {
+                    self.playerNameMapping[uuid] = name
+                    print("✅ プレイヤー名取得成功: \(name)")
+                }
+            } else {
+                print("⚠️ プレイヤー名が存在しません")
+            }
+        }
+    }
+
+
 
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
 
@@ -97,5 +126,11 @@ class SeekerViewModel: NSObject, ObservableObject, CBCentralManagerDelegate {
 
     func stopSound() {
         audioPlayer?.stop()
+    }
+}
+
+extension SeekerViewModel {
+    func getMyShortUUID() -> String {
+        return UIDevice.current.identifierForVendor?.uuidString.prefix(8).description ?? UUID().uuidString.prefix(8).description
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct ContentView: View {
     @StateObject private var seeker = SeekerViewModel()
@@ -14,6 +15,8 @@ struct ContentView: View {
     @State private var isWaitingForSeeker = false // 鬼になるまでのカウントダウン中かどうか
     @State private var remainingTimeForSeeker = 40 // 鬼になるまでの残り時間
     @State private var navigateToSeeker = false // 鬼になったらSeekerViewに遷移するかどうか
+    @State private var playerName: String = "" // ユーザー名
+
 
     var body: some View {
         NavigationView {
@@ -21,14 +24,28 @@ struct ContentView: View {
                 BackgroundView()
                 VStack(spacing: 20) {
                     LogoView()
-                    StatusTextView(text: statusText)
+                    if playerName != "" {
+                        StatusTextView(text: statusText)
+                    }
+
+                    // ユーザー名入力欄
+                    TextField("ユーザー名を入力", text: $playerName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                        .frame(width: 300)
                     if hider.isHiding {
                         MissionCountdownView(timeRemaining: hider.timeRemaining)
                     }
                     NavigationLink(destination: MissionView(), isActive: $hider.navigateToMission) {
                         EmptyView()
                     }
-                    RoleSelectionView(seeker: seeker, hider: hider)
+                    if playerName != ""{
+
+                        RoleSelectionView(seeker: seeker, hider: hider, playerName: $playerName)
+                    } else {
+                        Text("ユーザー名を入力してください")
+                            .foregroundColor(.red)
+                    }
                 }
                 .padding()
             }
@@ -67,24 +84,65 @@ struct ContentView: View {
 struct RoleSelectionView: View {
     @ObservedObject var seeker: SeekerViewModel
     @ObservedObject var hider: HiderViewModel
+    @Binding var playerName: String
+
+    @State private var isNavigatingToSeeker = false
+    @State private var isNavigatingToHider = false
 
     var body: some View {
         HStack(spacing: 20) {
-            NavigationLink(destination: SeekerView(seeker: seeker)) {
+            NavigationLink(destination: SeekerView(seeker: seeker), isActive: $isNavigatingToSeeker) {
+                EmptyView()
+            }
+
+            NavigationLink(destination: HiderView(hider: hider), isActive: $isNavigatingToHider) {
+                EmptyView()
+            }
+
+            Button(action: {
+                guard !playerName.isEmpty else { return }
+                let shortUUID = seeker.getMyShortUUID()
+                let data: [String: Any] = [
+                    "playerName": playerName
+                ]
+                let db = Firestore.firestore()
+                db.collection("players").document(shortUUID).setData(data) { error in
+                    if let error = error {
+                        print("⚠️ Firestore書き込み失敗（鬼）:", error.localizedDescription)
+                    } else {
+                        print("✅ 鬼として登録完了: \(playerName)")
+                        seeker.startScanning()
+                        hider.stopAdvertising()
+                        isNavigatingToSeeker = true
+                    }
+                }
+            }) {
                 RoleButtonView(title: "鬼になる", color: .red)
             }
-            .simultaneousGesture(TapGesture().onEnded {
-                seeker.startScanning()
-                hider.stopAdvertising()
-            })
 
-            NavigationLink(destination: HiderView(hider: hider)) {
+            Button(action: {
+                guard !playerName.isEmpty else { return }
+                let shortUUID = seeker.getMyShortUUID()
+                let data: [String: Any] = [
+                    "playerName": playerName,
+                    "role": "hider",
+                    "joinedAt": Timestamp()
+                ]
+
+                let db = Firestore.firestore()
+                db.collection("players").document(shortUUID).setData(data) { error in
+                    if let error = error {
+                        print("⚠️ Firestore書き込み失敗（隠れ）:", error.localizedDescription)
+                    } else {
+                        print("✅ 隠れとして登録完了: \(playerName)")
+                        hider.startAdvertising()
+                        seeker.stopScanning()
+                        isNavigatingToHider = true
+                    }
+                }
+            }) {
                 RoleButtonView(title: "隠れる", color: .blue)
             }
-            .simultaneousGesture(TapGesture().onEnded {
-                hider.startAdvertising()
-                seeker.stopScanning()
-            })
         }
         .padding()
     }
