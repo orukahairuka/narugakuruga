@@ -28,54 +28,52 @@ struct SeekerView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            VStack(spacing: 20) {
-//                Text("鬼の画面(わかるようにするLottieとか画像とか)")
-                Loop_Lottie_View(name: "Seeker")
-                    .frame(width: 300,height: 300)
-
-                Map(coordinateRegion: $region,
-                    interactionModes: .all,
-                    showsUserLocation: true,
-                    annotationItems: locationFetcher.places  // 取得した場所をピンとして表示
-                ) { place in
-                    MapPin(coordinate: place.location, tint: Color.blue)  // ピンの色を青に設定
-                }
-                .onAppear {
-                    // ビューが表示されたときに位置情報を取得
-                    locationFetcher.fetchLocations()
-                    locationManager.requestPermission() //これも必要やった
-                    locationManager.startTracking() //これを追加しないと位置情報のやつが始まらない
-                }
-                .onReceive(locationFetcher.$places) { newPlaces in
-                    // 位置情報が更新されたときに最初の位置にマップの中心を合わせる
-                    if let firstPlace = newPlaces.first {
-                        region.center = firstPlace.location
+            ScrollView{
+                VStack(spacing: 20) {
+                    Map(coordinateRegion: $region,
+                        interactionModes: .all,
+                        showsUserLocation: true,
+                        annotationItems: locationFetcher.places  // 取得した場所をピンとして表示
+                    )
+                    { place in
+                        MapPin(coordinate: place.location, tint: Color.blue)  // ピンの色を青に設定
                     }
-                }
-
-                if seeker.isSeeking {
-                    StatusTextView(text: "近くにいるプレイヤー")
-                        .padding(.top)
-
-                    ScrollView {
-                        VStack(spacing: 10) {
-                            ForEach(Array(peripherals.enumerated()), id: \.element.uuid) { _, item in
-                                let playerName = seeker.playerNameMapping[item.uuid] ?? "Unknown"
-
-                                PlayerInfoView(uuid: item.uuid, rssi: item.rssi, seeker: seeker, playerName: playerName)
-                                    .onAppear {
-                                        if playerName == "Unknown" {
-                                            seeker.updatePlayerName(for: item.uuid)
-                                        }
-                                    }
-                            }
-
-
-
-
+                    .onAppear {
+                        // ビューが表示されたときに位置情報を取得
+                        locationFetcher.fetchLocations()
+                        locationManager.requestPermission() //これも必要やった
+                        locationManager.startTracking() //これを追加しないと位置情報のやつが始まらない
+                    }
+                    .onReceive(locationFetcher.$places) { newPlaces in
+                        // 位置情報が更新されたときに最初の位置にマップの中心を合わせる
+                        if let firstPlace = newPlaces.first {
+                            region.center = firstPlace.location
                         }
                     }
-                    .padding()
+                    .padding(.horizontal,20)
+                    .frame(height: 400)
+                    
+                    if seeker.isSeeking {
+                        StatusTextView(text: "近くにいるプレイヤー")
+                            .padding(.top)
+                        
+                        ScrollView {
+                            VStack(spacing: 10) {
+                                ForEach(Array(peripherals.enumerated()), id: \.element.uuid) { _, item in
+                                    let playerName = seeker.playerNameMapping[item.uuid] ?? "Unknown"
+                                    
+                                    PlayerInfoView(uuid: item.uuid, rssi: item.rssi, seeker: seeker, playerName: playerName)
+                                        .onAppear {
+                                            if playerName == "Unknown" {
+                                                seeker.updatePlayerName(for: item.uuid)
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                        Loop_Lottie_View(name: "Seeker2")
+                            .frame(width: 150,height: 150)
+                    }
                 }
             }
         }
@@ -139,3 +137,5 @@ struct CaptureButtonView: View {
         .cornerRadius(10)
     }
 }
+
+//#Preview(body: "SeekerView")
