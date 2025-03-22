@@ -10,7 +10,7 @@ import SwiftUI
 
 
 enum MissionType: String {
-    case walk, decibel, unknown
+    case walk, decibel, camera,  unknown
 }
 
 struct MissionView: View {
@@ -61,6 +61,10 @@ struct MissionButton: View {
         case .decibel:
             NavigationLink(destination: DecibelsView(mission: mission, missionVM: missionVM)) {
                 RoleButtonView(title: "デシベルミッションを開始", color: .blue)
+            }
+            case .camera:
+            NavigationLink(destination: CameraView(mission: mission, missionVM: missionVM)) {
+                RoleButtonView(title: "カメラミッションを開始", color: .blue)
             }
         default:
             EmptyView()
