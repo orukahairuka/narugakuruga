@@ -33,6 +33,7 @@
 		3B93C6BC2D856CF900E40CB7 /* StepTrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */; };
 		3B93C6BE2D856D9A00E40CB7 /* MissionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */; };
 		3B93C6C02D8570CA00E40CB7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */; };
+		3B981C6E2D8EB5F300723FD6 /* Timer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B981C6D2D8EB5F200723FD6 /* Timer.json */; };
 		3BC6BCF42D8A976E00D6C948 /* DecibelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCF32D8A976E00D6C948 /* DecibelViewModel.swift */; };
 		3BC6BCF62D8A977E00D6C948 /* DecibelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCF52D8A977E00D6C948 /* DecibelsView.swift */; };
 		3BC6BCF82D8A978700D6C948 /* WalkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC6BCF72D8A978600D6C948 /* WalkView.swift */; };
@@ -44,7 +45,6 @@
 		3BFBD62A2D8C439E00CCFCE1 /* MissionCountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */; };
 		3BFBD62C2D8C45BD00CCFCE1 /* ComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */; };
 		A753B0ED2D8E996900C78A5A /* SeekerCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A753B0EC2D8E996900C78A5A /* SeekerCountView.swift */; };
-		A753B0EF2D8EABB800C78A5A /* Timer.json in Resources */ = {isa = PBXBuildFile; fileRef = A753B0EE2D8EABB800C78A5A /* Timer.json */; };
 		A77580E72D8E79300063C26E /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = A77580E62D8E79300063C26E /* Supabase */; };
 		A77580E92D8E7B370063C26E /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77580E82D8E7B370063C26E /* SupabaseManager.swift */; };
 		A77580ED2D8E84120063C26E /* FetchImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77580EC2D8E84120063C26E /* FetchImageView.swift */; };
@@ -104,6 +104,7 @@
 		3B93C6BB2D856CF900E40CB7 /* StepTrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepTrackViewModel.swift; sourceTree = "<group>"; };
 		3B93C6BD2D856D9A00E40CB7 /* MissionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionModel.swift; sourceTree = "<group>"; };
 		3B93C6BF2D8570CA00E40CB7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3B981C6D2D8EB5F200723FD6 /* Timer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Timer.json; sourceTree = "<group>"; };
 		3BC6BCF32D8A976E00D6C948 /* DecibelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecibelViewModel.swift; sourceTree = "<group>"; };
 		3BC6BCF52D8A977E00D6C948 /* DecibelsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DecibelsView.swift; path = narugakuruga/View/DecibelsView.swift; sourceTree = SOURCE_ROOT; };
 		3BC6BCF72D8A978600D6C948 /* WalkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WalkView.swift; path = narugakuruga/View/WalkView.swift; sourceTree = SOURCE_ROOT; };
@@ -115,7 +116,6 @@
 		3BFBD6292D8C439E00CCFCE1 /* MissionCountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionCountdownView.swift; sourceTree = "<group>"; };
 		3BFBD62B2D8C45BD00CCFCE1 /* ComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentView.swift; sourceTree = "<group>"; };
 		A753B0EC2D8E996900C78A5A /* SeekerCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeekerCountView.swift; sourceTree = "<group>"; };
-		A753B0EE2D8EABB800C78A5A /* Timer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = Timer.json; path = ../../../../Downloads/Timer.json; sourceTree = "<group>"; };
 		A77580E82D8E7B370063C26E /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
 		A77580EC2D8E84120063C26E /* FetchImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImageView.swift; sourceTree = "<group>"; };
 		A77580EE2D8E87FA0063C26E /* SupabaseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseListViewModel.swift; sourceTree = "<group>"; };
@@ -298,7 +298,7 @@
 		83504B6E2D8AFBB600E1FEB4 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				A753B0EE2D8EABB800C78A5A /* Timer.json */,
+				3B981C6D2D8EB5F200723FD6 /* Timer.json */,
 				A7F8A7FC2D8D4D5E00E50916 /* Party.json */,
 				3B6B03672D8E900E000E4160 /* Loop_Lottie.View.swift */,
 				3B6B03692D8E9010000E4160 /* Lottie_Animation.swift */,
@@ -429,7 +429,7 @@
 				3B93C6852D82EBF100E40CB7 /* Preview Assets.xcassets in Resources */,
 				3B6B036C2D8E9066000E4160 /* Seeker.json in Resources */,
 				3B6B036E2D8E906C000E4160 /* Check.json in Resources */,
-				A753B0EF2D8EABB800C78A5A /* Timer.json in Resources */,
+				3B981C6E2D8EB5F300723FD6 /* Timer.json in Resources */,
 				3B6B03702D8E9072000E4160 /* Hider.json in Resources */,
 				3B93C6822D82EBF100E40CB7 /* Assets.xcassets in Resources */,
 			);
@@ -654,7 +654,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"narugakuruga/Preview Content\"";
-				DEVELOPMENT_TEAM = 7BTRA2CXR7;
+				DEVELOPMENT_TEAM = 922N7TF68N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "このアプリはかくれんぼのためにBluetoothを使用します。";
@@ -688,7 +688,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"narugakuruga/Preview Content\"";
-				DEVELOPMENT_TEAM = 7BTRA2CXR7;
+				DEVELOPMENT_TEAM = 922N7TF68N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "このアプリはかくれんぼのためにBluetoothを使用します。";
