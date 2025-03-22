@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0E06182D8E7C53000A5C37 /* SpeechView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0E06172D8E7C53000A5C37 /* SpeechView.swift */; };
 		3B447CB62D8BFC4500639228 /* PlayerCaptureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */; };
 		3B447CB82D8BFC5800639228 /* HiderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB72D8BFC5800639228 /* HiderView.swift */; };
 		3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B447CB92D8BFC6C00639228 /* SeekerView.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B0E06172D8E7C53000A5C37 /* SpeechView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechView.swift; sourceTree = "<group>"; };
 		3B447CB52D8BFC4500639228 /* PlayerCaptureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCaptureManager.swift; sourceTree = "<group>"; };
 		3B447CB72D8BFC5800639228 /* HiderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HiderView.swift; path = narugakuruga/View/HiderView.swift; sourceTree = SOURCE_ROOT; };
 		3B447CB92D8BFC6C00639228 /* SeekerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeekerView.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 		3B93C6A82D8320B100E40CB7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3B0E06172D8E7C53000A5C37 /* SpeechView.swift */,
 				3B447CB92D8BFC6C00639228 /* SeekerView.swift */,
 				A78BFD1F2D8E72000059D857 /* HiderMainView.swift */,
 				3B447CB72D8BFC5800639228 /* HiderView.swift */,
@@ -422,6 +425,7 @@
 				3B93C6802D82EBEF00E40CB7 /* ContentView.swift in Sources */,
 				3B447CBA2D8BFC6C00639228 /* SeekerView.swift in Sources */,
 				A78BFD1E2D8E71F80059D857 /* HiderMapView.swift in Sources */,
+				3B0E06182D8E7C53000A5C37 /* SpeechView.swift in Sources */,
 				3BC6BCFA2D8A99DE00D6C948 /* MissionCompleteView.swift in Sources */,
 				3B93C6B52D856A6200E40CB7 /* MissionViewModel.swift in Sources */,
 				3B93C67E2D82EBEF00E40CB7 /* narugakurugaApp.swift in Sources */,
