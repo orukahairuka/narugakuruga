@@ -29,6 +29,7 @@ class LocationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization() 
         manager.startUpdatingLocation()
         
         startTracking()
