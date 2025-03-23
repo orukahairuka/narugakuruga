@@ -15,7 +15,7 @@ struct HiderView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-            VStack(spacing: 20) {
+            VStack {
 
                 if hider.isHiding {
                     MissionCountdownView(timeRemaining: hider.timeRemaining)
@@ -25,6 +25,7 @@ struct HiderView: View {
                     StatusTextView(text: "あなたは捕まりました！", color: .red)
                 } else {
                     StatusTextView(text: "あなたは隠れています", color: .green)
+                        .padding(.bottom, 40)
                 }
 
                 if let caughtPlayer = hider.caughtPlayerName {

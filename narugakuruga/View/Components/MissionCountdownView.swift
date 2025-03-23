@@ -11,12 +11,14 @@ struct MissionCountdownView: View {
     let timeRemaining: Int
 
     var body: some View {
-        Text("ミッション開始まで: \(timeRemaining) 秒")
-            .font(.title2)
-            .foregroundColor(.blue)
-            .padding()
-            .background(BlurView(style: .systemMaterial))
-            .cornerRadius(15)
+        VStack {
+            Loop_Lottie_View(name: "Timer")
+            Text("ミッション開始まで: \(timeRemaining) 秒")
+                .font(.title)
+                .foregroundColor(.blue)
+                .padding()
+        }
+
     }
 }
 

@@ -73,6 +73,8 @@ struct MissionButton: View {
                 hider.startMission(mission)
             }) {
                 RoleButtonView(title: "カメラミッションを開始", color: .blue)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
             }
 
         default:
