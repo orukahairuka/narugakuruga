@@ -12,6 +12,7 @@ struct MissionCompleteView: View {
     @Binding var showCountdown: Bool
     let onComplete: () -> Void
     @Environment(\.presentationMode) var presentationMode
+    
 
     var body: some View {
         ZStack {
