@@ -7,7 +7,7 @@ struct FetchImageView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("📸 撮影された写真")
+            Text("📸 プレイヤーから撮影された写真")
                 .font(.headline)
                 .padding(.horizontal)
 
