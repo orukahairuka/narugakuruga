@@ -1,43 +1,59 @@
 import Foundation
 import Supabase
 
+
 @MainActor
 class StorageListViewModel: ObservableObject {
     @Published var imageUrls: [String] = []
     @Published var error: String?
+
+    private var timer: Timer?
+
+    init() {
+        startAutoRefresh()
+    }
+
+    deinit {
+        timer?.invalidate()
+    }
 
     func fetchImages() async {
         let client = SupabaseManager.shared.client
 
         do {
             let files = try await client.storage
-                .from("image") // ← バケット名統一
-                .list(
-                    path: "",
-                    options: SearchOptions(limit: 100, offset: 0)
-                )
+                .from("image")
+                .list(path: "", options: SearchOptions(limit: 100, offset: 0))
+
             print("⭐️取得したファイル：\(files.map(\.name))")
 
-            for file in files {
-                guard !file.name.isEmpty else {
-                    print("⚠️ 空のファイル名をスキップ")
-                    continue
-                }
+            var newUrls: [String] = []
 
+            for file in files where !file.name.isEmpty {
                 do {
                     let publicURL = try client.storage
-                        .from("image") // ← ここも合わせる
-                        .getPublicURL(path: "\(file.name)")
+                        .from("image")
+                        .getPublicURL(path: file.name)
 
-                    print("✅ 取得したURL: \(publicURL.absoluteString)")
-                    self.imageUrls.append(publicURL.absoluteString)
+                    newUrls.append(publicURL.absoluteString)
                 } catch {
                     print("❌ URL取得失敗: \(error.localizedDescription)")
                 }
             }
+
+            self.imageUrls = newUrls
+
         } catch {
             self.error = "画像取得に失敗しました: \(error.localizedDescription)"
             print("❌ 画像リスト取得失敗: \(error.localizedDescription)")
+        }
+    }
+
+    private func startAutoRefresh() {
+        timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
+            Task {
+                await self.fetchImages()
+            }
         }
     }
 }

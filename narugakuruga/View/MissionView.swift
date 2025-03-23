@@ -26,9 +26,8 @@ struct MissionView: View {
                     } else if let mission = missionVM.currentMission {
                         StatusTextView(text: "お題: \(mission.description)")
 
-                        Button("ミッション開始") {
-                            hider.startMission(mission)
-                        }
+                        MissionButton(mission: mission, missionVM: missionVM, hider: hider)
+
 
                         StatusTextView(
                             text: "クリア数: \(missionVM.completedMissionsCount) / 4",
@@ -51,21 +50,31 @@ struct MissionView: View {
 struct MissionButton: View {
     let mission: Mission
     @ObservedObject var missionVM: MissionViewModel
+    @ObservedObject var hider: HiderViewModel
 
     var body: some View {
         switch MissionType(rawValue: mission.type) ?? .unknown {
         case .walk:
-            NavigationLink(destination: WalkView(mission: mission, missionVM: missionVM)) {
+            Button(action: {
+                hider.startMission(mission)
+            }) {
                 RoleButtonView(title: "歩数ミッションを開始", color: .blue)
             }
+
         case .decibel:
-            NavigationLink(destination: DecibelsView(mission: mission, missionVM: missionVM)) {
+            Button(action: {
+                hider.startMission(mission)
+            }) {
                 RoleButtonView(title: "デシベルミッションを開始", color: .blue)
             }
-            case .camera:
-            NavigationLink(destination: CameraView(mission: mission, missionVM: missionVM)) {
+
+        case .camera:
+            Button(action: {
+                hider.startMission(mission)
+            }) {
                 RoleButtonView(title: "カメラミッションを開始", color: .blue)
             }
+
         default:
             EmptyView()
         }

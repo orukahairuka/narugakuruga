@@ -16,8 +16,6 @@ struct HiderView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                Loop_Lottie_View(name: "Hider")
-                    .frame(width: 300, height: 200)
 
                 if hider.isHiding {
                     MissionCountdownView(timeRemaining: hider.timeRemaining)

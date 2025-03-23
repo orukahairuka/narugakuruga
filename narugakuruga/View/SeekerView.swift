@@ -73,11 +73,10 @@ struct SeekerView: View {
                                 }
                             }
                         }
-
-                        Loop_Lottie_View(name: "Seeker2")
-                            .frame(width: 150, height: 150)
                     }
                 }
+                FetchImageView()
+                            .padding(.bottom)
             }
         }
     }
