@@ -12,6 +12,7 @@ struct GameWinView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
+                Loop_Lottie_View(name: "cong")
                 StatusTextView(text: "🎉 ゲームクリア！ 🎉", color: .green)
 
                 StatusTextView(text: "おめでとうございます！4つのミッションを達成しました！", color: .black)

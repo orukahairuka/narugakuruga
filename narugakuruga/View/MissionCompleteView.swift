@@ -17,8 +17,7 @@ struct MissionCompleteView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                StatusTextView(text: "🎉 お題クリア！ 🎉", color: .green)
-
+                Loop_Lottie_View(name: "cong")
                 if showCountdown {
                     StatusTextView(text: "次のお題まで: \(countdown)秒", color: .gray)
                 } else {
@@ -27,6 +26,9 @@ struct MissionCompleteView: View {
                     }
                     .buttonStyle(PrimaryButtonStyle())
                 }
+                StatusTextView(text: "🎉 お題クリア！ 🎉", color: .green)
+                    .padding(.top, 80)
+                    .padding(.bottom, 50)
             }
             Lottie_View(name: "Check")
                 .allowsHitTesting(false)

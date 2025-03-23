@@ -32,6 +32,7 @@ struct DecibelsView: View {
                 }
 
                 StatusTextView(text: "デシベル: \(String(format: "%.1f", decibelViewModel.decibels)) dB", color: .black)
+                    .padding()
 
                 Button(action: {
                     if decibelViewModel.isRecording {
@@ -42,6 +43,7 @@ struct DecibelsView: View {
                 }) {
                     RoleButtonView(title: decibelViewModel.isRecording ? "停止" : "計測開始", color: decibelViewModel.isRecording ? .red : .blue)
                         .frame(width: 200, height: 50)
+                        .padding(.bottom, 70)
                 }
                 .onChange(of: decibelViewModel.decibels) {
                     judgeScore = decibelViewModel.decibels > Float(mission.goal)
