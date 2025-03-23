@@ -1,9 +1,3 @@
-//
-//  b.swift
-//  narugakuruga
-//
-//  Created by 森田将嵩 on 2025/03/22.
-//
 import SwiftUI
 
 struct HiderMainView: View {
@@ -11,61 +5,51 @@ struct HiderMainView: View {
 
     var body: some View {
         ZStack {
+            // 背景として HiderMapView を全画面に設定
             HiderMapView()
                 .ignoresSafeArea()
+            
+            GeometryReader { geometry in
+                VStack {
+                    switch hider.currentScreen {
+                    case .hider:
+                        HiderView(hider: hider)
+                            .frame(width: geometry.size.width, height: 300)
+                            .position(x: geometry.size.width / 2, y: geometry.size.height - 200)
 
-            switch hider.currentScreen {
-            case .hider:
-                HiderView(hider: hider)
-                    .frame(width: 300, height: 300)
-                    .padding()
-                    .padding(.top, 300)
+                    case .mission:
+                        MissionView(hider: hider)
+                            .frame(width: geometry.size.width, height: 300)
+                            .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
 
-            case .mission:
-                MissionView(hider: hider)
-                    .frame(width: 300, height: 300)
-                    .padding()
-                    .padding(.top, 300)
-                    .padding(.bottom, 100)
+                    case .walk(let mission):
+                        if let missionVM = hider.missionVM {
+                            WalkView(mission: mission, missionVM: missionVM)
+                                .frame(width: geometry.size.width, height: 300)
+                                .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+                        } else {
+                            Text("ミッションの読み込み中…")
+                                .frame(width: geometry.size.width, height: 300)
+                                .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+                        }
 
+                    case .decibel(let mission):
+                        if let missionVM = hider.missionVM {
+                            DecibelsView(mission: mission, missionVM: missionVM)
+                                .frame(width: geometry.size.width, height: 300)
+                                .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+                        } else {
+                            Text("ミッションデータ読み込み中…")
+                                .frame(width: geometry.size.width, height: 300)
+                                .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+                        }
 
-            case .walk(let mission):
-                if let missionVM = hider.missionVM {
-                    WalkView(mission: mission, missionVM: missionVM)
-                        .frame(width: 300, height: 300)
-                        .padding()
-                        .padding(.top, 300)
-                        .padding(.bottom, 100)
-                } else {
-                    Text("ミッションの読み込み中…")
+                    case .result:
+                        GameWinView()
+                            .frame(width: geometry.size.width, height: 300)
+                            .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+                    }
                 }
-
-
-
-            case .decibel(let mission):
-                if let missionVM = hider.missionVM {
-                    DecibelsView(mission: mission, missionVM: missionVM)
-                        .frame(width: 300, height: 300)
-                        .padding()
-                        .padding(.top, 300)
-                        .padding(.bottom, 100)
-                } else {
-                    Text("ミッションデータ読み込み中…")
-                        .frame(width: 300, height: 300)
-                        .padding()
-                        .padding(.top, 300)
-                        .padding(.bottom, 100)
-                }
-
-
-
-            case .result:
-                GameWinView()
-                    .frame(width: 300, height: 300)
-                    .padding()
-                    .padding(.top, 300)
-                    .padding(.bottom, 100)
-
             }
         }
     }
