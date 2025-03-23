@@ -8,7 +8,7 @@ struct HiderMainView: View {
             // 背景として HiderMapView を全画面に設定
             HiderMapView()
                 .ignoresSafeArea()
-            
+
             GeometryReader { geometry in
                 VStack {
                     switch hider.currentScreen {
@@ -48,6 +48,20 @@ struct HiderMainView: View {
                         GameWinView()
                             .frame(width: geometry.size.width, height: 300)
                             .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+
+                    case .camera(let mission):
+                        if let missionVM = hider.missionVM {
+                            CameraView(mission: mission, missionVM: missionVM)
+                                .background(Color.red.opacity(0.5)) // ← 見えるように
+                                .frame(width: geometry.size.width, height: 300)
+                                .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+
+                        } else {
+                            Text("ミッションデータ読み込み中…")
+                                .frame(width: geometry.size.width, height: 300)
+                                .position(x: geometry.size.width / 2, y: geometry.size.height - 150)
+                        }
+
                     }
                 }
             }
