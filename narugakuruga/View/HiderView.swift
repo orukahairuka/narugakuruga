@@ -27,15 +27,6 @@ struct HiderView: View {
                     StatusTextView(text: "あなたは隠れています", color: .green)
                         .padding(.bottom, 40)
                 }
-
-                if let caughtPlayer = hider.caughtPlayerName {
-                    StatusTextView(text: "\(caughtPlayer) が捕まりました！", color: .red)
-                        .transition(.opacity)
-                        .animation(.easeInOut, value: caughtPlayer)
-                        .onTapGesture {
-                            speak("\(caughtPlayer) が捕まりました！")
-                        }
-                }
             }
         }
         .onAppear {

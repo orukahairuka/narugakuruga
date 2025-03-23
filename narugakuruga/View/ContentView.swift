@@ -142,7 +142,7 @@ struct RoleButtonView: View {
 
     var body: some View {
         Text(title)
-            .font(.title)
+            .font(.title2)
             .padding()
             .frame(maxWidth: .infinity)
             .background(BlurView(style: .systemUltraThinMaterialDark))
