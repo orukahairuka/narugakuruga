@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 
 class DecibelViewModel: ObservableObject {
-    private var audioEngine: AVAudioEngine!
+    public var audioEngine: AVAudioEngine!
     private var audioInputNode: AVAudioInputNode!
 
     @Published var decibels: Float = 0.0
