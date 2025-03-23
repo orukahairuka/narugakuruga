@@ -15,6 +15,7 @@ struct DecibelsView: View {
     @State private var showCountdown = false
     @State private var countdown = 60
 
+    
     var body: some View {
         ZStack {
             BackgroundView()
@@ -30,6 +31,7 @@ struct DecibelsView: View {
                 } else {
                     StatusTextView(text: "後ちょっと！", color: .orange)
                 }
+                
 
                 StatusTextView(text: "デシベル: \(String(format: "%.1f", decibelViewModel.decibels)) dB", color: .black)
                     .padding()
@@ -41,12 +43,15 @@ struct DecibelsView: View {
                         decibelViewModel.startRecording()
                     }
                 }) {
-                    RoleButtonView(title: decibelViewModel.isRecording ? "停止" : "計測開始", color: decibelViewModel.isRecording ? .red : .blue)
+                    RoleButtonView(title: decibelViewModel.isRecording ? "計測開始" : "計測開始", color: decibelViewModel.isRecording ? .red : .blue)
                         .frame(width: 200, height: 50)
                         .padding(.bottom, 70)
                 }
                 .onChange(of: decibelViewModel.decibels) {
                     judgeScore = decibelViewModel.decibels > Float(mission.goal)
+                    if decibelViewModel.decibels > Float(mission.goal){
+                        decibelViewModel.audioEngine.stop()
+                    }
                 }
             }
         }
