@@ -37,6 +37,7 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
         case mission
         case walk(Mission)
         case decibel(Mission)
+        case camera(Mission)
         case result // ← ✅ これを追加！！
     }
 
@@ -151,6 +152,8 @@ class HiderViewModel: NSObject, ObservableObject, CBPeripheralManagerDelegate {
             currentScreen = .walk(mission)
         case .decibel:
             currentScreen = .decibel(mission)
+        case .camera:
+            currentScreen = .camera(mission)
         default:
             break
         }

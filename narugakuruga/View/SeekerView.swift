@@ -54,7 +54,8 @@ struct SeekerView: View {
 
                     if seeker.isSeeking {
                         StatusTextView(text: "近くにいるプレイヤー")
-                            .padding(.top)
+                            .padding(.top, 10)
+                            .padding(.bottom, 10)
 
                         VStack(spacing: 10) {
                             ForEach(Array(peripherals.enumerated()), id: \.element.uuid) { _, item in
@@ -73,11 +74,11 @@ struct SeekerView: View {
                                 }
                             }
                         }
-
-                        Loop_Lottie_View(name: "Seeker2")
-                            .frame(width: 150, height: 150)
                     }
                 }
+                FetchImageView()
+                    .padding(.top, 20)
+                    .padding(.bottom, 50)
             }
         }
     }
