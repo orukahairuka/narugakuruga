@@ -12,10 +12,41 @@ struct CameraView: View {
     @State private var countdown: Int = 60
 
     var body: some View {
-        VStack(spacing: 20) {
-            Text("📷 カメラミッション")
-                .font(.title2)
-                .bold()
+        ZStack {
+            // 背景
+            BackgroundView()
+
+            VStack(spacing: 20) {
+                Text("鬼を撮影しろ！")
+                    .font(.title2)
+                    .bold()
+
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 250, height: 250)
+                    .background(Color.white.opacity(0.8))
+                    .cornerRadius(12)
+
+                Button(action: {
+                    showingCamera = true
+                }) {
+                    Text("カメラを起動する")
+                        .font(.headline)
+                        .padding()
+                        .frame(width: 200)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color.white.opacity(0.9))
+                    .shadow(radius: 10)
+            )
+            .padding()
 
             if cameraShooting {
                 Text("✅ 画像をアップロードしました")
@@ -28,29 +59,9 @@ struct CameraView: View {
                         missionVM.completeMission()
                     }
                 )
-            }
-
-            Image(uiImage: image)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 250, height: 250)
-                .background(Color.gray.opacity(0.2))
-                .cornerRadius(12)
-
-            Button(action: {
-                showingCamera = true
-            }) {
-                Text("カメラを起動する")
-                    .font(.headline)
-                    .padding()
-                    .frame(width: 200)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                .frame(width: 500, height: 500)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white) // ← 背景色で視認性UP
         .sheet(isPresented: $showingCamera) {
             CameraViewModel(
                 image: $image,

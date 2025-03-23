@@ -27,9 +27,6 @@ struct ContentView: View {
             switch currentScreen {
             case .roleSelect:
                 VStack(spacing: 20) {
-                    if !playerName.isEmpty {
-                        StatusTextView(text: statusText)
-                    }
 
                     if hider.isHiding {
                         MissionCountdownView(timeRemaining: hider.timeRemaining)
@@ -74,7 +71,7 @@ struct RoleSelectionView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 20) {
-                LogoView()
+                Loop_Lottie_View(name: "Seeker2")
 
                 if !playerName.isEmpty {
                     Text("どちらか選んでください")
@@ -145,7 +142,7 @@ struct RoleButtonView: View {
 
     var body: some View {
         Text(title)
-            .font(.title)
+            .font(.title2)
             .padding()
             .frame(maxWidth: .infinity)
             .background(BlurView(style: .systemUltraThinMaterialDark))

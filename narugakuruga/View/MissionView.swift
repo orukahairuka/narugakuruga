@@ -25,14 +25,19 @@ struct MissionView: View {
                         GameWinView()
                     } else if let mission = missionVM.currentMission {
                         StatusTextView(text: "お題: \(mission.description)")
+                            .padding(.top, 80)
+                        Spacer()
 
                         MissionButton(mission: mission, missionVM: missionVM, hider: hider)
+                            .frame(width: 300, height: 30)
+                        Spacer()
 
 
                         StatusTextView(
                             text: "クリア数: \(missionVM.completedMissionsCount) / 4",
                             color: .gray
                         )
+                        .padding(.bottom, 80)
                     } else {
                         StatusTextView(text: "お題を取得中…")
                     }
@@ -73,10 +78,16 @@ struct MissionButton: View {
                 hider.startMission(mission)
             }) {
                 RoleButtonView(title: "カメラミッションを開始", color: .blue)
+                    .frame(width: 300)
+                    .frame(height: 50)
             }
 
         default:
             EmptyView()
         }
     }
+}
+
+#Preview {
+    MissionView(hider: HiderViewModel())
 }
