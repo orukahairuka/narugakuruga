@@ -10,7 +10,7 @@ import SwiftUI
 struct WalkView: View {
     let mission: Mission
     @ObservedObject var missionVM: MissionViewModel
-    @StateObject var stepTrackerVM = StepTrackerViewModel(goalSteps: 10)
+    @StateObject var stepTrackerVM = StepTrackerViewModel(goalSteps: 40)
     @State private var showCountdown = false
     @State private var countdown = 60
 
